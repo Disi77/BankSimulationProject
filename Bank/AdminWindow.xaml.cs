@@ -241,7 +241,7 @@ namespace Bank
 
                     if (!allUserFieldsAreNotEmpty())
                     {
-                        MessageBox.Show("Musíš vyplnit všechna pole");
+                        MessageBox.Show("Some fields are empty.");
                         return;
                     }
 
@@ -479,47 +479,143 @@ namespace Bank
             UpdateUserButton.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Origin User and Origin Address is saved in tempAdmin
+        /// From TextBoxes I get new User and New Address
+        /// Then I check if data of User or Address was changed => Origin data != New data
+        /// There can be several scenarios:
+        ///         1. Origin User == New User     Origin Address == New Address
+        ///                    = no need to update Database
+        ///         2. Origin User == New User     Origin Address != New Address
+        ///                    2.1 This new Address is new in DB
+        ///                                = add new Address in DB
+        ///                   2.2 This new Address exists in DB
+        ///                                = find in DB this Address
+        ///                    = update User in DB (use correct Address ID)
+        ///          3. Origin User != New User     Origin Address == New Address
+        ///                    = update User in DB with origin Address ID
+        ///                    = no need to create new Address in DB
+        ///          4. Origin User != New User     Origin Address != New Address
+        ///                    4.1 This new Address is new in DB
+        ///                                = add new Address in DB
+        ///                    4.2 This new Address exists in DB
+        ///                                = find in DB this Address
+        ///                    = update User in DB (use correct Address ID)
+        /// Because in 2. and 4. there is need to update User in DB (at least Address DB), I merge this two scenarious to one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateUserInDatabaseButton(object sender, RoutedEventArgs e)
         {
-            Admin updatedAdmin = new Admin();
-            
-            updatedAdmin.Guid = tempAdmin.Guid;
-            updatedAdmin.Name = NameTextBox.Text;
-            updatedAdmin.SurName = SurnameTextBox.Text;
-            updatedAdmin.Mail = EmailTextBox.Text;
-            updatedAdmin.Phone = PhoneTextBox.Text;
-            updatedAdmin.Login = LoginTextBox.Text;
-
-            if (tempAdmin.Address.Street == StreetTextBox.Text &&
-                tempAdmin.Address.StreetNumber == StreetNumberTextBox.Text &&
-                tempAdmin.Address.City == CityTextBox.Text &&
-                tempAdmin.Address.PostalCode == PostalCodeTextBox.Text &&
-                tempAdmin.Address.Country == CountryTextBox.Text)
-            {
-                updatedAdmin.Address = new Address();
-                updatedAdmin.Address.Id = tempAdmin.Address.Id;
-            }
-            else
-            {
-                MessageBox.Show("Nová Adresa, zatím neumím změnit.");
-                return;            
-            }       
-
-            if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Superadmin)
-                updatedAdmin.AdminType = AdminType.SuperAdmin;
-
-            else if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Admin)
-                updatedAdmin.AdminType = AdminType.Admin;
-
             if (!allUserFieldsAreNotEmpty())
             {
                 MessageBox.Show("Musíš vyplnit všechna pole");
                 return;
             }
 
+            Admin updatedAdmin = new Admin();
+            Address updatedAddress = new Address();
+            
+
+            bool userWasChanged = false;
+            bool addressWasChanged = false;
+            bool addressExistsInDb = false;
+
+            updatedAdmin.Guid = tempAdmin.Guid;
+            updatedAdmin.Name = NameTextBox.Text;
+            updatedAdmin.SurName = SurnameTextBox.Text;
+            updatedAdmin.Mail = EmailTextBox.Text;
+            updatedAdmin.Phone = PhoneTextBox.Text;
+            updatedAdmin.Login = LoginTextBox.Text;
+            if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Superadmin)
+                updatedAdmin.AdminType = AdminType.SuperAdmin;
+            else if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Admin)
+                updatedAdmin.AdminType = AdminType.Admin;
+            updatedAdmin.Address = tempAdmin.Address;
+
+            updatedAddress.Id = tempAdmin.Address.Id;
+            updatedAddress.Street = StreetTextBox.Text;
+            updatedAddress.StreetNumber = StreetNumberTextBox.Text;
+            updatedAddress.City = CityTextBox.Text;
+            updatedAddress.PostalCode = PostalCodeTextBox.Text;
+            updatedAddress.Country = CountryTextBox.Text;
+            Address addressFromDb = UsersORM.IsAddressInDatabase(updatedAddress);
+
+            if (tempAdmin.Name == updatedAdmin.Name &&
+                tempAdmin.SurName == updatedAdmin.SurName &&
+                tempAdmin.Phone == updatedAdmin.Phone &&
+                tempAdmin.Mail == updatedAdmin.Mail &&
+                tempAdmin.Login == updatedAdmin.Login &&
+                tempAdmin.AdminType == updatedAdmin.AdminType)
+            {
+                userWasChanged = false;
+            }
+            else
+            {
+                userWasChanged = true;
+            }
+
+            if (updatedAddress.Street == tempAdmin.Address.Street &&
+                updatedAddress.StreetNumber == tempAdmin.Address.StreetNumber &&
+                updatedAddress.City == tempAdmin.Address.City &&
+                updatedAddress.PostalCode == tempAdmin.Address.PostalCode &&
+                updatedAddress.Country == tempAdmin.Address.Country)
+            {
+                addressWasChanged = false;
+            }
+            else
+            {
+                addressWasChanged = true;
+                if (addressFromDb is null)
+                {
+                    addressExistsInDb = false;
+                }
+                else
+                {
+                    addressExistsInDb = true;
+                }
+            }
+
+            if (!userWasChanged && !addressWasChanged)
+            {
+                MessageBox.Show("Nic ke změně");
+                return;            
+            }
+
+            if (addressWasChanged)
+            {
+                if (addressExistsInDb)
+                {
+                    updatedAdmin.Address = addressFromDb;
+                    MessageBox.Show("Adresa existuje v DB, přiřazuji její ID userovi");
+                }
+                else if (!addressExistsInDb)
+                {
+
+                    updatedAddress.Id = UsersORM.GetNewAddressId();
+                    MessageBox.Show("Žádám si o nové ID, adresa neexistuje v DB");
+                    bool addressIsCreated = UsersORM.CreateAddress(updatedAddress);
+                    MessageBox.Show("Vytvářím novou adresu v DB");
+                    if (addressIsCreated)
+                    {
+                        updatedAdmin.Address = updatedAddress;
+                    }
+                    else
+                    {
+                        MessageBox.Show("We have troubles with new Address creating.");
+                        return;
+                    }
+
+                }
+            }      
+
             bool result = UsersORM.UpdateAdmin(updatedAdmin);
             if (result)
+            {
                 MessageBox.Show("Update of user successful.");
+                tempAdmin = updatedAdmin;
+            }
+                
             else
                 MessageBox.Show("Update of user NOTsuccessful.");
 
