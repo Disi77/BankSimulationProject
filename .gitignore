@@ -1,1 +1,5 @@
 .vs/Bank/v16/Server/sqlite3/db.lock
+*.ide-shm
+*.ide-wal
+.vs/Bank/v16/Server/sqlite3/storage.ide
+.vs/Bank/v16/.suo
