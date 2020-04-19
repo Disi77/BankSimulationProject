@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Bank.Logger;
 using Bank.Objects;
 using Bank.ORM;
 using Bank.Types;
@@ -15,32 +16,48 @@ namespace Bank
     /// </summary>
     public partial class AdminWindow : Window
     {
-        //private int countLinq;
         private Admin activeAdmin;
         private Admin tempAdmin;
+        private Official tempOfficial;
          
         private bool currentPasswordCheck = false;
         private string process = "";
         private List<Control> changePasswordControlsList = new List<Control>();
         private List<Control> userControlsList = new List<Control>();
         private List<Control> addressControlsList = new List<Control>();
+        private Log log = new Log();
 
         public AdminWindow(Admin admin)
         {
             InitializeComponent();
             activeAdmin = admin;
             tempAdmin = new Admin();
+            tempOfficial = new Official();
             CreateControlsLists();
             SetDefaultSettings();
         }
+        // Logout
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+
+            MainWindow mainWindow = new MainWindow();
+            log.Info(string.Format("Admin logout: {0} {1} {2}", activeAdmin.Name, activeAdmin.SurName, activeAdmin.Guid));
+            mainWindow.Show();
+            Close();
+        }
+
+
+        // Default page settings
         private void CreateControlsLists()
         {
+            changePasswordControlsList.Add(PasswordChangeLabel); 
             changePasswordControlsList.Add(CurrentPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
             changePasswordControlsList.Add(CurrentPasswordLabel);
             changePasswordControlsList.Add(NewPasswordLabel);
 
+            userControlsList.Add(ChangeAdminLabel);
             userControlsList.Add(NameLabel);
             userControlsList.Add(NameTextBox);
             userControlsList.Add(SurnameLabel);
@@ -55,7 +72,8 @@ namespace Bank
             userControlsList.Add(UserSubTypeLabel);
             userControlsList.Add(LoginLabel);
             userControlsList.Add(LoginTextBox);
-            userControlsList.Add(UserSubTypeComboBox);
+            userControlsList.Add(AdminSubTypeComboBox);
+            userControlsList.Add(OfficialSubTypeComboBox);
             userControlsList.Add(UserTypeComboBox);
 
             addressControlsList.Add(AddressLabel);
@@ -77,6 +95,7 @@ namespace Bank
         private void SetDefaultSettings()
         {
             tempAdmin = new Admin();
+            tempOfficial = new Official();
 
             // Fields for password change
             foreach (Control c in changePasswordControlsList)
@@ -86,7 +105,7 @@ namespace Bank
             }
             CurrentPassword.Text = "Enter current password";
             NewPassword1.Text = "Enter new password";
-            NewPassword2.Text = "Enter new password again";
+            NewPassword2.Text = "Enter new password";
 
             // Confirm and Storno Button
             ConfirmButton.Visibility = Visibility.Hidden;
@@ -106,8 +125,9 @@ namespace Bank
             PhoneTextBox.Text = "";
             ValidTextBox.Text = "Yes";
             LoginTextBox.Text = "";
-            UserSubTypeComboBox.SelectedItem = UserSubTypeComboBox_Admin;
+            AdminSubTypeComboBox.SelectedItem = AdminSubTypeComboBox_Admin;
             UserTypeComboBox.SelectedItem = UserTypeComboBox_Admin;
+            OfficialSubTypeComboBox.SelectedItem = OfficialSubTypeComboBox_Junior;
 
             foreach (Control c in addressControlsList)
             {
@@ -121,8 +141,10 @@ namespace Bank
             CountryTextBox.Text = "";
 
             // All Users view
-            AllUsersListView.Visibility = Visibility.Hidden;
-            AllUsersListView.IsEnabled = true;
+            AllAdminsListView.Visibility = Visibility.Hidden;
+            AllAdminsListView.IsEnabled = true;
+            AllOfficialsListView.Visibility = Visibility.Hidden;
+            AllOfficialsListView.IsEnabled = true;
             ViewDetails.Visibility = Visibility.Hidden;
             ViewDetails.IsEnabled = true;
             EditModeButton.Visibility = Visibility.Hidden;
@@ -130,6 +152,42 @@ namespace Bank
 
             UpdateUserButton.Visibility = Visibility.Hidden;
             UpdateUserButton.IsEnabled = true;
+
+            // Search 
+            SearchTextBox.Visibility = Visibility.Hidden;
+            SearchTextBox.Text = "Enter user name ...";
+            SearchLabel.Visibility = Visibility.Hidden;
+            AllAdminsListView.ItemsSource = null;
+            AllOfficialsListView.ItemsSource = null;
+
+        }
+
+
+        // Pasword change
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            process = "Password change";
+
+            PasswordChangeLabel.Visibility = Visibility.Visible;
+
+            CurrentPassword.Visibility = Visibility.Visible;
+            CurrentPassword.Text = "Enter current password";
+            CurrentPassword.IsEnabled = true;
+
+            NewPassword1.Visibility = Visibility.Visible;
+            NewPassword1.IsEnabled = false;
+            NewPassword1.Text = "Enter new password";
+
+            NewPassword2.Visibility = Visibility.Visible;
+            NewPassword2.IsEnabled = false;
+            NewPassword2.Text = "Enter new password";
+
+            ConfirmButton.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+
+            CurrentPasswordLabel.Content = "";
+            NewPasswordLabel.Content = "";
 
         }
 
@@ -155,141 +213,175 @@ namespace Bank
             }
         }
 
-        private void CurrentPasswordOnMouseClick(object sender, RoutedEventArgs e)
+        private void CurrentPasswordOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             TextBox textbox = sender as TextBox;
-            textbox.Text = "";
-        }
-
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
-        {
-            switch (process)
-            {
-                case "Password change":
-                    if (currentPasswordCheck)
-                    {
-                        if (NewPassword1.Text == NewPassword2.Text && !String.IsNullOrEmpty(NewPassword1.Text))
-                        {
-                            //Validace hesla
-                            if (User.minimalniDelkaHesla > NewPassword1.Text.Length)
-                            {
-                                MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.minimalniDelkaHesla));
-                                return;
-                            }
-
-                            activeAdmin.Password = NewPassword1.Text;
-                            bool result = UsersORM.ChangePassword(activeAdmin);
-                            if (result)
-                            {
-                                MessageBox.Show("Password was changed.");
-                                SetDefaultSettings();
-                            }
-
-                            else
-                                MessageBox.Show("Sometring wrong. Error num: 45679");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Enter twice same new password.");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sometring wrong. Error num: 45700");
-                    }
-                    process = "";
-                    break;
-                case "Add new admin":
-                    Admin newAdmin = new Admin();
-                    Address newAddress = new Address();
-
-                    if (!allAddressFieldsAreNotEmpty())
-                    {
-                        MessageBox.Show("Some address field is empty.");
-                        return;
-                    }
-
-                    newAddress.Id = UsersORM.GetNewAddressId();
-                    newAddress.Street = StreetTextBox.Text;
-                    newAddress.StreetNumber = StreetNumberTextBox.Text;
-                    newAddress.City = CityTextBox.Text;
-                    newAddress.PostalCode = PostalCodeTextBox.Text;
-                    newAddress.Country = CountryTextBox.Text;
-
-                    bool addressIsCreated = UsersORM.CreateAddress(newAddress);
-                    if (!addressIsCreated)
-                    {
-                        MessageBox.Show("Sometring wrong. Error num: 45681");
-                        return;
-                    }
-
-                    newAdmin.Guid = Guid.NewGuid();
-                    newAdmin.Name = NameTextBox.Text;
-                    newAdmin.SurName = SurnameTextBox.Text;
-                    newAdmin.Address = newAddress;
-                    newAdmin.Mail = EmailTextBox.Text;
-                    newAdmin.Phone = PhoneTextBox.Text;
-                    newAdmin.Valid = true;
-                    newAdmin.Password = "heslo";
-                    newAdmin.Login = LoginTextBox.Text;
-
-                    if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Superadmin)
-                        newAdmin.AdminType = AdminType.SuperAdmin;
-
-                    else if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Admin)
-                        newAdmin.AdminType = AdminType.Admin;
-
-                    if (!allUserFieldsAreNotEmpty())
-                    {
-                        MessageBox.Show("Some fields are empty.");
-                        return;
-                    }
-
-                    bool userIsCreated = UsersORM.CreateAdmin(newAdmin);
-                    if (userIsCreated)
-                    {
-                        MessageBox.Show(String.Format("New User was created: {0} {1}", newAdmin.Name, newAdmin.SurName));
-                        OpenDetailViewOfUser(newAdmin);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sometring wrong. Error num: 45678");
-                    }
-                    process = "";
-                    break;
-                case "":
-                    MessageBox.Show("Sometring wrong. Error num: 45680");
-                    break;
+            if (textbox.Text is "Enter new password" || textbox.Text is "Enter current password")
+            { 
+                textbox.Text = ""; 
             }
         }
 
-        private void StornoButton_Click(object sender, RoutedEventArgs e)
+        private bool PasswordChangingProcess()
         {
-            SetDefaultSettings();
+            if (currentPasswordCheck)
+            {
+                if (NewPassword1.Text == NewPassword2.Text && !String.IsNullOrEmpty(NewPassword1.Text))
+                {
+                    //Validace hesla
+                    if (User.minimalniDelkaHesla > NewPassword1.Text.Length)
+                    {
+                        MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.minimalniDelkaHesla));
+                        return false;
+                    }
+
+                    activeAdmin.Password = NewPassword1.Text;
+                    bool result = UsersORM.ChangePassword(activeAdmin);
+                    if (result)
+                    {
+                        SetDefaultSettings();
+                        return true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Enter twice same new password.");
+                }
+            }
             process = "";
+            return false;
         }
 
-        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+
+        // Create new user
+        private bool CreateNewOfficialProcess()
         {
-            SetDefaultSettings();
-            process = "Password change";
-            CurrentPassword.Visibility = Visibility.Visible;
-            CurrentPassword.Text = "Enter current password";
-            CurrentPassword.IsEnabled = true;
+            Official newOfficial = new Official();
+            Address newAddress = new Address();
 
-            NewPassword1.Visibility = Visibility.Visible;
-            NewPassword1.IsEnabled = false;
-            NewPassword1.Text = "Enter new password";
 
-            NewPassword2.Visibility = Visibility.Visible;
-            NewPassword2.IsEnabled = false;
-            NewPassword2.Text = "Enter new password again";
+            if (!allAddressFieldsAreNotEmpty())
+            {
+                MessageBox.Show("Some address field is empty.");
+                return false;
+            }
 
-            ConfirmButton.Visibility = Visibility.Visible;
-            StornoButton.Visibility = Visibility.Visible;
+            newAddress.Id = UsersORM.GetNewAddressId();
+            newAddress.Street = StreetTextBox.Text;
+            newAddress.StreetNumber = StreetNumberTextBox.Text;
+            newAddress.City = CityTextBox.Text;
+            newAddress.PostalCode = PostalCodeTextBox.Text;
+            newAddress.Country = CountryTextBox.Text;
 
-            CurrentPasswordLabel.Content = "";
-            NewPasswordLabel.Content = "";
+            bool addressIsCreated = UsersORM.CreateAddress(newAddress);
+            if (!addressIsCreated)
+            {
+                MessageBox.Show("Sometring wrong. Error num: 45681");
+                return false;
+            }
+
+            newOfficial.Guid = Guid.NewGuid();
+            newOfficial.Name = NameTextBox.Text;
+            newOfficial.SurName = SurnameTextBox.Text;
+            newOfficial.Address = newAddress;
+            newOfficial.Mail = EmailTextBox.Text;
+            newOfficial.Phone = PhoneTextBox.Text;
+            newOfficial.Valid = true;
+            newOfficial.Password = "heslo";
+            newOfficial.CompanyNumber = LoginTextBox.Text;
+
+             if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Junior)
+                newOfficial.OfficialType = OfficialType.Junior;
+
+            else if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Normal)
+                newOfficial.OfficialType = OfficialType.Normal;
+
+            if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Senior)
+                newOfficial.OfficialType = OfficialType.Senior;
+
+            if (!allUserFieldsAreNotEmpty())
+            {
+                MessageBox.Show("Some fields are empty.");
+                return false;
+            }
+
+            bool userIsCreated = UsersORM.CreateNewOfficial(newOfficial);
+            if (userIsCreated)
+            {
+                MessageBox.Show(String.Format("New User was created: {0} {1}", newOfficial.Name, newOfficial.SurName));
+                OpenDetailViewOfUser(newOfficial);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Sometring wrong. Error num: 45678");
+            }
+            process = "";
+            return false;
+
+        }
+
+        private bool CreateNewAdminProcess()
+        {
+            Admin newAdmin = new Admin();
+            Address newAddress = new Address();
+
+
+            if (!allAddressFieldsAreNotEmpty())
+            {
+                MessageBox.Show("Some address field is empty.");
+                return false;
+            }
+
+            newAddress.Id = UsersORM.GetNewAddressId();
+            newAddress.Street = StreetTextBox.Text;
+            newAddress.StreetNumber = StreetNumberTextBox.Text;
+            newAddress.City = CityTextBox.Text;
+            newAddress.PostalCode = PostalCodeTextBox.Text;
+            newAddress.Country = CountryTextBox.Text;
+
+            bool addressIsCreated = UsersORM.CreateAddress(newAddress);
+            if (!addressIsCreated)
+            {
+                MessageBox.Show("Sometring wrong. Error num: 45681");
+                return false;
+            }
+
+            newAdmin.Guid = Guid.NewGuid();
+            newAdmin.Name = NameTextBox.Text;
+            newAdmin.SurName = SurnameTextBox.Text;
+            newAdmin.Address = newAddress;
+            newAdmin.Mail = EmailTextBox.Text;
+            newAdmin.Phone = PhoneTextBox.Text;
+            newAdmin.Valid = true;
+            newAdmin.Password = "heslo";
+            newAdmin.Login = LoginTextBox.Text;
+
+            if (AdminSubTypeComboBox.SelectedItem == AdminSubTypeComboBox_Superadmin)
+                newAdmin.AdminType = AdminType.SuperAdmin;
+
+            else if (AdminSubTypeComboBox.SelectedItem == AdminSubTypeComboBox_Admin)
+                newAdmin.AdminType = AdminType.Admin;
+
+            if (!allUserFieldsAreNotEmpty())
+            {
+                MessageBox.Show("Some fields are empty.");
+                return false;
+            }
+
+            bool userIsCreated = UsersORM.CreateAdmin(newAdmin);
+            if (userIsCreated)
+            {
+                MessageBox.Show(String.Format("New User was created: {0} {1}", newAdmin.Name, newAdmin.SurName));
+                OpenDetailViewOfUser(newAdmin);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Sometring wrong. Error num: 45678");
+            }
+            process = "";
+            return false;
 
         }
 
@@ -297,10 +389,13 @@ namespace Bank
         {
             SetDefaultSettings();
             process = "Add new admin";
+            ChangeAdminLabel.Content = "CREATE NEW ADMIN:";
             foreach (Control c in userControlsList)
                 c.Visibility = Visibility.Visible;
             foreach (Control c in addressControlsList)
                 c.Visibility = Visibility.Visible;
+
+            OfficialSubTypeComboBox.Visibility = Visibility.Hidden;
 
             ConfirmButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
@@ -317,8 +412,8 @@ namespace Bank
             switch (activeAdmin.AdminType)
             {
                 case AdminType.Admin:
-                    UserSubTypeComboBox_Superadmin.Visibility = Visibility.Hidden;
-                    UserSubTypeComboBox.IsEnabled = false;
+                    AdminSubTypeComboBox_Superadmin.Visibility = Visibility.Hidden;
+                    AdminSubTypeComboBox.IsEnabled = false;
                     break;
                 case AdminType.SuperAdmin:
                     break;
@@ -326,77 +421,115 @@ namespace Bank
 
         }
 
-        private bool allAddressFieldsAreNotEmpty()
+        private void CreateNewOfficial_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(StreetTextBox.Text))
-                return false;
-            if(String.IsNullOrEmpty(StreetNumberTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(CityTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(PostalCodeTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(CountryTextBox.Text))
-                return false;
-            return true;
-        }
+            SetDefaultSettings();
+            process = "Add new official";
+            ChangeAdminLabel.Content = "CREATE NEW OFFICIAL:";
+            foreach (Control c in userControlsList)
+                c.Visibility = Visibility.Visible;
+            foreach (Control c in addressControlsList)
+                c.Visibility = Visibility.Visible;
 
-        private bool allUserFieldsAreNotEmpty()
-        {
-            if (String.IsNullOrEmpty(NameTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(SurnameTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(EmailTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(PhoneTextBox.Text))
-                return false;
-            if (String.IsNullOrEmpty(LoginTextBox.Text))
-                return false;
+            AdminSubTypeComboBox.Visibility = Visibility.Hidden;
 
-            return true;
+            ConfirmButton.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+
+            ValidTextBox.Text = "Yes";
+            ValidTextBox.IsEnabled = false;
+
+            UserTypeComboBox.Text = "Official";
+            UserTypeComboBox.IsEnabled = false;
+
+            CountryTextBox.Text = "CZE";
+            CountryTextBox.IsEnabled = false;
+
+            LoginTextBox.IsEnabled = false;
+            LoginTextBox.Text = GetNewCompanyNumber();
 
         }
 
+
+        // Confirm Storno button
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (process)
+            {
+                case "Password change":
+                    if (PasswordChangingProcess())
+                    {
+                        MessageBox.Show("Password was changed.");
+                        process = "";
+                    }  
+                    break;
+                case "Add new admin":
+                    if (CreateNewAdminProcess())
+                    {
+                        process = "";
+                    }            
+                    break;
+                case "Add new official":
+                    if (CreateNewOfficialProcess())
+                    {
+                        process = "";
+                    }                        
+                    break;
+                case "":
+                    MessageBox.Show("Sometring wrong. Error num: 45680");
+                    break;
+            }
+        }
+
+        private void StornoButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            process = "";
+        }
+
+
+        // Select all users
         private void SelectAllAdmins_Click(object sender, RoutedEventArgs e)
         {
             SetDefaultSettings();
-            List<Admin> admins = UsersORM.GetAdmins();
-            AllUsersListView.ItemsSource = UsersORM.GetAdmins();
+            //List<Admin> admins = UsersORM.GetAdmins();
+            AllAdminsListView.ItemsSource = UsersORM.GetAdmins();
 
-            AllUsersListView.Visibility = Visibility.Visible;
+            AllAdminsListView.Visibility = Visibility.Visible;
             ViewDetails.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
-
-
-            //int count = 0;
-            //foreach (Admin a in admins)
-            //{
-            //    if (a.AdminType == AdminType.Admin)
-            //        count++;
-            //}
-            ////MessageBox.Show(String.Format("Count of admins in DB = {0}", count));
-
-            //countLinq = admins.Where(X => X.AdminType == AdminType.SuperAdmin).Count();
-
-            //countLinq = admins.Where(A => A.AdminType == AdminType.SuperAdmin).Count();
-            //countLinq = admins.Count(A => A.AdminType == AdminType.SuperAdmin);
-
-            //int countName = 0;
-            //countName = admins.Count(Y => Y.Name == "Petra" && Y.SurName == "Cihalova");
-            //MessageBox.Show(String.Format("Count of Petra Cihalova = {0}", countName));
         }
 
+        private void SelectAllOfficials_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            AllOfficialsListView.ItemsSource = UsersORM.GetAllOfficials();
+
+            AllOfficialsListView.Visibility = Visibility.Visible;
+            ViewDetails.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+        }
+
+
+        // User detail view
         private void ClickOnButtonViewDetails(object sender, RoutedEventArgs e)
         {
             try
             {
-                Admin admin = (Admin)AllUsersListView.SelectedItems[0];
-                OpenDetailViewOfUser(admin);
+                if (AllAdminsListView.Visibility == Visibility.Visible)
+                {
+                    Admin admin = (Admin)AllAdminsListView.SelectedItems[0];
+                    OpenDetailViewOfUser(admin);
+                }
+                else if (AllOfficialsListView.Visibility == Visibility.Visible)
+                {
+                    Official official = (Official)AllOfficialsListView.SelectedItems[0];
+                    OpenDetailViewOfUser(official);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Select some user.");            
+                MessageBox.Show("Select some user.");
             }
         }
 
@@ -408,6 +541,7 @@ namespace Bank
                 c.Visibility = Visibility.Visible;
                 c.IsEnabled = false;
             }
+            OfficialSubTypeComboBox.Visibility = Visibility.Hidden;
 
             foreach (Control c in addressControlsList)
             {
@@ -415,10 +549,13 @@ namespace Bank
                 c.IsEnabled = false;
             }
 
+            ChangeAdminLabel.Content = "USER DETAILS:";
+            ChangeAdminLabel.IsEnabled = true;
             EditModeButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
 
             tempAdmin = UsersORM.GetAdminByGuid(admin);
+            tempOfficial = new Official();
 
             NameTextBox.Text = admin.Name;
             SurnameTextBox.Text = admin.SurName;
@@ -439,11 +576,11 @@ namespace Bank
             switch (admin.AdminType)
             {
                 case AdminType.Admin:
-                    UserSubTypeComboBox.SelectedItem = UserSubTypeComboBox_Admin;
+                    AdminSubTypeComboBox.SelectedItem = AdminSubTypeComboBox_Admin;
                     break;
                 case AdminType.SuperAdmin:
-                    UserSubTypeComboBox.SelectedItem = UserSubTypeComboBox_Superadmin;
-                    break;            
+                    AdminSubTypeComboBox.SelectedItem = AdminSubTypeComboBox_Superadmin;
+                    break;
             }
 
             switch (admin.Valid)
@@ -457,11 +594,73 @@ namespace Bank
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void OpenDetailViewOfUser(Official official)
         {
+            SetDefaultSettings();
+            foreach (Control c in userControlsList)
+            {
+                c.Visibility = Visibility.Visible;
+                c.IsEnabled = false;
+            }
+            AdminSubTypeComboBox.Visibility = Visibility.Hidden;
 
+            foreach (Control c in addressControlsList)
+            {
+                c.Visibility = Visibility.Visible;
+                c.IsEnabled = false;
+            }
+
+            ChangeAdminLabel.Content = "USER DETAILS:";
+            ChangeAdminLabel.IsEnabled = true;
+            EditModeButton.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+
+            tempOfficial = UsersORM.GetOfficialById(official.CompanyNumber);
+            tempAdmin = new Admin();
+
+            NameTextBox.Text = official.Name;
+            SurnameTextBox.Text = official.SurName;
+            PhoneTextBox.Text = official.Phone;
+            EmailTextBox.Text = official.Mail;
+
+            Address address = UsersORM.SelectAddressById(official.Address.Id);
+            official.Address = address;
+
+            StreetTextBox.Text = official.Address.Street;
+            StreetNumberTextBox.Text = official.Address.StreetNumber;
+            CityTextBox.Text = official.Address.City;
+            PostalCodeTextBox.Text = official.Address.PostalCode;
+            CountryTextBox.Text = official.Address.Country;
+            LoginTextBox.Text = official.CompanyNumber;
+            UserTypeComboBox.Text = "Official";
+
+
+            switch (official.OfficialType)
+            {
+                case OfficialType.Junior:
+                    OfficialSubTypeComboBox.SelectedItem = OfficialSubTypeComboBox_Junior;
+                    break;
+                case OfficialType.Normal:
+                    OfficialSubTypeComboBox.SelectedItem = OfficialSubTypeComboBox_Normal;
+                    break;
+                case OfficialType.Senior:
+                    OfficialSubTypeComboBox.SelectedItem = OfficialSubTypeComboBox_Senior;
+                    break;
+            }
+
+            switch (official.Valid)
+            {
+                case true:
+                    ValidTextBox.Text = "Yes";
+                    break;
+                case false:
+                    ValidTextBox.Text = "No";
+                    break;
+            }
         }
 
+
+        // Edit mode, update user
         private void UserEditModeButton(object sender, RoutedEventArgs e)
         {                       
             foreach (Control c in userControlsList)
@@ -469,12 +668,25 @@ namespace Bank
                 c.IsEnabled = true;
             }
             ValidTextBox.IsEnabled = false;
+            UserTypeComboBox.IsEnabled = false;
+
+            switch (activeAdmin.AdminType)
+            {
+                case AdminType.Admin:
+                    AdminSubTypeComboBox_Superadmin.Visibility = Visibility.Hidden;
+                    AdminSubTypeComboBox.IsEnabled = false;
+                    break;
+                case AdminType.SuperAdmin:
+                    break;
+            }
+
             foreach (Control c in addressControlsList)
             {
                 c.IsEnabled = true;
             }
             CountryTextBox.IsEnabled = false;
 
+            ChangeAdminLabel.Content = "USER UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Visible;
         }
@@ -503,8 +715,6 @@ namespace Bank
         ///                    = update User in DB (use correct Address ID)
         /// Because in 2. and 4. there is need to update User in DB (at least Address DB), I merge this two scenarious to one
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void UpdateUserInDatabaseButton(object sender, RoutedEventArgs e)
         {
             if (!allUserFieldsAreNotEmpty())
@@ -513,6 +723,126 @@ namespace Bank
                 return;
             }
 
+            if (UserTypeComboBox.SelectedItem == UserTypeComboBox_Admin)
+            {
+                UpdateUserProcess(tempAdmin);
+            }
+            else if (UserTypeComboBox.SelectedItem == UserTypeComboBox_Official)
+            {
+                UpdateUserProcess(tempOfficial);
+            }
+        }
+
+        private void UpdateUserProcess(Official tempOfficial)
+        {
+            Official updatedOfficial = new Official();
+            Address updatedAddress = new Address();
+
+
+            bool userWasChanged = false;
+            bool addressWasChanged = false;
+            bool addressExistsInDb = false;
+
+            updatedOfficial.Guid = tempOfficial.Guid;
+            updatedOfficial.Name = NameTextBox.Text;
+            updatedOfficial.SurName = SurnameTextBox.Text;
+            updatedOfficial.Mail = EmailTextBox.Text;
+            updatedOfficial.Phone = PhoneTextBox.Text;
+            updatedOfficial.CompanyNumber = LoginTextBox.Text;
+
+            if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Junior)
+                updatedOfficial.OfficialType = OfficialType.Junior;
+            else if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Normal)
+                updatedOfficial.OfficialType = OfficialType.Normal;
+            else if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Senior)
+                updatedOfficial.OfficialType = OfficialType.Senior;
+
+            updatedOfficial.Address = tempOfficial.Address;
+
+            updatedAddress.Id = tempOfficial.Address.Id;
+            updatedAddress.Street = StreetTextBox.Text;
+            updatedAddress.StreetNumber = StreetNumberTextBox.Text;
+            updatedAddress.City = CityTextBox.Text;
+            updatedAddress.PostalCode = PostalCodeTextBox.Text;
+            updatedAddress.Country = CountryTextBox.Text;
+            Address addressFromDb = UsersORM.IsAddressInDatabase(updatedAddress);
+
+            if (tempOfficial.Name == updatedOfficial.Name &&
+                tempOfficial.SurName == updatedOfficial.SurName &&
+                tempOfficial.Phone == updatedOfficial.Phone &&
+                tempOfficial.Mail == updatedOfficial.Mail &&
+                tempOfficial.CompanyNumber == updatedOfficial.CompanyNumber &&
+                tempOfficial.OfficialType == updatedOfficial.OfficialType)
+            {
+                userWasChanged = false;
+            }
+            else
+            {
+                userWasChanged = true;
+            }
+
+            if (updatedAddress.Street == tempOfficial.Address.Street &&
+                updatedAddress.StreetNumber == tempOfficial.Address.StreetNumber &&
+                updatedAddress.City == tempOfficial.Address.City &&
+                updatedAddress.PostalCode == tempOfficial.Address.PostalCode &&
+                updatedAddress.Country == tempOfficial.Address.Country)
+            {
+                addressWasChanged = false;
+            }
+            else
+            {
+                addressWasChanged = true;
+                if (addressFromDb is null)
+                {
+                    addressExistsInDb = false;
+                }
+                else
+                {
+                    addressExistsInDb = true;
+                }
+            }
+
+            if (!userWasChanged && !addressWasChanged)
+            {
+                return;
+            }
+
+            if (addressWasChanged)
+            {
+                if (addressExistsInDb)
+                {
+                    updatedOfficial.Address = addressFromDb;
+                }
+                else if (!addressExistsInDb)
+                {
+
+                    updatedAddress.Id = UsersORM.GetNewAddressId();
+                    bool addressIsCreated = UsersORM.CreateAddress(updatedAddress);
+                    if (addressIsCreated)
+                    {
+                        updatedOfficial.Address = updatedAddress;
+                    }
+                    else
+                    {
+                        MessageBox.Show("We have troubles with new Address creating.");
+                        return;
+                    }
+                }
+            }
+
+            bool result = UsersORM.UpdateOfficial(updatedOfficial);
+            if (result)
+            {
+                MessageBox.Show("Update of user successful.");
+                tempOfficial = updatedOfficial;
+            }
+
+            else
+                MessageBox.Show("Update of user NOT successful.");
+        }
+
+        private void UpdateUserProcess(Admin tempAdmin)
+        {
             Admin updatedAdmin = new Admin();
             Address updatedAddress = new Address();
             
@@ -527,9 +857,9 @@ namespace Bank
             updatedAdmin.Mail = EmailTextBox.Text;
             updatedAdmin.Phone = PhoneTextBox.Text;
             updatedAdmin.Login = LoginTextBox.Text;
-            if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Superadmin)
+            if (AdminSubTypeComboBox.SelectedItem == AdminSubTypeComboBox_Superadmin)
                 updatedAdmin.AdminType = AdminType.SuperAdmin;
-            else if (UserSubTypeComboBox.SelectedItem == UserSubTypeComboBox_Admin)
+            else if (AdminSubTypeComboBox.SelectedItem == AdminSubTypeComboBox_Admin)
                 updatedAdmin.AdminType = AdminType.Admin;
             updatedAdmin.Address = tempAdmin.Address;
 
@@ -578,7 +908,6 @@ namespace Bank
 
             if (!userWasChanged && !addressWasChanged)
             {
-                MessageBox.Show("Nic ke změně");
                 return;            
             }
 
@@ -587,15 +916,12 @@ namespace Bank
                 if (addressExistsInDb)
                 {
                     updatedAdmin.Address = addressFromDb;
-                    MessageBox.Show("Adresa existuje v DB, přiřazuji její ID userovi");
                 }
                 else if (!addressExistsInDb)
                 {
 
                     updatedAddress.Id = UsersORM.GetNewAddressId();
-                    MessageBox.Show("Žádám si o nové ID, adresa neexistuje v DB");
                     bool addressIsCreated = UsersORM.CreateAddress(updatedAddress);
-                    MessageBox.Show("Vytvářím novou adresu v DB");
                     if (addressIsCreated)
                     {
                         updatedAdmin.Address = updatedAddress;
@@ -605,7 +931,6 @@ namespace Bank
                         MessageBox.Show("We have troubles with new Address creating.");
                         return;
                     }
-
                 }
             }      
 
@@ -613,11 +938,129 @@ namespace Bank
             if (result)
             {
                 MessageBox.Show("Update of user successful.");
+                if (tempAdmin == activeAdmin)
+                    activeAdmin = updatedAdmin;
                 tempAdmin = updatedAdmin;
             }
                 
             else
-                MessageBox.Show("Update of user NOTsuccessful.");
+                MessageBox.Show("Update of user NOT successful.");
+        }
+
+        private void UpdateMyAccount_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            OpenDetailViewOfUser(activeAdmin);
+        }
+
+        private string GetNewCompanyNumber()
+        {
+            List<Official> officialList = UsersORM.GetAllOfficials();
+            Random random = new Random();
+            string newCompanyNumber;
+
+            while (true)
+            {
+                newCompanyNumber = random.Next(100, 1000).ToString();
+                if (officialList.Where(X => X.CompanyNumber == newCompanyNumber).Count() == 0)
+                {
+                    break;
+                }
+            }
+            return newCompanyNumber;
+        }
+
+
+        // Search user
+        private void SearchAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            SearchLabel.Content = "ADMIN SEARCH:";
+            SearchLabel.Visibility = Visibility.Visible;
+            SearchTextBox.Visibility = Visibility.Visible;
+            AllAdminsListView.Visibility = Visibility.Visible;
+            ViewDetails.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+        }
+
+        private void SearchTextBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            if (textbox.Text is "Enter user name ...")
+            {
+                textbox.Text = "";
+            }
+        }
+
+        private void SearchTextBox_KeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (AllAdminsListView.Visibility == Visibility.Visible)
+                {
+                    List<Admin> admins = UsersORM.GetAdmins();
+                    var result = admins.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                          );
+                    AllAdminsListView.ItemsSource = result;
+                }
+                else if (AllOfficialsListView.Visibility == Visibility.Visible)
+                {
+                    List<Official> officials = UsersORM.GetAllOfficials();
+                    var result2 = officials.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                                || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                                || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                                || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                              );
+                    AllOfficialsListView.ItemsSource = result2;
+                }
+            }
+        }
+
+        private void SearchOfficial_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            SearchLabel.Content = "OFFICIAL SEARCH:";
+            SearchLabel.Visibility = Visibility.Visible;
+            SearchTextBox.Visibility = Visibility.Visible;
+            AllOfficialsListView.Visibility = Visibility.Visible;
+            ViewDetails.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+        }
+
+
+        // Other
+        private bool allAddressFieldsAreNotEmpty()
+        {
+            if (String.IsNullOrEmpty(StreetTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(StreetNumberTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(CityTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(PostalCodeTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(CountryTextBox.Text))
+                return false;
+            return true;
+        }
+
+        private bool allUserFieldsAreNotEmpty()
+        {
+            if (String.IsNullOrEmpty(NameTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(SurnameTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(EmailTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(PhoneTextBox.Text))
+                return false;
+            if (String.IsNullOrEmpty(LoginTextBox.Text))
+                return false;
+
+            return true;
 
         }
     }

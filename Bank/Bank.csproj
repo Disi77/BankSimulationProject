@@ -58,9 +58,8 @@
     <Compile Include="AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Logger\Log.cs" />
+    <Compile Include="Logger\LogType.cs" />
     <Compile Include="Objects\Admin.cs" />
     <Compile Include="Objects\Customer.cs" />
     <Compile Include="Objects\Official.cs" />
@@ -68,6 +67,7 @@
       <DependentUpon>OfficialWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ORM\AddressORM.cs" />
+    <Compile Include="ORM\CustomerORM.cs" />
     <Compile Include="ORM\DBConnection.cs" />
     <Compile Include="ORM\OfficialsORM.cs" />
     <Compile Include="ORM\AdminORM.cs" />
@@ -76,10 +76,6 @@
     <Compile Include="Types\OfficialType.cs" />
     <Compile Include="Validator\Validator.cs" />
     <Page Include="AdminWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

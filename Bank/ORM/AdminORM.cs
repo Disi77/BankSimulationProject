@@ -1,4 +1,5 @@
-﻿using Bank.Objects;
+﻿using Bank.Logger;
+using Bank.Objects;
 using Bank.Types;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Bank.ORM
             "UPDATE users SET Name=@Name, Surname=@Surname, AddressId=@AddressId, Mail=@Mail, Phone=@Phone, AdminType=@AdminType, AdminLogin=@Login WHERE Id=@GUID";
 
 
-        public static Admin GetAdmin(string Login, string Password)
+        public static Admin GetAdmin(string login, string password)
         {
             int count;
 
@@ -36,20 +37,22 @@ namespace Bank.ORM
             connection.OpenConection();
 
             SqlCommand command = connection.CreateCommand(selectByLogin);
-            command.Parameters.AddWithValue("@AdminLogin", Login);
-            command.Parameters.AddWithValue("@Password", Password);
+            command.Parameters.AddWithValue("@AdminLogin", login);
+            command.Parameters.AddWithValue("@Password", password);
 
             SqlCommand commandCount = connection.CreateCommand(selectAdminCount);
-            commandCount.Parameters.AddWithValue("@AdminLogin", Login);
-            commandCount.Parameters.AddWithValue("@Password", Password);
+            commandCount.Parameters.AddWithValue("@AdminLogin", login);
+            commandCount.Parameters.AddWithValue("@Password", password);
             count = (int)commandCount.ExecuteScalar();
 
             SqlDataReader reader = command.ExecuteReader();
+            Log log = new Log();
 
             switch (count)
             {
                 case 0:
-                    MessageBox.Show("Zadali jste neplatnou kombinaci Login + Password!");
+                    MessageBox.Show("User with this login and password doesn't exist.");
+                    log.Info(string.Format("Admin with login name {0} doesn't exist in DB", login));
                     return null;
                 case 1:
                     Admin admin = new Admin();
@@ -62,12 +65,12 @@ namespace Bank.ORM
                         admin.Address.Id = reader.GetInt32(3);
                         admin.Password = reader.GetString(10);
                         admin.AdminType = (AdminType)reader.GetInt32(13);
-
                     }
                     connection.CloseConnection();
                     return admin;
                 default:
-                    MessageBox.Show("v DB existuje více uživatelů se stéjným ID! ");
+                    MessageBox.Show("Invalid login combination.");
+                    log.Warning(string.Format("Multiple records with same login name = \'{0}\' and password in DB", login));
                     return null;
             }
         }
@@ -174,7 +177,6 @@ namespace Bank.ORM
             connection.OpenConection();
 
             SqlCommand command = connection.CreateCommand(updateAdmin);
-            //command.Parameters.AddWithValue("@GUID", admin.Guid.ToString());
 
             command.Parameters.AddWithValue("@GUID", admin.Guid);
             command.Parameters.AddWithValue("@Name", admin.Name);
@@ -205,6 +207,19 @@ namespace Bank.ORM
             return false;
         }
 
+        public static bool ChangePassword(Official official)
+        {
+            DBConnection connection = new DBConnection();
+            connection.OpenConection();
+            SqlCommand command = connection.CreateCommand(changePassword);
+
+            command.Parameters.AddWithValue("@GUID", official.Guid);
+            command.Parameters.AddWithValue("@Password", official.Password);
+            int result = command.ExecuteNonQuery();
+            connection.CloseConnection();
+            if (result == 1) return true;
+            return false;
+        }
 
     }
 }

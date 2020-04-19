@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Bank.Logger;
 using Bank.Objects;
 using Bank.ORM;
-using Bank.Types;
+using Bank.Validator;
 
 namespace Bank
 {
@@ -25,58 +14,88 @@ namespace Bank
     {
         public static Admin admin;
         public Official Official { get; set; }
+
+        public Log log;
         public MainWindow()
         {
             InitializeComponent();
+            log = new Log();
+            log.Info("Reservation system app started");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            if (!Login.Text.All(Char.IsDigit))
+            if (Validator.Validator.CredentialsEmpty(Login.Text, PasswordBox.Password))
             {
-                admin = UsersORM.GetAdmin(Login.Text, Password.Text); 
-                if (admin != null)
-                {
-                    AdminWindow adminWindow = new AdminWindow(admin);
-                    adminWindow.Show();
-                    Close();
-                }
+                MessageBox.Show("Login or password missing.");
+                return;
             }
-            // velice důležité je testování, že objekt není null
-            //System.NullReferenceException: 'Object reference not set to an instance of an object.' 
 
+            if (Validator.Validator.StringAllLetter(Login.Text))
+            {
+                AdminLogin();
+            }
+
+            else if (Validator.Validator.StringAllDigit(Login.Text))
+            {
+                if (Validator.Validator.IsCompanyNumber(Login.Text))
+                {
+                    OfficialLogin();
+                }    
+                else if (Validator.Validator.IsSSN(Login.Text))
+                {
+                    CustomerLogin();       
+                }            
+            }               
             else
             {
-                Official = UsersORM.GetOfficialById(Official);
-                if (Official != null)
+                MessageBox.Show("Invalid login and password. Try Again.");
+            }    
+        }
+
+        private void OfficialLogin()
+        {
+            Official = UsersORM.GetOfficialById(Login.Text);
+            if (Official != null)
+            {
+                if (Official.Password == PasswordBox.Password)
                 {
-                    OfficialWindow officialWindow = new OfficialWindow();
+                    OfficialWindow officialWindow = new OfficialWindow(Official);
+                    log.Info(string.Format("Official login: {0} {1} {2}", Official.Name, Official.SurName, Official.Guid));
                     officialWindow.Show();
                     Close();
-                
                 }
-
-
-            
+                else
+                {
+                    MessageBox.Show("Incorrect password.");
+                }
             }
-                
-
-
-            
-
-            //Official official = UsersORM.GetOfficial(Login.Text, Password.Text);
-
-            //if (official != null)
-            //{
-            //    AdminWindow adminWindow = new AdminWindow();
-            //    adminWindow.Show();
-            //    Close();
-
-            //}
-
-
         }
+
+        private void AdminLogin()
+        {
+            admin = UsersORM.GetAdmin(Login.Text, PasswordBox.Password);
+            if (admin != null)
+            {
+                AdminWindow adminWindow = new AdminWindow(admin);
+                log.Info(string.Format("Admin login: {0} {1} {2}", admin.Name, admin.SurName, admin.Guid));
+                adminWindow.Show();
+                Close();
+            }
+        }
+
+        private void CustomerLogin()
+        {
+            MessageBox.Show("Customer");
+        }
+
+        private void PasswordBoxOnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click(sender, e);
+            }
+        }
+
     }
 }

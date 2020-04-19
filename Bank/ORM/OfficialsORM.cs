@@ -19,7 +19,7 @@ namespace Bank.ORM
             "SELECT * FROM users WHERE CompanyNumber=@CompanyNumber";
 
         private static String createOfficial =
-            "insert into Users values (@Guid, @Name, @Surname, @Address, @Mail, @Phone, @valid, @Type, @CompanyNumber, @Password, NULL, NULL, NULL, NULL, NULL)";
+            "insert into Users values (@Guid, @Name, @Surname, @Address, @Mail, @Phone, @Valid, @Type, @CompanyNumber, NULL, @Password, NULL, NULL, NULL, NULL)";
 
         private static String selectOfficials =
             "SELECT * FROM users WHERE CompanyNumber is not null";
@@ -31,13 +31,13 @@ namespace Bank.ORM
             "update users set valid = 0 where CompanyNumber = @CompanyNumber";
 
         private static String updateOfficial =
-            "update users set Name = @Name, Surname = @Surname, Mail = @Mail, Phone = @Phone, OfficialType = @OfficialType where CompanyNumber = @CompanyNumber ";
+            "update users set Name = @Name, Surname = @Surname, Mail = @Mail, Phone = @Phone, AddressId = @AddressId, OfficialType = @OfficialType where CompanyNumber = @CompanyNumber ";
 
                
         public static bool CreateNewOfficial(Official official)
         {
-            if (!CreateAddress(official.Address))
-                return false;
+            //if (!CreateAddress(official.Address))
+            //    return false;
 
             DBConnection connection = new DBConnection();
             connection.OpenConection();
@@ -49,7 +49,7 @@ namespace Bank.ORM
             command.Parameters.AddWithValue("@Address", official.Address.Id);
             command.Parameters.AddWithValue("@Mail", official.Mail);
             command.Parameters.AddWithValue("@Phone", official.Phone);
-            command.Parameters.AddWithValue("@valid", official.Valid);
+            command.Parameters.AddWithValue("@Valid", official.Valid);
             command.Parameters.AddWithValue("@Password", official.Password);
             command.Parameters.AddWithValue("@OfficialType", official.OfficialType);
             command.Parameters.AddWithValue("@CompanyNumber", official.CompanyNumber);
@@ -73,7 +73,7 @@ namespace Bank.ORM
             return false;
         }
 
-        public static Official GetOfficialById(Official official)
+        public static Official GetOfficialById(string companyNumber)
         {
             int count = 0;
 
@@ -81,14 +81,16 @@ namespace Bank.ORM
             connection.OpenConection();
 
             SqlCommand command = connection.CreateCommand(selectByCompanyNumber);
-            command.Parameters.AddWithValue("@CompanyNumber", official.CompanyNumber);
+            command.Parameters.AddWithValue("@CompanyNumber", companyNumber);
 
             SqlCommand commandCount = connection.CreateCommand(selectCountbyCompanyNumber);
-            commandCount.Parameters.AddWithValue("@CompanyNumber", official.CompanyNumber);
+            commandCount.Parameters.AddWithValue("@CompanyNumber", companyNumber);
         
             count = (int)commandCount.ExecuteScalar();
 
             SqlDataReader reader = command.ExecuteReader();
+
+            Official official = new Official();
 
             switch (count)
             {
@@ -109,9 +111,8 @@ namespace Bank.ORM
                         official.Valid = reader.GetBoolean(6);
                         official.OfficialType = (OfficialType)reader.GetInt32(7); //GetInt32 vrací číselnou hodnotu a (OfficialType) to přetypuje na ten správný typ
                         official.CompanyNumber = reader.GetString(8);
-                        official.Password = reader.GetString(9);
+                        official.Password = reader.GetString(10);
                     }
-
 
                     connection.CloseConnection();
                     return official;
@@ -154,7 +155,6 @@ namespace Bank.ORM
             return officials;
         }
 
-
         public static Address GetAddress(Int32 addressId)
         {
             DBConnection connection = new DBConnection();
@@ -177,7 +177,6 @@ namespace Bank.ORM
             return address;
         }
 
-
         public static bool UpdateOfficial(Official official)
         {
             DBConnection connection = new DBConnection();
@@ -188,6 +187,7 @@ namespace Bank.ORM
             command.Parameters.AddWithValue("@Surname", official.SurName);
             command.Parameters.AddWithValue("@Mail", official.Mail);
             command.Parameters.AddWithValue("@Phone", official.Phone);
+            command.Parameters.AddWithValue("@AddressId", official.Address.Id);
             command.Parameters.AddWithValue("@OfficialType", official.OfficialType);
             command.Parameters.AddWithValue("@CompanyNumber", official.CompanyNumber);
 

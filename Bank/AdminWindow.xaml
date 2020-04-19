@@ -5,49 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
-    <Grid x:Name="AdminWindow1">
+        Title="Bank System - Admin version" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="GridAdminWindow" Visibility="Visible">
         <!-- Main menu-->
-        <Menu HorizontalAlignment="Left" Height="21" Margin="36,29,0,0" 
+        <Menu x:Name="MainMenu" HorizontalAlignment="Left" Height="21" Margin="36,29,0,0" 
               VerticalAlignment="Top" Width="746" Visibility="Visible">
-            <MenuItem Header="Account" FontSize="14">
+            <MenuItem Header="My Account" FontSize="14">
                 <MenuItem Header="Change password" Click="ChangePassword_Click"/>
-                <MenuItem Header="Create new Admin" Click="CreateNewAdmin_Click"/>
-                <MenuItem Header="Show all admins" Click="SelectAllAdmins_Click"/>
+                <MenuItem Header="Update my account" Click="UpdateMyAccount_Click"/>
+                <MenuItem Header="Logout" Click="Logout_Click"/>
             </MenuItem>
 
-            <MenuItem Header="Official" FontSize="14">
+            <MenuItem Header="User Management" FontSize="14">
+                <MenuItem Header="Admin">
+                    <MenuItem Header="Create new Admin" Click="CreateNewAdmin_Click"/>
+                    <MenuItem Header="Show all admins" Click="SelectAllAdmins_Click"/>
+                    <MenuItem Header="Search admin" Click="SearchAdmin_Click"/>
+                </MenuItem>
+
+                <MenuItem Header="Official">
+                    <MenuItem Header="Create new Official" Click="CreateNewOfficial_Click"/>
+                    <MenuItem Header="Show all Officials" Click="SelectAllOfficials_Click"/>
+                    <MenuItem Header="Search Official" Click="SearchOfficial_Click"/>
+                </MenuItem>
+
             </MenuItem>
         </Menu>
-        <!-- List of admins -->
-
-
-        <!-- Customer Password Change -->
+        <!-- User Password Change -->
+        <Label x:Name="PasswordChangeLabel" Content="PASSWORD CHANGE" 
+               HorizontalAlignment="Left" Margin="36,60,0,0" VerticalAlignment="Top" 
+               FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
         <TextBox x:Name="CurrentPassword" HorizontalAlignment="Left" 
-                 Height="24" Margin="36,68,0,0" TextWrapping="Wrap" 
+                 Height="24" Margin="36,100,0,0" TextWrapping="Wrap" 
                  Text="Enter current password" VerticalAlignment="Top" 
-                 Width="195" TextChanged="TextBox_TextChanged" 
+                 Width="195" 
                  KeyDown="CurrentPasswordOnKeyDownHandler" IsEnabled="True" 
                  PreviewMouseDown="CurrentPasswordOnMouseClick" Visibility="Hidden"/>
         <TextBox x:Name="NewPassword1" HorizontalAlignment="Left" 
-            Height="24" Margin="36,107,0,0" TextWrapping="Wrap" 
+            Height="24" Margin="36,140,0,0" TextWrapping="Wrap" 
             Text="Enter new password" VerticalAlignment="Top" 
-            Width="195" TextChanged="TextBox_TextChanged" 
+            Width="195" 
             IsEnabled="True"
             PreviewMouseDown="CurrentPasswordOnMouseClick" Visibility="Hidden"/>
         <TextBox x:Name="NewPassword2" HorizontalAlignment="Left" 
-            Height="24" Margin="36,136,0,0" TextWrapping="Wrap" 
-            Text="Enter new password again" VerticalAlignment="Top" 
-            Width="195" TextChanged="TextBox_TextChanged" 
+            Height="24" Margin="36,170,0,0" TextWrapping="Wrap" 
+            Text="Enter new password" VerticalAlignment="Top" 
+            Width="195" 
             IsEnabled="True"
             PreviewMouseDown="CurrentPasswordOnMouseClick" Visibility="Hidden"/>
         <Label x:Name="CurrentPasswordLabel" HorizontalAlignment="Left" 
                Content=""
-               Margin="236,68,0,0" VerticalAlignment="Top" 
+               Margin="236,100,0,0" VerticalAlignment="Top" 
                Height="24" Width="546" Visibility="Hidden"/>
         <Label x:Name="NewPasswordLabel" 
             Content="" HorizontalAlignment="Left" 
-            Margin="236,136,0,0" VerticalAlignment="Top" 
+            Margin="236,170,0,0" VerticalAlignment="Top" 
             Height="24" Width="546" Visibility="Hidden"/>
         <Button x:Name="ConfirmButton" Content="Confirm" 
                 HorizontalAlignment="Left" 
@@ -61,140 +73,163 @@
             Click="StornoButton_Click" Visibility="Hidden"/>
 
         <!-- Add, Update, Read Admin -->
+        <Label x:Name="ChangeAdminLabel" Content="CREATE NEW ADMIN" 
+               HorizontalAlignment="Left" Margin="36,60,0,0" VerticalAlignment="Top" 
+               FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
         <Label x:Name="NameLabel" Content="Name:" HorizontalAlignment="Left" 
-               Margin="20,65,0,0" VerticalAlignment="Top" 
+               Margin="20,102,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,65,0,0" TextWrapping="Wrap" 
+                 Margin="120,102,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="SurnameLabel" Content="Surname:" HorizontalAlignment="Left" 
-               Margin="20,90,0,0" VerticalAlignment="Top" 
+               Margin="20,127,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,90,0,0" TextWrapping="Wrap" 
+                 Margin="120,127,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="EmailLabel" Content="Email:" HorizontalAlignment="Left" 
-               Margin="20,115,0,0" VerticalAlignment="Top" 
+               Margin="20,152,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,115,0,0" TextWrapping="Wrap" 
+                 Margin="120,152,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="PhoneLabel" Content="Phone:" HorizontalAlignment="Left" 
-               Margin="20,140,0,0" VerticalAlignment="Top" 
+               Margin="20,177,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="PhoneTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,140,0,0" TextWrapping="Wrap" 
+                 Margin="120,177,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="AddressLabel" Content="Address" HorizontalAlignment="Left" 
-               Margin="20,165,0,0" VerticalAlignment="Top" 
+               Margin="20,202,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <Label x:Name="StreetLabel" Content="Street:" HorizontalAlignment="Left" 
-               Margin="20,190,0,0" VerticalAlignment="Top" 
+               Margin="20,227,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="StreetTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,190,0,0" TextWrapping="Wrap" 
+                 Margin="120,227,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="StreetNumberLabel" Content="Street Number:" HorizontalAlignment="Left" 
-               Margin="20,215,0,0" VerticalAlignment="Top" 
+               Margin="20,252,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="StreetNumberTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,215,0,0" TextWrapping="Wrap" 
+                 Margin="120,252,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="CityLabel" Content="City:" HorizontalAlignment="Left" 
-               Margin="20,240,0,0" VerticalAlignment="Top" 
+               Margin="20,277,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="CityTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,240,0,0" TextWrapping="Wrap" 
+                 Margin="120,277,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="PostalCodeLabel" Content="Postal Code:" HorizontalAlignment="Left" 
-               Margin="20,265,0,0" VerticalAlignment="Top" 
+               Margin="20,302,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="PostalCodeTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,265,0,0" TextWrapping="Wrap" 
+                 Margin="120,302,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top"
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="CountryLabel" Content="Country:" HorizontalAlignment="Left" 
-               Margin="20,290,0,0" VerticalAlignment="Top" 
+               Margin="20,327,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="CountryTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,290,0,0" TextWrapping="Wrap" 
+                 Margin="120,327,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="ValidLabel" Content="Valid:" HorizontalAlignment="Left" 
-               Margin="250
-               ,65,0,0" VerticalAlignment="Top" 
+               Margin="250,102,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="ValidTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="350,65,0,0" TextWrapping="Wrap" 
+                 Margin="350,102,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
         <Label x:Name="UserTypeLabel" Content="User Type:" HorizontalAlignment="Left" 
-               Margin="250,90,0,0" VerticalAlignment="Top" 
+               Margin="250,127,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <ComboBox x:Name="UserTypeComboBox" Height="23"
                   HorizontalAlignment="Left" 
                   VerticalContentAlignment="Bottom"
-                  Margin="350,90,0,0" VerticalAlignment="Top" 
-                  Width="150" Visibility="Visible">
+                  Margin="350,127,0,0" VerticalAlignment="Top" 
+                  Width="150" Visibility="Hidden">
             <ComboBoxItem x:Name="UserTypeComboBox_Admin" Content="Admin" IsSelected="True"/>
+            <ComboBoxItem x:Name="UserTypeComboBox_Official" Content="Official" IsSelected="True"/>
         </ComboBox>
         <Label x:Name="UserSubTypeLabel" Content="User Subype:" HorizontalAlignment="Left" 
-               Margin="250,115,0,0" VerticalAlignment="Top" 
+               Margin="250,152,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
-        <ComboBox x:Name="UserSubTypeComboBox" Height="23"
+               Width="100" Visibility="Hidden"/>
+        <ComboBox x:Name="AdminSubTypeComboBox" Height="23"
                   HorizontalAlignment="Left" 
                   VerticalContentAlignment="Bottom"
-                  Margin="350,115,0,0" VerticalAlignment="Top" 
-                  Width="150" Visibility="Visible">
-            <ComboBoxItem x:Name="UserSubTypeComboBox_Admin" Content="Admin" IsSelected="True"/>
-            <ComboBoxItem x:Name="UserSubTypeComboBox_Superadmin" Content="SuperAdmin"/>
+                  Margin="350,152,0,0" VerticalAlignment="Top" 
+                  Width="150" Visibility="Hidden">
+            <ComboBoxItem x:Name="AdminSubTypeComboBox_Admin" Content="Admin" IsSelected="True"/>
+            <ComboBoxItem x:Name="AdminSubTypeComboBox_Superadmin" Content="SuperAdmin"/>
+        </ComboBox>
+        <ComboBox x:Name="OfficialSubTypeComboBox" Height="23"
+                  HorizontalAlignment="Left" 
+                  VerticalContentAlignment="Bottom"
+                  Margin="350,152,0,0" VerticalAlignment="Top" 
+                  Width="150" Visibility="Hidden">
+            <ComboBoxItem x:Name="OfficialSubTypeComboBox_Junior" Content="Junior"/>
+            <ComboBoxItem x:Name="OfficialSubTypeComboBox_Normal" Content="Normal"/>
+            <ComboBoxItem x:Name="OfficialSubTypeComboBox_Senior" Content="Senior"/>
         </ComboBox>
         <Label x:Name="LoginLabel" Content="Login:" HorizontalAlignment="Left" 
-               Margin="250,140,0,0" VerticalAlignment="Top" 
+               Margin="250,177,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Visible"/>
+               Width="100" Visibility="Hidden"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="350,140,0,0" TextWrapping="Wrap" 
+                 Margin="350,177,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Visible"/>
+                 Width="150" Visibility="Hidden"/>
+
+        <!-- Search box -->
+        <Label x:Name="SearchLabel" Content="ADMIN SEARCH:" 
+               HorizontalAlignment="Left" Margin="36,60,0,0" VerticalAlignment="Top" 
+               FontSize="14" FontWeight="Bold" Visibility="Visible"/>
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="29" Margin="177,60,0,0" 
+                 TextWrapping="Wrap" Text="Enter user name ..." VerticalAlignment="Top" Width="579"
+                 Visibility="Visible" PreviewMouseDown="SearchTextBox_MouseDown" 
+                 KeyDown="SearchTextBox_KeyDownHandler"/>
+
+
         <!-- All admins view -->
-        <ListView x:Name="AllUsersListView" HorizontalAlignment="Left" Height="278" 
-                  Margin="36,85,0,0" VerticalAlignment="Top" 
-                  Width="746" Visibility="Hidden" >
+        <ListView x:Name="AllAdminsListView" HorizontalAlignment="Left" Height="264" 
+                  Margin="36,98,0,0" VerticalAlignment="Top" 
+                  Width="720" Visibility="Visible" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn x:Name="ListView_Column_Name" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding SurName}"/>
                     <GridViewColumn Header="Login" DisplayMemberBinding="{Binding Login}"/>
                     <GridViewColumn Header="AdminType" DisplayMemberBinding="{Binding AdminType}"/>
@@ -209,7 +244,25 @@
                 Margin="36,385,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="ClickOnButtonViewDetails" Visibility="Hidden"/>
-        
+
+        <!-- All officials view -->
+        <ListView x:Name="AllOfficialsListView" HorizontalAlignment="Left" Height="264" 
+                  Margin="36,98,0,0" VerticalAlignment="Top" 
+                  Width="720" Visibility="Visible" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding SurName}"/>
+                    <GridViewColumn Header="Company Number" DisplayMemberBinding="{Binding CompanyNumber}"/>
+                    <GridViewColumn Header="Official Type" DisplayMemberBinding="{Binding OfficialType}"/>
+                    <GridViewColumn Header="Valid" DisplayMemberBinding="{Binding Valid}"/>
+                    <GridViewColumn Header="Mail" DisplayMemberBinding="{Binding Mail}"/>
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
         <!-- View user details -->
         <Button x:Name="EditModeButton" Content="Edit mode" 
                 HorizontalAlignment="Left" 
@@ -223,5 +276,6 @@
                 Margin="36,385,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="UpdateUserInDatabaseButton" Visibility="Hidden"/>
+        
     </Grid>
 </Window>
