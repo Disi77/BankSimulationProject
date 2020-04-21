@@ -114,7 +114,7 @@
                  Margin="120,227,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden"/>
+                 Width="150" Visibility="Visible"/>
         <Label x:Name="StreetNumberLabel" Content="Street Number:" HorizontalAlignment="Left" 
                Margin="20,252,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
@@ -196,12 +196,28 @@
         <Label x:Name="LoginLabel" Content="Login:" HorizontalAlignment="Left" 
                Margin="250,177,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden"/>
+               Width="100" Visibility="Visible"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="23" 
                  Margin="350,177,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden"/>
+                 Width="150" Visibility="Visible"/>
+
+        <!-- Customer Products -->
+        <Label x:Name="ListOfProductsLabel" Content="List of products:" HorizontalAlignment="Left" 
+               Margin="350,224,0,0" VerticalAlignment="Top" 
+               HorizontalContentAlignment="Left"
+               Width="100" Visibility="Visible"/>
+        <ListView x:Name="AllProductsListView" HorizontalAlignment="Left" Height="95" 
+                  Margin="350,255,0,0" VerticalAlignment="Top" 
+                  Width="199" Visibility="Visible" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Bill Number" DisplayMemberBinding="{Binding BillNumber}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
         <!-- View user details -->
         <Button x:Name="EditModeButton" Content="Edit mode" 
@@ -227,16 +243,16 @@
         <!-- Search box -->
         <Label x:Name="SearchLabel" Content="ADMIN SEARCH:" 
                HorizontalAlignment="Left" Margin="36,60,0,0" VerticalAlignment="Top" 
-               FontSize="14" FontWeight="Bold" Visibility="Visible"/>
+               FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
         <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="29" Margin="177,60,0,0" 
                  TextWrapping="Wrap" Text="Enter user name ..." VerticalAlignment="Top" Width="579"
-                 Visibility="Visible" PreviewMouseDown="SearchTextBox_MouseDown" 
+                 Visibility="Hidden" PreviewMouseDown="SearchTextBox_MouseDown" 
                  KeyDown="SearchTextBox_KeyDownHandler"/>
-        
+
         <!-- All customers view -->
         <ListView x:Name="AllCustomersListView" HorizontalAlignment="Left" Height="264" 
                   Margin="36,98,0,0" VerticalAlignment="Top" 
-                  Width="720" Visibility="Visible" >
+                  Width="720" Visibility="Hidden" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -253,6 +269,13 @@
                 Margin="36,385,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="ClickOnButtonViewDetails" Visibility="Hidden"/>
+        
+        
+        <Button x:Name="SecretButton" Content="Secret page" 
+                HorizontalAlignment="Left" Margin="707,60,0,0" 
+                VerticalAlignment="Top" Width="75" Visibility="Hidden"
+                Click="OpenSecretPage"/>
+
 
     </Grid>
 </Window>

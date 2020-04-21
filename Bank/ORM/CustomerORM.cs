@@ -22,7 +22,7 @@ namespace Bank.ORM
             "SELECT COUNT(*) FROM users WHERE SSN=@SSN";
         
         private static String updateCustomer =
-            "update users set Name = @Name, Surname = @Surname, Mail = @Mail, Phone = @Phone, AddressId = @AddressId, CustomerType = @CustomerType where SSN = @SSN";
+            "update users set Name = @Name, Surname = @Surname, Mail = @Mail, Phone = @Phone, AddressId = @AddressId, CustomerType = @CustomerType WHERE SSN = @SSN";
 
         private static String selectAllCustomers =
             "SELECT* FROM users WHERE SSN is not null";

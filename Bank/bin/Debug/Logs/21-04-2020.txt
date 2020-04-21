@@ -1,0 +1,25 @@
+﻿Log was created 21-04-2020 22:27:22
+21-04-2020 22:27:22 [INFO]-Reservation system app started
+21-04-2020 22:27:42 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:30:00 [INFO]-Reservation system app started
+21-04-2020 22:30:03 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:33:28 [INFO]-Reservation system app started
+21-04-2020 22:33:32 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:38:42 [INFO]-Reservation system app started
+21-04-2020 22:38:46 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:45:10 [INFO]-Reservation system app started
+21-04-2020 22:45:15 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:53:35 [INFO]-Reservation system app started
+21-04-2020 22:53:40 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:55:15 [INFO]-Reservation system app started
+21-04-2020 22:55:18 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:56:02 [INFO]-Reservation system app started
+21-04-2020 22:56:06 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 22:56:48 [INFO]-Reservation system app started
+21-04-2020 22:56:51 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 23:05:55 [INFO]-Reservation system app started
+21-04-2020 23:06:00 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 23:21:26 [INFO]-Reservation system app started
+21-04-2020 23:21:31 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+21-04-2020 23:57:27 [INFO]-Reservation system app started
+21-04-2020 23:57:31 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32

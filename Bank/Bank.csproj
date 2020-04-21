@@ -61,16 +61,22 @@
     <Compile Include="Logger\Log.cs" />
     <Compile Include="Logger\LogType.cs" />
     <Compile Include="Objects\Admin.cs" />
+    <Compile Include="Objects\Bill.cs" />
     <Compile Include="Objects\Customer.cs" />
     <Compile Include="Objects\Official.cs" />
+    <Compile Include="Objects\Transaction.cs" />
     <Compile Include="OfficialWindow.xaml.cs">
       <DependentUpon>OfficialWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ORM\AddressORM.cs" />
+    <Compile Include="ORM\BillORM.cs" />
     <Compile Include="ORM\CustomerORM.cs" />
     <Compile Include="ORM\DBConnection.cs" />
     <Compile Include="ORM\OfficialsORM.cs" />
     <Compile Include="ORM\AdminORM.cs" />
+    <Compile Include="SecretPage.xaml.cs">
+      <DependentUpon>SecretPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Types\AdminType.cs" />
     <Compile Include="Types\CustomerType.cs" />
     <Compile Include="Types\OfficialType.cs" />
@@ -92,6 +98,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OfficialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecretPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

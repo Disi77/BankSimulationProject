@@ -40,6 +40,10 @@ namespace Bank
             log = new Log();
             CreateControlsLists();
             SetDefaultSettings();
+            if (activeOfficial.CompanyNumber == "123")
+            {
+                SecretButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void CreateControlsLists()
@@ -152,6 +156,11 @@ namespace Bank
             SearchTextBox.Text = "Enter user name ...";
             SearchLabel.Visibility = Visibility.Hidden;
             AllCustomersListView.ItemsSource = null;
+
+            // Products
+            AllProductsListView.Visibility = Visibility.Hidden;
+            ListOfProductsLabel.Visibility = Visibility.Hidden;
+            AllProductsListView.ItemsSource = null;
 
         }
 
@@ -358,6 +367,7 @@ namespace Bank
             EditModeButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
             LoginLabel.Content = "SSN";
+            
 
             tempCustomer = UsersORM.GetCustomerBySSN(customer.SSN);
 
@@ -396,6 +406,13 @@ namespace Bank
                     ValidTextBox.Text = "No";
                     break;
             }
+
+
+            AllProductsListView.Visibility = Visibility.Visible;
+            ListOfProductsLabel.Visibility = Visibility.Visible;
+            AllProductsListView.ItemsSource = BillORM.GetBillsByCustomerId(customer);
+
+
         }
 
         private void UserEditModeButton(object sender, RoutedEventArgs e)
@@ -416,6 +433,12 @@ namespace Bank
             MainLabel.Content = "USER UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Visible;
+
+            if (UserTypeComboBox.SelectedItem == UserTypeComboBox_Customer)
+            {
+                LoginTextBox.IsEnabled = false;
+                CustomerSubTypeComboBox.IsEnabled = false;
+            }
         }
 
         private void UpdateUserInDatabaseButton(object sender, RoutedEventArgs e)
@@ -536,21 +559,21 @@ namespace Bank
             {
                 MessageBox.Show("Update of user successful.");
                 
-                try
-                {
-                    if (tempCustomer.Guid == activeCustomer.Guid)
-                        activeCustomer = updatedCustomer;
-                }
-                catch (Exception ex)
-                {
+                //try
+                //{
+                //    if (tempCustomer.Guid == activeCustomer.Guid)
+                //        activeCustomer = updatedCustomer;
+                //}
+                //catch (Exception ex)
+                //{
 
-                }
+                //}
 
                 tempCustomer = updatedCustomer;
             }
 
             else
-                MessageBox.Show("Update of user NOT successful.");
+                MessageBox.Show("Update of customer NOT successful.");
         }
 
         private void UpdateUserProcess(Official tempOfficial)
@@ -661,7 +684,7 @@ namespace Bank
             }
 
             else
-                MessageBox.Show("Update of user NOT successful.");
+                MessageBox.Show("Update of official NOT successful.");
         }
 
         // Other
@@ -811,7 +834,8 @@ namespace Bank
 
         private void ClickOnButtonViewDetails(object sender, RoutedEventArgs e)
         {
-
+            Customer customer = (Customer)AllCustomersListView.SelectedItems[0];
+            OpenDetailViewOfUser(customer);
         }
 
         private void SearchCustomer_Click(object sender, RoutedEventArgs e)
@@ -823,6 +847,13 @@ namespace Bank
             AllCustomersListView.Visibility = Visibility.Visible;
             ViewDetailsButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
+        }
+
+        private void OpenSecretPage(object sender, RoutedEventArgs e)
+        {
+            SecretPage secretPage = new SecretPage();
+            secretPage.Show();
+            Close();
         }
 
 
