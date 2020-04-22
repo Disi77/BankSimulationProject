@@ -12,6 +12,6 @@ namespace Bank.Objects
         public String Phone { get; set; }
         public Boolean Valid { get; set; }
 
-        public static int minimalniDelkaHesla = 4;
+        public static int passwordMinLength = 4;
     }
 }

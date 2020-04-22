@@ -20,7 +20,14 @@ namespace Bank.ORM
        
         private static String selectCountCustomerbySSN =
             "SELECT COUNT(*) FROM users WHERE SSN=@SSN";
-        
+
+        private static String selectCustomerbyGuid =
+            "SELECT * FROM users WHERE Id=@Guid";
+
+        private static String selectCountCustomerbyGuid =
+            "SELECT COUNT(*) FROM users WHERE Id=@Guid";
+
+
         private static String updateCustomer =
             "update users set Name = @Name, Surname = @Surname, Mail = @Mail, Phone = @Phone, AddressId = @AddressId, CustomerType = @CustomerType WHERE SSN = @SSN";
 
@@ -89,6 +96,58 @@ namespace Bank.ORM
                         customer.Password = reader.GetString(9);
                         customer.SSN = reader.GetString(11);
                         customer.CustomerType = (CustomerType)reader.GetInt32(12);                     
+                    }
+
+                    connection.CloseConnection();
+                    return customer;
+                default:
+                    MessageBox.Show("v DB existuje více uživatelů se stéjným ID! ");
+                    return null;
+            }
+
+
+
+        }
+
+        public static Customer GetCustomerByGuid(Guid guid)
+        {
+            int count = 0;
+
+            DBConnection connection = new DBConnection();
+            connection.OpenConection();
+
+            SqlCommand command = connection.CreateCommand(selectCustomerbyGuid);
+            command.Parameters.AddWithValue("@Guid", guid);
+
+            SqlCommand commandCount = connection.CreateCommand(selectCountCustomerbyGuid);
+            commandCount.Parameters.AddWithValue("@Guid", guid);
+
+            count = (int)commandCount.ExecuteScalar();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            Customer customer = new Customer();
+
+            switch (count)
+            {
+                case 0:
+                    MessageBox.Show("Customer doesn't exist. ");
+                    connection.CloseConnection();
+                    return null;
+                case 1:
+                    while (reader.Read())
+                    {
+                        customer.Guid = reader.GetGuid(0);
+                        customer.Name = reader.GetString(1);
+                        customer.SurName = reader.GetString(2);
+                        customer.Address = new Address();
+                        customer.Address.Id = reader.GetInt32(3);
+                        customer.Mail = reader.GetString(4);
+                        customer.Phone = reader.GetString(5);
+                        customer.Valid = reader.GetBoolean(6);
+                        customer.Password = reader.GetString(9);
+                        customer.SSN = reader.GetString(11);
+                        customer.CustomerType = (CustomerType)reader.GetInt32(12);
                     }
 
                     connection.CloseConnection();

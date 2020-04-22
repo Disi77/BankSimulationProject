@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Bank.Objects;
 
 namespace Bank.Validator
 {
@@ -46,25 +47,84 @@ namespace Bank.Validator
             return string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password);
         }
 
-
-        // vyjímka se má zachytit do souboru s časem a kde s
-
-
-
-        /*
-        Pro ty kteří by chtěli použít hotové validace existuje knihovna
-        using System.ComponentModel.DataAnnotations;
-
-        Ale pozor přidání této knihovny je třeba udělat přes NuGet Manager….
-        Na netu je toho k Nuget manageru hafo
-
-        Např toto:
-
-        public bool IsValidEmail(string mail)
+        /// <summary>
+        ///  3 from 5 conditions must be met
+        ///    1) At least one lower case letter,
+        ///    2) At least one upper case letter,
+        ///    3) At least special character,
+        ///    4) At least one number
+        ///    5) At least 4 characters length
+        /// </summary>
+        /// <param name="passWord"></param>
+        /// <returns></returns>
+        internal static bool ValidatePassword(string passWord)
         {
-            return new EmailAddressAttribute().IsValid(mail);
-        }
+            int validConditions = 0;
 
-        */
+            if (passWord.Length >= User.passwordMinLength)
+            {
+                validConditions++;
+            }
+
+            foreach (char c in passWord)
+            {
+                if (c >= 'a' && c <= 'z')
+                {
+                    validConditions++;
+                    break;
+                }
+            }
+            foreach (char c in passWord)
+            {
+                if (c >= 'A' && c <= 'Z')
+                {
+                    validConditions++;
+                    break;
+                }
+            }
+
+            if (validConditions == 0) return false;
+
+            foreach (char c in passWord)
+            {
+                if (c >= '0' && c <= '9')
+                {
+                    validConditions++;
+                    break;
+                }
+            }
+
+            if (validConditions == 1) return false;
+
+            if (validConditions == 2)
+            {
+                char[] special = { '@', '#', '$', '%', '^', '&', '+', '=', '.' };
+                if (passWord.IndexOfAny(special) == -1) return false;
+            }
+            return true;
+        }
     }
+
+
+
+    // vyjímka se má zachytit do souboru s časem a kde s
+
+
+
+    /*
+    Pro ty kteří by chtěli použít hotové validace existuje knihovna
+    using System.ComponentModel.DataAnnotations;
+
+    Ale pozor přidání této knihovny je třeba udělat přes NuGet Manager….
+    Na netu je toho k Nuget manageru hafo
+
+    Např toto:
+
+    public bool IsValidEmail(string mail)
+    {
+        return new EmailAddressAttribute().IsValid(mail);
+    }
+
+    */
 }
+

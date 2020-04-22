@@ -238,13 +238,14 @@ namespace Bank
                 if (NewPassword1.Text == NewPassword2.Text && !String.IsNullOrEmpty(NewPassword1.Text))
                 {
                     //Validace hesla
-                    if (User.minimalniDelkaHesla > NewPassword1.Text.Length)
+                    if (!Validator.Validator.ValidatePassword(NewPassword1.Text))
                     {
-                        MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.minimalniDelkaHesla));
+                        MessageBox.Show(String.Format("Weak password"));
                         return false;
                     }
 
                     activeOfficial.Password = NewPassword1.Text;
+
                     bool result = UsersORM.ChangePassword(activeOfficial);
                     if (result)
                     {
@@ -851,9 +852,14 @@ namespace Bank
 
         private void OpenSecretPage(object sender, RoutedEventArgs e)
         {
-            SecretPage secretPage = new SecretPage();
-            secretPage.Show();
+            SecretWindow secretWindow = new SecretWindow();
+            secretWindow.Show();
             Close();
+        }
+
+        private void ViewProductDetails_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
 

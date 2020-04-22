@@ -208,12 +208,20 @@
                Margin="350,224,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Left"
                Width="100" Visibility="Visible"/>
-        <ListView x:Name="AllProductsListView" HorizontalAlignment="Left" Height="95" 
+        <ListView x:Name="AllProductsListView" HorizontalAlignment="Left" Height="95"
                   Margin="350,255,0,0" VerticalAlignment="Top" 
-                  Width="199" Visibility="Visible" >
+                  Width="160" Visibility="Visible" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Bill Number" DisplayMemberBinding="{Binding BillNumber}"/>
+                    <GridViewColumn Header="Bill Number" Width="100" DisplayMemberBinding="{Binding BillNumber}"/>
+                    <GridViewColumn Header="Details" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Details" Click="ViewProductDetails_Click" 
+                                        CommandParameter="{Binding BillNumber}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -5,3 +5,79 @@
 22-04-2020 00:03:36 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
 22-04-2020 00:31:29 [INFO]-Reservation system app started
 22-04-2020 00:31:33 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 13:48:07 [INFO]-Reservation system app started
+22-04-2020 13:48:21 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 13:58:45 [INFO]-Reservation system app started
+22-04-2020 13:58:49 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:02:22 [INFO]-Reservation system app started
+22-04-2020 14:02:26 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:06:14 [INFO]-Reservation system app started
+22-04-2020 14:06:17 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:19:37 [INFO]-Reservation system app started
+22-04-2020 14:19:43 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:24:48 [INFO]-Reservation system app started
+22-04-2020 14:24:51 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:26:13 [INFO]-Reservation system app started
+22-04-2020 14:26:16 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:27:59 [INFO]-Reservation system app started
+22-04-2020 14:28:03 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:28:59 [INFO]-Reservation system app started
+22-04-2020 14:29:06 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:30:38 [INFO]-Reservation system app started
+22-04-2020 14:30:42 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 14:31:40 [INFO]-Reservation system app started
+22-04-2020 14:31:43 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:23:55 [INFO]-Reservation system app started
+22-04-2020 15:23:59 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:27:05 [INFO]-Reservation system app started
+22-04-2020 15:27:28 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:28:31 [INFO]-Reservation system app started
+22-04-2020 15:28:34 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:29:25 [INFO]-Reservation system app started
+22-04-2020 15:29:28 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:34:52 [INFO]-Reservation system app started
+22-04-2020 15:34:55 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:36:17 [INFO]-Reservation system app started
+22-04-2020 15:36:25 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:37:24 [INFO]-Reservation system app started
+22-04-2020 15:37:31 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:41:01 [INFO]-Reservation system app started
+22-04-2020 15:41:34 [INFO]-Reservation system app started
+22-04-2020 15:41:37 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:42:16 [INFO]-Reservation system app started
+22-04-2020 15:42:20 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:43:19 [INFO]-Reservation system app started
+22-04-2020 15:43:25 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 15:45:11 [INFO]-Reservation system app started
+22-04-2020 15:45:41 [INFO]-Reservation system app started
+22-04-2020 15:45:44 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 16:23:46 [INFO]-Reservation system app started
+22-04-2020 16:23:49 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 20:31:33 [INFO]-Reservation system app started
+22-04-2020 20:31:36 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 21:06:22 [INFO]-Reservation system app started
+22-04-2020 21:06:27 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 21:08:41 [INFO]-Reservation system app started
+22-04-2020 21:08:45 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 21:25:30 [INFO]-Reservation system app started
+22-04-2020 21:25:35 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 21:27:23 [INFO]-Reservation system app started
+22-04-2020 21:27:27 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 21:28:50 [INFO]-Reservation system app started
+22-04-2020 21:28:55 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 21:32:43 [INFO]-Reservation system app started
+22-04-2020 22:05:31 [INFO]-Reservation system app started
+22-04-2020 22:05:36 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+22-04-2020 22:05:54 [INFO]-Reservation system app started
+22-04-2020 22:05:54 [INFO]-Admin logout: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+22-04-2020 22:06:39 [INFO]-Official login: Monika Lukášková 5d5e82c0-f450-4497-8c9f-6645fbab986c
+22-04-2020 22:08:54 [INFO]-Reservation system app started
+22-04-2020 22:08:59 [INFO]-Official login: Monika Lukášková 5d5e82c0-f450-4497-8c9f-6645fbab986c
+22-04-2020 22:10:59 [INFO]-Reservation system app started
+22-04-2020 22:10:59 [INFO]-Official logout: Monika Lukášková 5d5e82c0-f450-4497-8c9f-6645fbab986c
+22-04-2020 22:11:07 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 23:24:20 [INFO]-Reservation system app started
+22-04-2020 23:24:23 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 23:27:57 [INFO]-Reservation system app started
+22-04-2020 23:28:00 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 23:30:35 [INFO]-Reservation system app started

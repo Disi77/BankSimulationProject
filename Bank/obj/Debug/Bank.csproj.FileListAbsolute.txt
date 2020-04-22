@@ -67,5 +67,5 @@ C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\Bank.csproj.
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\Bank.exe
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\Bank.pdb
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\Bank.csproj.CoreCompileInputs.cache
-C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretPage.g.cs
-C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretPage.baml
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretWindow.g.cs
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretWindow.baml

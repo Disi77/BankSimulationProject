@@ -229,9 +229,9 @@ namespace Bank
                 if (NewPassword1.Text == NewPassword2.Text && !String.IsNullOrEmpty(NewPassword1.Text))
                 {
                     //Validace hesla
-                    if (User.minimalniDelkaHesla > NewPassword1.Text.Length)
+                    if (User.passwordMinLength > NewPassword1.Text.Length)
                     {
-                        MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.minimalniDelkaHesla));
+                        MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.passwordMinLength));
                         return false;
                     }
 

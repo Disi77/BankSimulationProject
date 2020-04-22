@@ -74,8 +74,9 @@
     <Compile Include="ORM\DBConnection.cs" />
     <Compile Include="ORM\OfficialsORM.cs" />
     <Compile Include="ORM\AdminORM.cs" />
-    <Compile Include="SecretPage.xaml.cs">
-      <DependentUpon>SecretPage.xaml</DependentUpon>
+    <Compile Include="ORM\TransactionORM.cs" />
+    <Compile Include="SecretWindow.xaml.cs">
+      <DependentUpon>SecretWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Types\AdminType.cs" />
     <Compile Include="Types\CustomerType.cs" />
@@ -101,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SecretPage.xaml">
+    <Page Include="SecretWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
