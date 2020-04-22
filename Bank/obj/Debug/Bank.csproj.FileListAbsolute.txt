@@ -69,3 +69,5 @@ C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\Bank.pdb
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\Bank.csproj.CoreCompileInputs.cache
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretWindow.g.cs
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretWindow.baml
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\ProductWindow.g.cs
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\ProductWindow.baml

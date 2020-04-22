@@ -859,7 +859,11 @@ namespace Bank
 
         private void ViewProductDetails_Click(object sender, RoutedEventArgs e)
         {
-            
+            Button b = sender as Button;
+            Bill bill = BillORM.GetBillbyBillNumber((int)b.CommandParameter);
+            ProductWindow productWindow = new ProductWindow(activeOfficial, bill);
+            productWindow.Show();
+            Close();
         }
 
 

@@ -81,3 +81,7 @@
 22-04-2020 23:27:57 [INFO]-Reservation system app started
 22-04-2020 23:28:00 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
 22-04-2020 23:30:35 [INFO]-Reservation system app started
+22-04-2020 23:41:33 [INFO]-Reservation system app started
+22-04-2020 23:41:37 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+22-04-2020 23:42:15 [INFO]-Reservation system app started
+22-04-2020 23:42:19 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32

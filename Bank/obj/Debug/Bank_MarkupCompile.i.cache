@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\App.xaml
-4-210350828
+51623339404
 
-291282650086
+30457145293
 13-1505183044
-AdminWindow.xaml;MainWindow.xaml;OfficialWindow.xaml;SecretWindow.xaml;
+AdminWindow.xaml;MainWindow.xaml;OfficialWindow.xaml;ProductWindow.xaml;SecretWindow.xaml;
 
-False
+True
 

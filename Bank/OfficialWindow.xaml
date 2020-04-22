@@ -217,7 +217,7 @@
                     <GridViewColumn Header="Details" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Click="ViewProductDetails_Click" 
+                                <Button x:Name="DetailsButton" Content="Details" Click="ViewProductDetails_Click" 
                                         CommandParameter="{Binding BillNumber}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

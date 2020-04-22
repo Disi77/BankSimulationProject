@@ -75,6 +75,9 @@
     <Compile Include="ORM\OfficialsORM.cs" />
     <Compile Include="ORM\AdminORM.cs" />
     <Compile Include="ORM\TransactionORM.cs" />
+    <Compile Include="ProductWindow.xaml.cs">
+      <DependentUpon>ProductWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SecretWindow.xaml.cs">
       <DependentUpon>SecretWindow.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OfficialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
