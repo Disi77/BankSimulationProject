@@ -1,6 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Bank",
+    "\\Bank\\Logger",
+    "\\Bank\\Objects",
+    "\\Bank\\ORM",
+    "\\Bank\\Properties",
+    "\\Bank\\Types",
+    "\\Bank\\Validator"
   ],
+  "SelectedNode": "\\Bank\\Properties\\AssemblyInfo.cs",
   "PreviewInSolutionExplorer": false
 }

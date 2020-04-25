@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="TransactionListTemplate">
-            <Border Name="border" BorderBrush="Blue" BorderThickness="1"
+            <Border Name="border" BorderBrush="Green" BorderThickness="1"
                     Padding="2" Margin="1">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -19,27 +19,42 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition MinWidth="60" />
-                        <ColumnDefinition MinWidth="100" />
+                        <ColumnDefinition MinWidth="60" />
+                        <ColumnDefinition MinWidth="60" />
                         <ColumnDefinition MinWidth="80" />
                         <ColumnDefinition MinWidth="80" />
                     </Grid.ColumnDefinitions>
                     <!--ROw 1-->
-                    <TextBlock Grid.Row="0" Grid.Column="0" 
-                               Text="Date:  " HorizontalAlignment="Right"/>
+                    <TextBlock x:Name="IncomingOutgoingTextBlock" Grid.Row="0" Grid.Column="0" 
+                               Text="Incoming " HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" 
+                               Text="Date:  " HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" 
                                Text="{Binding Path=DateTransaction, StringFormat=dd. MM. yyyy}"/>
-                    <TextBlock x:Name="BindingPayerBillNumTextBlock" Grid.Row="0" Grid.Column="2" 
+                    <TextBlock x:Name="FromOnTextBlock" Grid.Row="0" Grid.Column="3" 
+                               Text="From: " HorizontalAlignment="Right"/>
+                    <TextBlock x:Name="BindingPayerBillNumTextBlock" Grid.Row="0" Grid.Column="4" 
                                Text="{Binding Path=PayerBillNum}" Visibility="Visible" />
-                    <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Path=UserInfo1}" />
+                    <TextBlock x:Name="BindingRecipientBillNumTextBlock" Grid.Row="0" Grid.Column="4" 
+                               Text="{Binding Path=RecipientBillNum}" Visibility="Hidden"/>
                     <!--ROw 2-->
                     <TextBlock Grid.Row="1" Grid.Column="0" 
-                               Text="VS:  " HorizontalAlignment="Right"/>
+                               Text="payment" HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" 
+                               Text="VS:  " HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" 
                                Text="{Binding Path=VariableSymbol}"/>
-                    <TextBlock x:Name="BindingRecipientBillNumTextBlock" Grid.Row="1" Grid.Column="2" 
-                               Text="{Binding Path=RecipientBillNum}" Visibility="Hidden"/>
-                    <TextBlock x:Name="BindingAmountTextBlock" Grid.Row="1" Grid.Column="3" 
-                               Text="{Binding Path=Amount}"/>
+                    <TextBlock x:Name="BindingAmountTextBlockPlus" Grid.Row="1" Grid.Column="3" 
+                               Text="{Binding Path=Amount, StringFormat={}{0:+#,#.00 }}" 
+                               HorizontalAlignment="Right" Visibility="Visible"/>
+                    <TextBlock x:Name="BindingAmountTextBlockMinus" Grid.Row="1" Grid.Column="3" 
+                               Text="{Binding Path=Amount, StringFormat={}{0:-#,#.00 }}" 
+                               HorizontalAlignment="Right" Visibility="Hidden"
+                               Foreground="Red"/>
+                    <TextBlock Grid.Row="1" Grid.Column="4" 
+                               Text="CZK  " HorizontalAlignment="Left"/>
+
+
                 </Grid>
             </Border>
             <DataTemplate.Triggers>
@@ -53,43 +68,62 @@
                             <Binding ElementName="BillNumberLabel" Path="Content"/>
                         </MultiBinding>
                     </DataTrigger.Binding>
-                    <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                    <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
                     <Setter TargetName="BindingPayerBillNumTextBlock" Property="Visibility" Value="Hidden"/>
                     <Setter TargetName="BindingRecipientBillNumTextBlock" Property="Visibility" Value="Visible"/>
-                    
+                    <Setter TargetName="FromOnTextBlock" Property="Text" Value="On:"/>
+                    <Setter TargetName="IncomingOutgoingTextBlock" Property="Text" Value="Outgoing "/>
+                    <Setter TargetName="BindingAmountTextBlockPlus" Property="Visibility" Value="Hidden"/>
+                    <Setter TargetName="BindingAmountTextBlockMinus" Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
     </Window.Resources>
-    
+
     <Grid>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
+                Height="182" Margin="10,10,0,0" VerticalAlignment="Top" Width="348" 
+                Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
+            Height="400" Margin="371,10,0,0" VerticalAlignment="Top" Width="413" 
+                Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
         <Label x:Name="UserInfoLabel" Content="Customer:" HorizontalAlignment="Left" 
-               Margin="7,5,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
+               Margin="24,22,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
         <Label x:Name="UserInfo1" Content="-" HorizontalAlignment="Left" 
-               Margin="17,25,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="34,42,0,0" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="UserInfo2" Content="-" HorizontalAlignment="Left" 
-               Margin="17,45,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="34,62,0,0" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="UserInfo3" Content="-" HorizontalAlignment="Left" 
-               Margin="17,65,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="34,82,0,0" VerticalAlignment="Top" Width="300"/>
 
         <Label x:Name="BillInfoLabel" Content="Bill:" HorizontalAlignment="Left" 
-               Margin="307,5,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
+               Margin="25,107,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
         <Label x:Name="BillInfo1" Content="-" HorizontalAlignment="Left" 
-               Margin="317,25,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="35,127,0,0" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="BillInfo2" Content="-" HorizontalAlignment="Left" 
-               Margin="317,45,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="35,147,0,0" VerticalAlignment="Top" Width="300"/>
 
-        <ListBox x:Name="TransactionListBox" Width="758" Margin="17,161,0,0"
-                 Height="200" 
+        <ListBox x:Name="TransactionListBox" Width="385" Margin="384,22,0,0"
+                 Height="372" 
                  HorizontalAlignment="Left" VerticalAlignment="Top"
                  ItemTemplate="{StaticResource TransactionListTemplate}">
         </ListBox>
         <Label x:Name="BillNumberLabel" Content="test_bill_number" HorizontalAlignment="Left" 
                Margin="665,130,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" Visibility="Hidden"/>
 
-        <Button x:Name="BackToCustomerButton" Content="Customer" HorizontalAlignment="Left" 
-                Margin="18,375,0,0" VerticalAlignment="Top" Width="75"
-                Click="BackToCustomerButton_Click"/>
+        <Button x:Name="BackToCustomerButton" Content="Customer update" HorizontalAlignment="Left" 
+                Margin="10,375,0,0" VerticalAlignment="Top" Width="109"
+                Click="BackToCustomerButton_Click" Height="35"/>
+        <Label x:Name="SwitchOutputLabel" Content="SwitchOutputLabel" HorizontalAlignment="Left"
+               Margin="167,375,0,0" VerticalAlignment="Top" 
+               Height="35" Width="136"/>
+        <Label Content="Data filter: " HorizontalAlignment="Left" 
+               Margin="10,219,0,0" VerticalAlignment="Top"/>
+        <Button Content="All" HorizontalAlignment="Left" 
+                Margin="16,246,0,0" VerticalAlignment="Top" Width="34"
+                Click="FilterButton_All_Click" Height="26"/>
+
+
 
     </Grid>
 </Window>

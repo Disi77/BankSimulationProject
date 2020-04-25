@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using Bank.Objects;
 using Bank.ORM;
@@ -37,8 +39,30 @@ namespace Bank
             BillInfo1.Content = String.Format("Bill Number: {0}", activeBill.BillNumber);
             BillInfo2.Content = String.Format("Balance: {0}", activeBill.Balance);
 
-            TransactionListBox.ItemsSource = TransactionORM.GetTransactionByBillId(activeBill);
-            
+            GetAllTransactionByKey("default");
+
+
+        }
+
+        private void GetAllTransactionByKey(string key)
+        {
+            List<Transaction> all = TransactionORM.GetTransactionByBillId(activeBill);
+
+
+            switch (key)
+            {
+                case "all":
+                    TransactionListBox.ItemsSource = all;
+                    break;
+                case "default":
+                    DateTime before30days = DateTime.Today.AddDays(-30);
+                    var result = all.Where(X => X.DateTransaction > before30days);
+                    TransactionListBox.ItemsSource = result;
+                    break;
+
+            }
+            SwitchOutputLabel.Content = key;
+
         }
 
         private void BackToCustomerButton_Click(object sender, RoutedEventArgs e)
