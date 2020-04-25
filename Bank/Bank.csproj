@@ -84,6 +84,7 @@
     <Compile Include="Types\AdminType.cs" />
     <Compile Include="Types\CustomerType.cs" />
     <Compile Include="Types\OfficialType.cs" />
+    <Compile Include="Validator\EqualityConverter.cs" />
     <Compile Include="Validator\Validator.cs" />
     <Page Include="AdminWindow.xaml">
       <SubType>Designer</SubType>

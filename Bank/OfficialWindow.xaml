@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Bank System - Official version" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Bank System - Official version" Height="450" Width="800" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid x:Name="GridOfficialWindow">
         <!-- Main menu-->
         <Menu HorizontalAlignment="Left" Height="21" Margin="36,29,0,0" 
@@ -265,7 +266,7 @@
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding SurName}"/>
-                    <GridViewColumn Header="AdminType" DisplayMemberBinding="{Binding CustomerType}"/>
+                    <GridViewColumn Header="Customer Type" DisplayMemberBinding="{Binding CustomerType}"/>
                     <GridViewColumn Header="Valid" DisplayMemberBinding="{Binding Valid}"/>
                     <GridViewColumn Header="Mail" DisplayMemberBinding="{Binding Mail}"/>
                     <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}"/>

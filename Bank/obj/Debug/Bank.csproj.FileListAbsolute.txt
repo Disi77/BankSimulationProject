@@ -71,3 +71,4 @@ C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretWindow
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\SecretWindow.baml
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\ProductWindow.g.cs
 C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\ProductWindow.baml
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Debug\GeneratedInternalTypeHelper.g.cs

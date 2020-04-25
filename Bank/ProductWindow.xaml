@@ -3,11 +3,67 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bank"
+        xmlns:local="clr-namespace:Bank" 
+        xmlns:local1="clr-namespace:Bank.Validator"
         mc:Ignorable="d"
-        Title="Product Window" Height="450" Width="800">
+        Title="Product Window" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <DataTemplate x:Key="TransactionListTemplate">
+            <Border Name="border" BorderBrush="Blue" BorderThickness="1"
+                    Padding="2" Margin="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="60" />
+                        <ColumnDefinition MinWidth="100" />
+                        <ColumnDefinition MinWidth="80" />
+                        <ColumnDefinition MinWidth="80" />
+                    </Grid.ColumnDefinitions>
+                    <!--ROw 1-->
+                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                               Text="Date:  " HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                               Text="{Binding Path=DateTransaction, StringFormat=dd. MM. yyyy}"/>
+                    <TextBlock x:Name="BindingPayerBillNumTextBlock" Grid.Row="0" Grid.Column="2" 
+                               Text="{Binding Path=PayerBillNum}" Visibility="Visible" />
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Path=UserInfo1}" />
+                    <!--ROw 2-->
+                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                               Text="VS:  " HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                               Text="{Binding Path=VariableSymbol}"/>
+                    <TextBlock x:Name="BindingRecipientBillNumTextBlock" Grid.Row="1" Grid.Column="2" 
+                               Text="{Binding Path=RecipientBillNum}" Visibility="Hidden"/>
+                    <TextBlock x:Name="BindingAmountTextBlock" Grid.Row="1" Grid.Column="3" 
+                               Text="{Binding Path=Amount}"/>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding>
+                            <MultiBinding.Converter>
+                                <local1:EqualityConverter />
+                            </MultiBinding.Converter>
+                            <Binding Path="PayerBillNum"/>
+                            <Binding ElementName="BillNumberLabel" Path="Content"/>
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                    <Setter TargetName="BindingPayerBillNumTextBlock" Property="Visibility" Value="Hidden"/>
+                    <Setter TargetName="BindingRecipientBillNumTextBlock" Property="Visibility" Value="Visible"/>
+                    
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
-        <Label x:Name="UserInfoLabel" Content="User information:" HorizontalAlignment="Left" 
+        <Label x:Name="UserInfoLabel" Content="Customer:" HorizontalAlignment="Left" 
                Margin="7,5,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
         <Label x:Name="UserInfo1" Content="-" HorizontalAlignment="Left" 
                Margin="17,25,0,0" VerticalAlignment="Top" Width="300"/>
@@ -16,7 +72,24 @@
         <Label x:Name="UserInfo3" Content="-" HorizontalAlignment="Left" 
                Margin="17,65,0,0" VerticalAlignment="Top" Width="300"/>
 
+        <Label x:Name="BillInfoLabel" Content="Bill:" HorizontalAlignment="Left" 
+               Margin="307,5,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
+        <Label x:Name="BillInfo1" Content="-" HorizontalAlignment="Left" 
+               Margin="317,25,0,0" VerticalAlignment="Top" Width="300"/>
+        <Label x:Name="BillInfo2" Content="-" HorizontalAlignment="Left" 
+               Margin="317,45,0,0" VerticalAlignment="Top" Width="300"/>
 
+        <ListBox x:Name="TransactionListBox" Width="758" Margin="17,161,0,0"
+                 Height="200" 
+                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                 ItemTemplate="{StaticResource TransactionListTemplate}">
+        </ListBox>
+        <Label x:Name="BillNumberLabel" Content="test_bill_number" HorizontalAlignment="Left" 
+               Margin="665,130,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" Visibility="Hidden"/>
+
+        <Button x:Name="BackToCustomerButton" Content="Customer" HorizontalAlignment="Left" 
+                Margin="18,375,0,0" VerticalAlignment="Top" Width="75"
+                Click="BackToCustomerButton_Click"/>
 
     </Grid>
 </Window>

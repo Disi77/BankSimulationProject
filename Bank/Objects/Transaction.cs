@@ -22,5 +22,15 @@ namespace Bank.Objects
 
         public Boolean Valid { get; set; }
 
+        public override string ToString()
+        {
+            return String.Format("From Payer Bill: {0} to Recipient Bill: {1} VS: {2} Date: {3} Amount: {4}", 
+                PayerBillNum, 
+                RecipientBillNum,
+                VariableSymbol,
+                DateTransaction,
+                Amount);
+        }
+
     }
 }

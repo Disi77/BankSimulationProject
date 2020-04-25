@@ -1,0 +1,5 @@
+﻿Log was created 24-04-2020 21:33:27
+24-04-2020 21:33:27 [INFO]-Reservation system app started
+24-04-2020 21:33:31 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+24-04-2020 21:36:30 [INFO]-Reservation system app started
+24-04-2020 21:36:34 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32

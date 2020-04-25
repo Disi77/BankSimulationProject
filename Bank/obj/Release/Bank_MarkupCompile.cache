@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\cihalpet\source\repos\BankSimulation\Bank\Bank\obj\Release\
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\obj\Release\
 Bank
 none
 false
 TRACE
-C:\Users\cihalpet\source\repos\BankSimulation\Bank\Bank\App.xaml
-42120051305
+C:\Users\cihalpet\source\repos\BankSimulationProject\Bank\App.xaml
+51623339404
 
-21246223379
+30877667444
 13-1505183044
-AdminWindow.xaml;MainPage.xaml;MainWindow.xaml;OfficialWindow.xaml;
+AdminWindow.xaml;MainWindow.xaml;OfficialWindow.xaml;ProductWindow.xaml;SecretWindow.xaml;
 
 True
 

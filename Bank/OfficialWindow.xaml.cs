@@ -347,7 +347,7 @@ namespace Bank
             }
         }
 
-        private void OpenDetailViewOfUser(Customer customer)
+        public void OpenDetailViewOfUser(Customer customer)
         {
             SetDefaultSettings();
             foreach (Control c in userControlsList)

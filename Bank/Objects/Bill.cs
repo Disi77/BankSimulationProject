@@ -15,5 +15,10 @@ namespace Bank.Objects
         public int Balance { get; set; }
 
         public Boolean Valid { get; set; }
+
+        public override string ToString()
+        {
+            return BillNumber.ToString();
+        }
     }
 }

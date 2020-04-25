@@ -1,0 +1,27 @@
+﻿Log was created 25-04-2020 08:57:20
+25-04-2020 08:57:20 [INFO]-Reservation system app started
+25-04-2020 08:57:24 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 09:04:26 [INFO]-Reservation system app started
+25-04-2020 09:04:30 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 09:08:15 [INFO]-Reservation system app started
+25-04-2020 09:08:18 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 09:10:39 [INFO]-Reservation system app started
+25-04-2020 09:10:42 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 14:44:04 [INFO]-Reservation system app started
+25-04-2020 14:44:07 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 14:45:58 [INFO]-Reservation system app started
+25-04-2020 14:46:01 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 15:01:59 [INFO]-Reservation system app started
+25-04-2020 15:02:02 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 15:03:35 [INFO]-Reservation system app started
+25-04-2020 15:03:39 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 15:38:42 [INFO]-Reservation system app started
+25-04-2020 15:38:48 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 16:26:44 [INFO]-Reservation system app started
+25-04-2020 16:26:49 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 16:35:10 [INFO]-Reservation system app started
+25-04-2020 16:35:14 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 16:41:43 [INFO]-Reservation system app started
+25-04-2020 16:41:46 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 16:58:52 [INFO]-Reservation system app started
+25-04-2020 16:58:57 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32

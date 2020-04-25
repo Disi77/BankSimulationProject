@@ -13,5 +13,7 @@ namespace Bank.Objects
         public Boolean Valid { get; set; }
 
         public static int passwordMinLength = 4;
+
+
     }
 }
