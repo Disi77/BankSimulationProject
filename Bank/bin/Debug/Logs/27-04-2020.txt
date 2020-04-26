@@ -1,0 +1,9 @@
+﻿Log was created 27-04-2020 00:05:00
+27-04-2020 00:05:00 [INFO]-Reservation system app started
+27-04-2020 00:05:09 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 00:07:14 [INFO]-Reservation system app started
+27-04-2020 00:07:21 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 00:18:13 [INFO]-Reservation system app started
+27-04-2020 00:18:17 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 00:18:41 [INFO]-Reservation system app started
+27-04-2020 00:18:41 [INFO]-Admin logout: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043

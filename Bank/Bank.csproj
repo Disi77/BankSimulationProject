@@ -48,7 +48,7 @@
       <HintPath>..\packages\MahApps.Metro.IconPacks.4.0.0\lib\net47\MahApps.Metro.IconPacks.BoxIcons.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.IconPacks.4.0.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.IconPacks.Microns.4.0.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Entypo, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.4.0.0\lib\net47\MahApps.Metro.IconPacks.Entypo.dll</HintPath>
@@ -78,7 +78,7 @@
       <HintPath>..\packages\MahApps.Metro.IconPacks.4.0.0\lib\net47\MahApps.Metro.IconPacks.MaterialLight.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Microns, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.IconPacks.4.0.0\lib\net47\MahApps.Metro.IconPacks.Microns.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.IconPacks.Microns.4.0.0\lib\net47\MahApps.Metro.IconPacks.Microns.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Modern, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.4.0.0\lib\net47\MahApps.Metro.IconPacks.Modern.dll</HintPath>

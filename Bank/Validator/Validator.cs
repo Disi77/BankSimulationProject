@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bank.Objects;
 
 namespace Bank.Validator
@@ -102,6 +103,14 @@ namespace Bank.Validator
                 if (passWord.IndexOfAny(special) == -1) return false;
             }
             return true;
+        }
+
+        internal static bool isAlphaNumeric(string strToCheck)
+        {
+            Regex rg = new Regex("[^a-zA-Z0-9]");
+
+            //if has non AlpahNumeric char, return false, else return true.
+            return rg.IsMatch(strToCheck) == true ? false : true;
         }
     }
 

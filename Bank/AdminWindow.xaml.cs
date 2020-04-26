@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Bank.Logger;
 using Bank.Objects;
 using Bank.ORM;
@@ -55,7 +56,6 @@ namespace Bank
             changePasswordControlsList.Add(CurrentPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
-            changePasswordControlsList.Add(CurrentPasswordLabel);
             changePasswordControlsList.Add(NewPasswordLabel);
 
             userControlsList.Add(ChangeAdminLabel);
@@ -107,6 +107,12 @@ namespace Bank
             CurrentPassword.Text = "Enter current password";
             NewPassword1.Text = "Enter new password";
             NewPassword2.Text = "Enter new password";
+            NoIcon.Visibility = Visibility.Hidden;
+            YesIcon.Visibility = Visibility.Hidden;
+            NoIcon2.Visibility = Visibility.Hidden;
+            YesIcon2.Visibility = Visibility.Hidden;
+            NoIcon3.Visibility = Visibility.Hidden;
+            YesIcon3.Visibility = Visibility.Hidden;
 
             // Confirm and Storno Button
             ConfirmButton.Visibility = Visibility.Hidden;
@@ -168,56 +174,130 @@ namespace Bank
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             SetDefaultSettings();
+            
             process = "Password change";
 
             PasswordChangeLabel.Visibility = Visibility.Visible;
 
             CurrentPassword.Visibility = Visibility.Visible;
-            CurrentPassword.Text = "Enter current password";
+            CurrentPassword.Text = "Current password ...";
             CurrentPassword.IsEnabled = true;
 
             NewPassword1.Visibility = Visibility.Visible;
             NewPassword1.IsEnabled = false;
-            NewPassword1.Text = "Enter new password";
+            NewPassword1.Text = "New password ...";
 
             NewPassword2.Visibility = Visibility.Visible;
             NewPassword2.IsEnabled = false;
-            NewPassword2.Text = "Enter new password";
+            NewPassword2.Text = "New password ...";
 
             ConfirmButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
 
-            CurrentPasswordLabel.Content = "";
             NewPasswordLabel.Content = "";
+
+            CurrentPassword.Focus();
 
         }
 
-        private void CurrentPasswordOnKeyDownHandler(object sender, KeyEventArgs e)
+        private void CurrentPasswordOnKeyDown_Handler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                CurrentPassword.IsEnabled = false;
-                CurrentPasswordLabel.Visibility = Visibility.Visible;
                 if (CurrentPassword.Text == activeAdmin.Password)
                 {
-                    currentPasswordCheck = true;
-                    CurrentPasswordLabel.Content = "Password correct";
-                    NewPassword1.IsEnabled = true;
-                    NewPassword2.IsEnabled = true;
+                    CurrentPasswordCorrect();                    
                 }
                 else
                 {
-                    CurrentPassword.IsEnabled = true;
                     CurrentPassword.Text = "";
-                    CurrentPasswordLabel.Content = "Password INCORRECT";
+                    YesIcon.Visibility = Visibility.Hidden;
+                    NoIcon.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (CurrentPassword.Text == "Current password ...")
+                {
+                    CurrentPassword.Text = "";
+                    CurrentPassword.Foreground = Brushes.Black;
+                    CurrentPassword.FontStyle = FontStyles.Normal;
                 }
             }
         }
 
-        private void CurrentPasswordOnMouseClick(object sender, MouseButtonEventArgs e)
+        private void CurrentPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            if (CurrentPassword.Text == activeAdmin.Password)
+            {
+                CurrentPasswordCorrect();
+            }
+            else
+            {
+                NoIcon.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void NewPasswordOnKeyDown_Handler(object sender, KeyEventArgs e)
         {
             TextBox textbox = sender as TextBox;
-            if (textbox.Text is "Enter new password" || textbox.Text is "Enter current password")
+            if (textbox.Text is "New password ...")
+            {
+                textbox.Text = "";
+                textbox.Foreground = Brushes.Black;
+                textbox.FontStyle = FontStyles.Normal;
+            }
+
+        }
+
+        private void NewPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            switch (textbox.Name)
+            {
+                case "NewPassword1":
+                    if (textbox.Text.Length >= User.passwordMinLength &&
+                        Validator.Validator.isAlphaNumeric(textbox.Text))
+                    {
+                        YesIcon2.Visibility = Visibility.Visible;
+                        NoIcon2.Visibility = Visibility.Hidden;
+                    }
+                    else if (textbox.Text.Length >= 1 && textbox.Text != "New password ...")
+                    { 
+                        YesIcon2.Visibility = Visibility.Hidden;
+                        NoIcon2.Visibility = Visibility.Visible;
+                    }
+                    break;
+                case "NewPassword2":
+                    if (textbox.Text == NewPassword1.Text)
+                    {
+                        YesIcon3.Visibility = Visibility.Visible;
+                        NoIcon3.Visibility = Visibility.Hidden;
+                    }
+                    else if (textbox.Text.Length >= 1 && textbox.Text != "New password ...")
+                    {
+                        YesIcon3.Visibility = Visibility.Hidden;
+                        NoIcon3.Visibility = Visibility.Visible;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void CurrentPasswordCorrect()
+        {
+            currentPasswordCheck = true;
+            NewPassword1.IsEnabled = true;
+            NewPassword2.IsEnabled = true;
+            YesIcon.Visibility = Visibility.Visible;
+            NoIcon.Visibility = Visibility.Hidden;
+        }
+
+        private void PasswordOnMouseClick(object sender, MouseButtonEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            if (textbox.Text is "New password ..." || textbox.Text is "Current password ...")
             { 
                 textbox.Text = ""; 
             }
@@ -232,7 +312,10 @@ namespace Bank
                     //Validace hesla
                     if (User.passwordMinLength > NewPassword1.Text.Length)
                     {
-                        MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.passwordMinLength));
+                        MessageBox.Show(String.Format("Password too short. Minimal lenght is {0} characters", User.passwordMinLength),
+                                         "",
+                                         MessageBoxButton.OK,
+                                         MessageBoxImage.Warning);
                         return false;
                     }
 
@@ -244,12 +327,25 @@ namespace Bank
                         return true;
                     }
                 }
+                else if (String.IsNullOrEmpty(NewPassword1.Text) || String.IsNullOrEmpty(NewPassword2.Text))
+                {
+                    MessageBox.Show("You have to fill in new password.",
+                                    "",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                }
                 else
                 {
-                    MessageBox.Show("Enter twice same new password.");
+                    MessageBox.Show("Enter twice same new password.",
+                                    "",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
                 }
             }
-            process = "";
+            else
+            {
+                process = "";
+            }
             return false;
         }
 
@@ -460,7 +556,7 @@ namespace Bank
                 case "Password change":
                     if (PasswordChangingProcess())
                     {
-                        MessageBox.Show("Password was changed.");
+                        MessageBox.Show("Password was changed.", "", MessageBoxButton.OK, MessageBoxImage.Information);
                         process = "";
                     }  
                     break;
@@ -477,7 +573,6 @@ namespace Bank
                     }                        
                     break;
                 case "":
-                    MessageBox.Show("Sometring wrong. Error num: 45680");
                     break;
             }
         }
@@ -1064,5 +1159,7 @@ namespace Bank
             return true;
 
         }
+
+
     }
 }
