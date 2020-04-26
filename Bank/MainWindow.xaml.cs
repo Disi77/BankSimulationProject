@@ -1,16 +1,19 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Bank.Logger;
 using Bank.Objects;
 using Bank.ORM;
 using Bank.Validator;
+using MahApps.Metro.Controls;
 
 namespace Bank
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public static Admin admin;
         public Official Official { get; set; }
@@ -21,6 +24,7 @@ namespace Bank
             InitializeComponent();
             log = new Log();
             log.Info("Reservation system app started");
+            Login.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -95,7 +99,21 @@ namespace Bank
             {
                 Button_Click(sender, e);
             }
+            if (PasswordBox.Password == "Password ...")
+            {
+                PasswordBox.Password = "";
+                PasswordBox.Foreground = Brushes.Black;
+            }
         }
 
+        private void LoginKeyDown_Handler(object sender, KeyEventArgs e)
+        {
+            if (Login.Text == "User name ...")
+            {
+                Login.Text = "";
+                Login.Foreground = Brushes.Black;
+                Login.FontStyle = FontStyles.Normal;
+            }
+        }
     }
 }

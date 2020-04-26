@@ -3,13 +3,14 @@ using System.Windows;
 using System.Windows.Controls;
 using Bank.Objects;
 using Bank.ORM;
+using MahApps.Metro.Controls;
 
 namespace Bank
 {
     /// <summary>
     /// Interaction logic for SecretPage.xaml
     /// </summary>
-    public partial class SecretWindow : Window
+    public partial class SecretWindow : MetroWindow
     {
         public Random random;
 

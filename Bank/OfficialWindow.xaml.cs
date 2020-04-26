@@ -15,13 +15,14 @@ using Bank.Logger;
 using Bank.Objects;
 using Bank.ORM;
 using Bank.Types;
+using MahApps.Metro.Controls;
 
 namespace Bank
 {
     /// <summary>
     /// Interaction logic for OfficialWindow.xaml
     /// </summary>
-    public partial class OfficialWindow : Window
+    public partial class OfficialWindow : MetroWindow
     {
         private Official activeOfficial;
         private Official tempOfficial;

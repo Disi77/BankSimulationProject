@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Bank.Objects;
 using Bank.ORM;
+using MahApps.Metro.Controls;
 
 namespace Bank
 {
     /// <summary>
     /// Interaction logic for ProductWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Window
+    public partial class ProductWindow : MetroWindow
     {
         private Official activeOfficial;
         private Bill activeBill;
@@ -71,6 +73,26 @@ namespace Bank
             officialWindow.Show();
             officialWindow.OpenDetailViewOfUser(customer);                        
             Close();
+        }
+
+        private void FilterButton_All_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TypePaymentsSelection_Click(object sender, RoutedEventArgs e)
+        {
+            AllPaymentsRadioButton.IsChecked = false;
+            OnlyIncomingRadioButton.IsChecked = false;
+            OnlyOutgoingRadioButton.IsChecked = false;
+
+            RadioButton b = sender as RadioButton;
+            b.IsChecked = true;
+
+            if (AllPaymentsRadioButton.IsChecked == true)
+            {
+
+            }
         }
     }
 }

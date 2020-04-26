@@ -8,13 +8,14 @@ using Bank.Logger;
 using Bank.Objects;
 using Bank.ORM;
 using Bank.Types;
+using MahApps.Metro.Controls;
 
 namespace Bank
 {
     /// <summary>
     /// Interaction logic for AdminWindow.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class AdminWindow : MetroWindow
     {
         private Admin activeAdmin;
         private Admin tempAdmin;

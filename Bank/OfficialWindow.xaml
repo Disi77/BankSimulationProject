@@ -1,16 +1,20 @@
-﻿<Window x:Class="Bank.OfficialWindow"
+﻿<Controls:MetroWindow x:Class="Bank.OfficialWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
         Title="Bank System - Official version" Height="450" Width="800" 
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="2">
     <Grid x:Name="GridOfficialWindow">
         <!-- Main menu-->
-        <Menu HorizontalAlignment="Left" Height="21" Margin="36,29,0,0" 
-              VerticalAlignment="Top" Width="746" Visibility="Visible">
+        <Menu x:Name="MainMenu" Height="31" 
+              VerticalAlignment="Top" Visibility="Visible" 
+              Grid.Row="1" Style="{StaticResource MetroMenu}">
             <MenuItem Header="My Account" FontSize="14">
                 <MenuItem Header="Change password" Click="ChangePassword_Click"/>
                 <MenuItem Header="Update my account" Click="UpdateMyAccount_Click"/>
@@ -287,4 +291,4 @@
 
 
     </Grid>
-</Window>
+</Controls:MetroWindow>

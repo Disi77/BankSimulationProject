@@ -1,21 +1,28 @@
-﻿<Window x:Class="Bank.MainWindow"
+﻿<Controls:MetroWindow x:Class="Bank.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Bank system" Height="250" Width="250" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Bank system" Height="250" Width="250" ResizeMode="NoResize" 
+                      WindowStartupLocation="CenterScreen"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="2">
     <Grid x:Name="MainWindow1" Margin="0,0,2,-31">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Content="Log in" HorizontalAlignment="Left" Margin="50,134,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBox x:Name="Login" HorizontalAlignment="Left" Height="23" Margin="50,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="50,106,0,0" VerticalAlignment="Top" Width="120" 
-                     PasswordChar="•" KeyDown="PasswordBoxOnKeyDownHandler"/>
-        <TextBlock HorizontalAlignment="Left" Height="26" Margin="50,53,0,0" TextWrapping="Wrap" Text="Enter your credentials:" VerticalAlignment="Top" Width="151"/>
+        <Button Content="Log in" HorizontalAlignment="Left" Margin="62,134,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
+        <TextBox x:Name="Login" HorizontalAlignment="Left" Height="23" Text="User name ..."
+                 Margin="62,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 KeyDown="LoginKeyDown_Handler" FontStyle="Italic" Foreground="#CC119EDA"/>
+        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="62,106,0,0" VerticalAlignment="Top" Width="120" 
+                     PasswordChar="•" KeyDown="PasswordBoxOnKeyDownHandler"
+                     Password="Password ..." Foreground="#CC119EDA"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="62,53,0,0" TextWrapping="Wrap" Text="Enter your credentials:" VerticalAlignment="Top" Width="151"/>
         <Image Height="121" Margin="642,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121"/>
-        
+
     </Grid>
-</Window>
+</Controls:MetroWindow>

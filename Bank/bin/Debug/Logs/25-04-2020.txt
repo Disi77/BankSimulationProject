@@ -55,3 +55,81 @@
 25-04-2020 20:09:28 [INFO]-Reservation system app started
 25-04-2020 20:09:31 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
 25-04-2020 20:10:27 [INFO]-Reservation system app started
+25-04-2020 21:20:49 [INFO]-Reservation system app started
+25-04-2020 21:20:53 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:23:52 [INFO]-Reservation system app started
+25-04-2020 21:23:55 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:24:32 [INFO]-Reservation system app started
+25-04-2020 21:24:38 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:24:49 [INFO]-Reservation system app started
+25-04-2020 21:24:49 [INFO]-Official logout: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:24:54 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:25:14 [INFO]-Reservation system app started
+25-04-2020 21:25:14 [INFO]-Official logout: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:32:12 [INFO]-Reservation system app started
+25-04-2020 21:32:16 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:33:49 [INFO]-Reservation system app started
+25-04-2020 21:33:59 [INFO]-Admin with login name jana doesn't exist in DB
+25-04-2020 21:34:02 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 21:36:00 [INFO]-Reservation system app started
+25-04-2020 21:36:08 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:36:14 [INFO]-Reservation system app started
+25-04-2020 21:36:14 [INFO]-Official logout: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:36:22 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 21:43:57 [INFO]-Reservation system app started
+25-04-2020 21:44:05 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:44:09 [INFO]-Reservation system app started
+25-04-2020 21:44:09 [INFO]-Official logout: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:44:13 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 21:45:41 [INFO]-Reservation system app started
+25-04-2020 21:45:41 [INFO]-Admin logout: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 21:45:44 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 21:50:01 [INFO]-Reservation system app started
+25-04-2020 21:50:07 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:59:28 [INFO]-Reservation system app started
+25-04-2020 21:59:32 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:59:36 [INFO]-Reservation system app started
+25-04-2020 21:59:36 [INFO]-Official logout: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 21:59:40 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 22:04:38 [INFO]-Reservation system app started
+25-04-2020 22:05:14 [INFO]-Reservation system app started
+25-04-2020 22:05:18 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:09:53 [INFO]-Reservation system app started
+25-04-2020 23:09:57 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 23:10:17 [INFO]-Reservation system app started
+25-04-2020 23:10:20 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:18:35 [INFO]-Reservation system app started
+25-04-2020 23:18:39 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:19:21 [INFO]-Reservation system app started
+25-04-2020 23:19:26 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:20:37 [INFO]-Reservation system app started
+25-04-2020 23:20:41 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:28:14 [INFO]-Reservation system app started
+25-04-2020 23:28:21 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:28:53 [INFO]-Reservation system app started
+25-04-2020 23:28:58 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:39:45 [INFO]-Reservation system app started
+25-04-2020 23:39:49 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:40:48 [INFO]-Reservation system app started
+25-04-2020 23:40:55 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:48:36 [INFO]-Reservation system app started
+25-04-2020 23:48:41 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:50:17 [INFO]-Reservation system app started
+25-04-2020 23:50:23 [INFO]-Admin with login name jana doesn't exist in DB
+25-04-2020 23:50:25 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:51:48 [INFO]-Reservation system app started
+25-04-2020 23:51:48 [INFO]-Admin logout: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:51:51 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:54:03 [INFO]-Reservation system app started
+25-04-2020 23:54:03 [INFO]-Admin logout: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:54:07 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 23:55:33 [INFO]-Reservation system app started
+25-04-2020 23:55:39 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:55:45 [INFO]-Reservation system app started
+25-04-2020 23:55:45 [INFO]-Admin logout: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:55:49 [INFO]-Admin login: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:56:17 [INFO]-Reservation system app started
+25-04-2020 23:56:17 [INFO]-Admin logout: Jana Zmijková 078202f9-5f91-4e83-8784-07845a540043
+25-04-2020 23:56:20 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+25-04-2020 23:58:34 [INFO]-Reservation system app started
+25-04-2020 23:58:37 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
