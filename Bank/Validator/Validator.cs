@@ -28,21 +28,6 @@ namespace Bank.Validator
             return text.Length == 10;
         }
 
-        public static bool ValidateStreet(String street)
-        {
-            try
-            {
-                return street.All(Char.IsLetter);// ověření, že ulice obsahuje pouze písmena. vratí true nebo false
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw;
-
-            }
-
-        }
-
         internal static bool CredentialsEmpty(string login, string password)
         {
             return string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password);
@@ -105,35 +90,50 @@ namespace Bank.Validator
             return true;
         }
 
-        internal static bool isAlphaNumeric(string strToCheck)
+        internal static bool IsAlphaNumeric(string strToCheck)
         {
             Regex rg = new Regex("[^a-zA-Z0-9]");
 
             //if has non AlpahNumeric char, return false, else return true.
             return rg.IsMatch(strToCheck) == true ? false : true;
         }
+
+        internal static bool NameValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^[a-zA-ZáčďéíňóřšťúýžÁČĎÉÍŇÓŘŠŤÚÝŽ]+((\s|\-)[a-zA-ZáčďéíňóřšťúýžÁČĎÉÍŇÓŘŠŤÚÝŽ]+)?$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+        }
+
+        internal static bool EmailValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+        }
+
+        internal static bool PhoneValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^(\+420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+        }
+
+        internal static bool StreetValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^(.*[^0-9]+)$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+
+        }
+
+        internal static bool StreetNumberValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^(([1-9][0-9]*)/)?([1-9][0-9]*[a-cA-C]?)$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+
+        }
     }
-
-
-
-    // vyjímka se má zachytit do souboru s časem a kde s
-
-
-
-    /*
-    Pro ty kteří by chtěli použít hotové validace existuje knihovna
-    using System.ComponentModel.DataAnnotations;
-
-    Ale pozor přidání této knihovny je třeba udělat přes NuGet Manager….
-    Na netu je toho k Nuget manageru hafo
-
-    Např toto:
-
-    public bool IsValidEmail(string mail)
-    {
-        return new EmailAddressAttribute().IsValid(mail);
-    }
-
-    */
 }
 

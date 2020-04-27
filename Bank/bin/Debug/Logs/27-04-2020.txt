@@ -7,3 +7,84 @@
 27-04-2020 00:18:17 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
 27-04-2020 00:18:41 [INFO]-Reservation system app started
 27-04-2020 00:18:41 [INFO]-Admin logout: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 08:18:23 [INFO]-Reservation system app started
+27-04-2020 08:18:31 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 08:26:54 [INFO]-Reservation system app started
+27-04-2020 08:26:54 [INFO]-Admin logout: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 08:26:58 [INFO]-Admin login: Marie Jánská 523f958b-cdc3-4c2a-bd1f-1f2e0c11215b
+27-04-2020 17:22:37 [INFO]-Reservation system app started
+27-04-2020 17:22:41 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 17:27:52 [INFO]-Reservation system app started
+27-04-2020 17:27:56 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 17:29:08 [INFO]-Reservation system app started
+27-04-2020 17:29:12 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 17:32:03 [INFO]-Reservation system app started
+27-04-2020 17:32:07 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 17:57:45 [INFO]-Reservation system app started
+27-04-2020 17:57:48 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 17:58:14 [INFO]-Reservation system app started
+27-04-2020 17:58:14 [INFO]-Admin logout: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:09:09 [INFO]-Reservation system app started
+27-04-2020 18:09:20 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:10:26 [INFO]-Reservation system app started
+27-04-2020 18:10:29 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:12:15 [INFO]-Reservation system app started
+27-04-2020 18:12:15 [INFO]-Admin logout: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:16:41 [INFO]-Reservation system app started
+27-04-2020 18:16:46 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:26:28 [INFO]-Reservation system app started
+27-04-2020 18:26:32 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:30:49 [INFO]-Reservation system app started
+27-04-2020 18:30:57 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:33:22 [INFO]-Reservation system app started
+27-04-2020 18:33:26 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:36:21 [INFO]-Reservation system app started
+27-04-2020 18:36:25 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:38:23 [INFO]-Reservation system app started
+27-04-2020 18:38:27 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:39:27 [INFO]-Reservation system app started
+27-04-2020 18:39:34 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:43:42 [INFO]-Reservation system app started
+27-04-2020 18:43:56 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:44:50 [INFO]-Reservation system app started
+27-04-2020 18:44:55 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:45:44 [INFO]-Reservation system app started
+27-04-2020 18:46:02 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:52:08 [INFO]-Reservation system app started
+27-04-2020 18:52:11 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:54:47 [INFO]-Reservation system app started
+27-04-2020 18:54:50 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:57:03 [INFO]-Reservation system app started
+27-04-2020 18:57:07 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 18:59:04 [INFO]-Reservation system app started
+27-04-2020 18:59:09 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 19:01:40 [INFO]-Reservation system app started
+27-04-2020 19:01:44 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 19:02:42 [INFO]-Reservation system app started
+27-04-2020 19:02:46 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 19:28:39 [INFO]-Reservation system app started
+27-04-2020 19:28:43 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 19:29:55 [INFO]-Reservation system app started
+27-04-2020 19:29:58 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 20:13:26 [INFO]-Reservation system app started
+27-04-2020 20:13:37 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 21:13:17 [INFO]-Reservation system app started
+27-04-2020 21:13:23 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 21:23:06 [INFO]-Reservation system app started
+27-04-2020 21:23:10 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 21:25:44 [INFO]-Reservation system app started
+27-04-2020 21:25:51 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:24:31 [INFO]-Reservation system app started
+27-04-2020 23:24:35 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:25:08 [INFO]-Reservation system app started
+27-04-2020 23:25:13 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:26:58 [INFO]-Reservation system app started
+27-04-2020 23:27:04 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:37:26 [INFO]-Reservation system app started
+27-04-2020 23:37:29 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:40:32 [INFO]-Reservation system app started
+27-04-2020 23:40:35 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:41:20 [INFO]-Reservation system app started
+27-04-2020 23:41:23 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+27-04-2020 23:44:35 [INFO]-Reservation system app started
+27-04-2020 23:44:42 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043

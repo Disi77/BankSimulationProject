@@ -108,21 +108,21 @@
         </Menu>
         <!-- User Password Change -->
         <Label x:Name="PasswordChangeLabel" Content="PASSWORD CHANGE:" 
-               HorizontalAlignment="Left" Margin="13,49.2,0,0" VerticalAlignment="Top" 
-               FontSize="14" FontWeight="Bold" Visibility="Visible" Grid.Row="1"/>
+               HorizontalAlignment="Left" Margin="13,50,0,0" VerticalAlignment="Top" 
+               FontSize="14" FontWeight="Bold" Visibility="Hidden" Grid.Row="1"/>
         <TextBox x:Name="CurrentPassword" HorizontalAlignment="Left" 
                  Height="24" Margin="14,80,0,0" TextWrapping="Wrap" 
                  Text="Current password ..." VerticalAlignment="Top" 
                  Width="195" Foreground="#CC119EDA" FontStyle="Italic"
                  KeyDown="CurrentPasswordOnKeyDown_Handler" IsEnabled="True" 
                  KeyUp="CurrentPasswordOnKeyUp_Handler"
-                 PreviewMouseDown="PasswordOnMouseClick" Visibility="Visible" Grid.Row="1"/>
-        <Image x:Name="NoIcon" HorizontalAlignment="Left" 
+                 PreviewMouseDown="PasswordOnMouseClick" Visibility="Hidden" Grid.Row="1"/>
+        <Image x:Name="CurrentPassword_NoIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,85,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
-               Visibility="Visible"/>
-        <Image x:Name="YesIcon" HorizontalAlignment="Left" 
+               Visibility="Hidden"/>
+        <Image x:Name="CurrentPassword_YesIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,85,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=TickInline, Brush=Green}"
@@ -133,13 +133,13 @@
             Width="195" Foreground="#CC119EDA" FontStyle="Italic"
             IsEnabled="True" KeyDown="NewPasswordOnKeyDown_Handler"
             KeyUp="NewPasswordOnKeyUp_Handler"
-            PreviewMouseDown="PasswordOnMouseClick" Visibility="Visible" Grid.Row="1"/>
-        <Image x:Name="NoIcon2" HorizontalAlignment="Left" 
+            PreviewMouseDown="PasswordOnMouseClick" Visibility="Hidden" Grid.Row="1"/>
+        <Image x:Name="NewPassword1_NoIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,127,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
-               Visibility="Visible"/>
-        <Image x:Name="YesIcon2" HorizontalAlignment="Left" 
+               Visibility="Hidden"/>
+        <Image x:Name="NewPassword1_YesIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,127,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=TickInline, Brush=Green}"
@@ -150,26 +150,22 @@
             Width="195" Foreground="#CC119EDA" FontStyle="Italic"
             IsEnabled="True" KeyDown="NewPasswordOnKeyDown_Handler"
             KeyUp="NewPasswordOnKeyUp_Handler"
-            PreviewMouseDown="PasswordOnMouseClick" Visibility="Visible" Grid.Row="1"/>
-        <Image x:Name="NoIcon3" HorizontalAlignment="Left" 
+            PreviewMouseDown="PasswordOnMouseClick" Visibility="Hidden" Grid.Row="1"/>
+        <Image x:Name="NewPassword2_NoIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,157,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
-               Visibility="Visible"/>
-        <Image x:Name="YesIcon3" HorizontalAlignment="Left" 
+               Visibility="Hidden"/>
+        <Image x:Name="NewPassword2_YesIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,157,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=TickInline, Brush=Green}"
                Visibility="Hidden"/>
-        <Label x:Name="NewPasswordLabel" 
-            Content="" HorizontalAlignment="Left" 
-            Margin="225,152.2,0,0" VerticalAlignment="Top" 
-            Height="24" Width="546" Visibility="Visible" Grid.Row="1"/>
         <Button x:Name="ConfirmButton" Content="Confirm" 
                 HorizontalAlignment="Left" 
                 Margin="25,370,0,0" VerticalAlignment="Top" 
                 Width="75"
-                Click="ConfirmButton_Click" Visibility="Visible" Grid.Row="1"/>
+                Click="ConfirmButton_Click" Visibility="Hidden" Grid.Row="1"/>
         <Button x:Name="StornoButton" Content="Storno" 
             HorizontalAlignment="Left" 
             Margin="115,370,0,0" VerticalAlignment="Top" 
@@ -177,145 +173,180 @@
             Click="StornoButton_Click" Visibility="Visible" Grid.Row="1"/>
 
         <!-- Add, Update, Read Admin -->
-        <Label x:Name="ChangeAdminLabel" Content="CREATE NEW ADMIN" 
-               HorizontalAlignment="Left" Margin="36,59.1,0,0" VerticalAlignment="Top" 
-               FontSize="14" FontWeight="Bold" Visibility="Hidden" Grid.Row="1"/>
+        <Label x:Name="ChangeAdminLabel" Content="CREATE NEW ADMIN:" 
+               HorizontalAlignment="Left" Margin="13,50,0,0" VerticalAlignment="Top" 
+               FontSize="14" FontWeight="Bold" Visibility="Visible" Grid.Row="1"/>
         <Label x:Name="NameLabel" Content="Name:" HorizontalAlignment="Left" 
-               Margin="20,101.1,0,0" VerticalAlignment="Top" 
+               Margin="4,91.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,101.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,91.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"
+                 KeyUp="NameTextBoxKeyUp_Handler"/>
+        <Image x:Name="NameTextBox_NoIcon" HorizontalAlignment="Left" 
+               Height="10" Margin="235,100,0,0" Grid.Row="1" 
+               VerticalAlignment="Top" Width="10" 
+               Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
+               Visibility="Visible"/>
         <Label x:Name="SurnameLabel" Content="Surname:" HorizontalAlignment="Left" 
-               Margin="20,126.1,0,0" VerticalAlignment="Top" 
+               Margin="4,116.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,126.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,116.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"
+                 KeyUp="SurnameTextBoxKeyUp_Handler"/>
+        <Image x:Name="SurnameTextBox_NoIcon" HorizontalAlignment="Left" 
+               Height="10" Margin="235,125,0,0" Grid.Row="1" 
+               VerticalAlignment="Top" Width="10" 
+               Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
+               Visibility="Visible"/>
         <Label x:Name="EmailLabel" Content="Email:" HorizontalAlignment="Left" 
-               Margin="20,151.1,0,0" VerticalAlignment="Top" 
+               Margin="4,141.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,151.1,0,0" TextWrapping="Wrap" 
-                 Text="" VerticalAlignment="Top" 
+                 Margin="104,141.2,0,0" TextWrapping="Wrap" 
+                 Text="@" VerticalAlignment="Top" KeyDown="EmailTextBoxKeyDown_Handler"
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"
+                 KeyUp="EmailTextBoxKeyUp_Handler"/>
+        <Image x:Name="EmailTextBox_NoIcon" HorizontalAlignment="Left" 
+               Height="10" Margin="235,150,0,0" Grid.Row="1" 
+               VerticalAlignment="Top" Width="10" 
+               Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
+               Visibility="Visible"/>
         <Label x:Name="PhoneLabel" Content="Phone:" HorizontalAlignment="Left" 
-               Margin="20,176.1,0,0" VerticalAlignment="Top" 
+               Margin="4,166.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="PhoneTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,176.1,0,0" TextWrapping="Wrap" 
-                 Text="" VerticalAlignment="Top" 
+                 Margin="104,166.2,0,0" TextWrapping="Wrap" 
+                 Text="+420" MouseLeftButtonDown="PhoneTextBox_MouseLeftButtonDown"
+                 VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
-        <Label x:Name="AddressLabel" Content="Address" HorizontalAlignment="Left" 
-               Margin="20,201.1,0,0" VerticalAlignment="Top" 
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"
+                 KeyUp="PhoneTextBoxKeyUp_Handler"/>
+        <Image x:Name="PhoneTextBox_NoIcon" HorizontalAlignment="Left" 
+               Height="10" Margin="235,175,0,0" Grid.Row="1" 
+               VerticalAlignment="Top" Width="10" 
+               Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
+               Visibility="Visible"/>
+        <Label x:Name="AddressLabel" Content="Address:" HorizontalAlignment="Left" 
+               Margin="4,191.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <Label x:Name="StreetLabel" Content="Street:" HorizontalAlignment="Left" 
-               Margin="20,226.1,0,0" VerticalAlignment="Top" 
+               Margin="4,216.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="StreetTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,226.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,216.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
-                 VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 VerticalContentAlignment="Bottom" KeyUp="StreetTextBoxKeyUp_Handler"
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
+        <Image x:Name="StreetTextBox_NoIcon" HorizontalAlignment="Left" 
+               Height="10" Margin="235,224,0,0" Grid.Row="1" 
+               VerticalAlignment="Top" Width="10" 
+               Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
+               Visibility="Visible"/>
         <Label x:Name="StreetNumberLabel" Content="Street Number:" HorizontalAlignment="Left" 
-               Margin="20,251.1,0,0" VerticalAlignment="Top" 
+               Margin="4,241.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="StreetNumberTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,251.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,241.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
-                 VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 VerticalContentAlignment="Bottom" KeyUp="StreetNumberTextBoxKeyUp_Handler"
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
+        <Image x:Name="StreetNumberTextBox_NoIcon" HorizontalAlignment="Left" 
+               Height="10" Margin="235,250,0,0" Grid.Row="1" 
+               VerticalAlignment="Top" Width="10" 
+               Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
+               Visibility="Visible"/>
         <Label x:Name="CityLabel" Content="City:" HorizontalAlignment="Left" 
-               Margin="20,276.1,0,0" VerticalAlignment="Top" 
+               Margin="4,266.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="CityTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,276.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,266.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
         <Label x:Name="PostalCodeLabel" Content="Postal Code:" HorizontalAlignment="Left" 
-               Margin="20,301.1,0,0" VerticalAlignment="Top" 
+               Margin="4,291.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="PostalCodeTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,301.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,291.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top"
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
         <Label x:Name="CountryLabel" Content="Country:" HorizontalAlignment="Left" 
-               Margin="20,326.1,0,0" VerticalAlignment="Top" 
+               Margin="4,316.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="CountryTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="120,326.1,0,0" TextWrapping="Wrap" 
+                 Margin="104,316.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
         <Label x:Name="ValidLabel" Content="Valid:" HorizontalAlignment="Left" 
-               Margin="250,101.1,0,0" VerticalAlignment="Top" 
+               Margin="234,91.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="ValidTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="350,101.1,0,0" TextWrapping="Wrap" 
+                 Margin="334,91.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1"/>
         <Label x:Name="UserTypeLabel" Content="User Type:" HorizontalAlignment="Left" 
-               Margin="250,126.1,0,0" VerticalAlignment="Top" 
+               Margin="234,116.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <ComboBox x:Name="UserTypeComboBox" Height="23"
                   HorizontalAlignment="Left" 
                   VerticalContentAlignment="Bottom"
-                  Margin="350,126.1,0,0" VerticalAlignment="Top" 
-                  Width="150" Visibility="Hidden" Grid.Row="1">
+                  Margin="334,116.2,0,0" VerticalAlignment="Top" 
+                  Width="150" Visibility="Visible" Grid.Row="1">
             <ComboBoxItem x:Name="UserTypeComboBox_Admin" Content="Admin" IsSelected="True"/>
             <ComboBoxItem x:Name="UserTypeComboBox_Official" Content="Official" IsSelected="True"/>
         </ComboBox>
         <Label x:Name="UserSubTypeLabel" Content="User Subype:" HorizontalAlignment="Left" 
-               Margin="250,151.1,0,0" VerticalAlignment="Top" 
+               Margin="234,141.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <ComboBox x:Name="AdminSubTypeComboBox" Height="23"
                   HorizontalAlignment="Left" 
                   VerticalContentAlignment="Bottom"
-                  Margin="350,151.1,0,0" VerticalAlignment="Top" 
-                  Width="150" Visibility="Hidden" Grid.Row="1">
+                  Margin="334,141.2,0,0" VerticalAlignment="Top" 
+                  Width="150" Visibility="Visible" Grid.Row="1">
             <ComboBoxItem x:Name="AdminSubTypeComboBox_Admin" Content="Admin" IsSelected="True"/>
             <ComboBoxItem x:Name="AdminSubTypeComboBox_Superadmin" Content="SuperAdmin"/>
         </ComboBox>
         <ComboBox x:Name="OfficialSubTypeComboBox" Height="23"
                   HorizontalAlignment="Left" 
                   VerticalContentAlignment="Bottom"
-                  Margin="350,151.1,0,0" VerticalAlignment="Top" 
+                  Margin="334,141.2,0,0" VerticalAlignment="Top" 
                   Width="150" Visibility="Hidden" Grid.Row="1">
             <ComboBoxItem x:Name="OfficialSubTypeComboBox_Junior" Content="Junior"/>
             <ComboBoxItem x:Name="OfficialSubTypeComboBox_Normal" Content="Normal"/>
             <ComboBoxItem x:Name="OfficialSubTypeComboBox_Senior" Content="Senior"/>
         </ComboBox>
         <Label x:Name="LoginLabel" Content="Login:" HorizontalAlignment="Left" 
-               Margin="250,176.1,0,0" VerticalAlignment="Top" 
+               Margin="234,166.2,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Right"
-               Width="100" Visibility="Hidden" Grid.Row="1"/>
+               Width="100" Visibility="Visible" Grid.Row="1"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="23" 
-                 Margin="350,176.1,0,0" TextWrapping="Wrap" 
+                 Margin="334,166.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom"
-                 Width="150" Visibility="Hidden" Grid.Row="1"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
 
         <!-- Search box -->
         <Label x:Name="SearchLabel" Content="ADMIN SEARCH:" 
@@ -370,9 +401,9 @@
         <!-- View user details -->
         <Button x:Name="EditModeButton" Content="Edit mode" 
                 HorizontalAlignment="Left" 
-                Margin="36,384.1,0,0" VerticalAlignment="Top" 
+                Margin="25,370,0,0" VerticalAlignment="Top" 
                 Width="75"
-                Click="UserEditModeButton" Visibility="Hidden" Grid.Row="1"/>
+                Click="UserEditModeButton" Visibility="Visible" Grid.Row="1"/>
 
         <!-- Update user -->
         <Button x:Name="UpdateUserButton" Content="Update" 

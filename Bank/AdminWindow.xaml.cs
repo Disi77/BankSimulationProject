@@ -56,7 +56,6 @@ namespace Bank
             changePasswordControlsList.Add(CurrentPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
-            changePasswordControlsList.Add(NewPasswordLabel);
 
             userControlsList.Add(ChangeAdminLabel);
             userControlsList.Add(NameLabel);
@@ -104,15 +103,25 @@ namespace Bank
                 c.Visibility = Visibility.Hidden;
                 c.IsEnabled = true;
             }
-            CurrentPassword.Text = "Enter current password";
-            NewPassword1.Text = "Enter new password";
-            NewPassword2.Text = "Enter new password";
-            NoIcon.Visibility = Visibility.Hidden;
-            YesIcon.Visibility = Visibility.Hidden;
-            NoIcon2.Visibility = Visibility.Hidden;
-            YesIcon2.Visibility = Visibility.Hidden;
-            NoIcon3.Visibility = Visibility.Hidden;
-            YesIcon3.Visibility = Visibility.Hidden;
+            CurrentPassword.Text = "Current password ...";
+            var bc = new BrushConverter();
+            CurrentPassword.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            CurrentPassword.FontStyle = FontStyles.Italic;
+
+            NewPassword1.Text = "New password ...";            
+            NewPassword1.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            NewPassword1.FontStyle = FontStyles.Italic;
+
+            NewPassword2.Text = "New password ...";
+            NewPassword2.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            NewPassword2.FontStyle = FontStyles.Italic;
+
+            CurrentPassword_NoIcon.Visibility = Visibility.Hidden;
+            CurrentPassword_YesIcon.Visibility = Visibility.Hidden;
+            NewPassword1_NoIcon.Visibility = Visibility.Hidden;
+            NewPassword1_YesIcon.Visibility = Visibility.Hidden;
+            NewPassword2_NoIcon.Visibility = Visibility.Hidden;
+            NewPassword2_YesIcon.Visibility = Visibility.Hidden;
 
             // Confirm and Storno Button
             ConfirmButton.Visibility = Visibility.Hidden;
@@ -128,13 +137,19 @@ namespace Bank
             }
             NameTextBox.Text = "";
             SurnameTextBox.Text = "";
-            EmailTextBox.Text = "";
-            PhoneTextBox.Text = "";
+            EmailTextBox.Text = "@";
+            PhoneTextBox.Text = "+420";
             ValidTextBox.Text = "Yes";
             LoginTextBox.Text = "";
             AdminSubTypeComboBox.SelectedItem = AdminSubTypeComboBox_Admin;
             UserTypeComboBox.SelectedItem = UserTypeComboBox_Admin;
             OfficialSubTypeComboBox.SelectedItem = OfficialSubTypeComboBox_Junior;
+            NameTextBox_NoIcon.Visibility = Visibility.Hidden;
+            SurnameTextBox_NoIcon.Visibility = Visibility.Hidden;
+            EmailTextBox_NoIcon.Visibility = Visibility.Hidden;
+            PhoneTextBox_NoIcon.Visibility = Visibility.Hidden;
+            StreetTextBox_NoIcon.Visibility = Visibility.Hidden;
+            StreetNumberTextBox_NoIcon.Visibility = Visibility.Hidden;
 
             foreach (Control c in addressControlsList)
             {
@@ -194,8 +209,6 @@ namespace Bank
             ConfirmButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
 
-            NewPasswordLabel.Content = "";
-
             CurrentPassword.Focus();
 
         }
@@ -211,8 +224,8 @@ namespace Bank
                 else
                 {
                     CurrentPassword.Text = "";
-                    YesIcon.Visibility = Visibility.Hidden;
-                    NoIcon.Visibility = Visibility.Visible;
+                    CurrentPassword_YesIcon.Visibility = Visibility.Hidden;
+                    CurrentPassword_NoIcon.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -234,7 +247,7 @@ namespace Bank
             }
             else
             {
-                NoIcon.Visibility = Visibility.Visible;
+                CurrentPassword_NoIcon.Visibility = Visibility.Visible;
             }
         }
 
@@ -257,27 +270,27 @@ namespace Bank
             {
                 case "NewPassword1":
                     if (textbox.Text.Length >= User.passwordMinLength &&
-                        Validator.Validator.isAlphaNumeric(textbox.Text))
+                        Validator.Validator.IsAlphaNumeric(textbox.Text))
                     {
-                        YesIcon2.Visibility = Visibility.Visible;
-                        NoIcon2.Visibility = Visibility.Hidden;
+                        NewPassword1_YesIcon.Visibility = Visibility.Visible;
+                        NewPassword1_NoIcon.Visibility = Visibility.Hidden;
                     }
                     else if (textbox.Text.Length >= 1 && textbox.Text != "New password ...")
-                    { 
-                        YesIcon2.Visibility = Visibility.Hidden;
-                        NoIcon2.Visibility = Visibility.Visible;
+                    {
+                        NewPassword1_YesIcon.Visibility = Visibility.Hidden;
+                        NewPassword1_NoIcon.Visibility = Visibility.Visible;
                     }
                     break;
                 case "NewPassword2":
                     if (textbox.Text == NewPassword1.Text)
                     {
-                        YesIcon3.Visibility = Visibility.Visible;
-                        NoIcon3.Visibility = Visibility.Hidden;
+                        NewPassword2_YesIcon.Visibility = Visibility.Visible;
+                        NewPassword2_NoIcon.Visibility = Visibility.Hidden;
                     }
                     else if (textbox.Text.Length >= 1 && textbox.Text != "New password ...")
                     {
-                        YesIcon3.Visibility = Visibility.Hidden;
-                        NoIcon3.Visibility = Visibility.Visible;
+                        NewPassword2_YesIcon.Visibility = Visibility.Hidden;
+                        NewPassword2_NoIcon.Visibility = Visibility.Visible;
                     }
                     break;
                 default:
@@ -290,8 +303,8 @@ namespace Bank
             currentPasswordCheck = true;
             NewPassword1.IsEnabled = true;
             NewPassword2.IsEnabled = true;
-            YesIcon.Visibility = Visibility.Visible;
-            NoIcon.Visibility = Visibility.Hidden;
+            CurrentPassword_YesIcon.Visibility = Visibility.Visible;
+            CurrentPassword_NoIcon.Visibility = Visibility.Hidden;
         }
 
         private void PasswordOnMouseClick(object sender, MouseButtonEventArgs e)
@@ -515,6 +528,7 @@ namespace Bank
                 case AdminType.SuperAdmin:
                     break;
             }
+            NameTextBox.Focus();
 
         }
 
@@ -1127,7 +1141,7 @@ namespace Bank
         }
 
 
-        // Other
+        // Validation
         private bool allAddressFieldsAreNotEmpty()
         {
             if (String.IsNullOrEmpty(StreetTextBox.Text))
@@ -1160,6 +1174,95 @@ namespace Bank
 
         }
 
+        private void NameTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.NameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                NameTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }    
+            else
+            {
+                NameTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void SurnameTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.NameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                SurnameTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                SurnameTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void EmailTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.EmailValidator(t.Text) || t.Text == "@" || t.Text == "")
+            {
+                EmailTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                EmailTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void PhoneTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.PhoneValidator(t.Text) || t.Text == "" || t.Text == "+420")
+            {
+                PhoneTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                PhoneTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void PhoneTextBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PhoneTextBox.Select(PhoneTextBox.Text.Length, 0);
+        }
+
+        private void EmailTextBoxKeyDown_Handler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                PhoneTextBox.Select(PhoneTextBox.Text.Length, 0);
+            }
+        }
+
+        private void StreetTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.StreetValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                StreetTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                StreetTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void StreetNumberTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.StreetNumberValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                StreetNumberTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                StreetNumberTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
