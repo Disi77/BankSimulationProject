@@ -19,7 +19,7 @@ namespace Bank.ORM
             "SELECT * FROM users WHERE CompanyNumber=@CompanyNumber";
 
         private static String createOfficial =
-            "insert into Users values (@Guid, @Name, @Surname, @Address, @Mail, @Phone, @Valid, @Type, @CompanyNumber, NULL, @Password, NULL, NULL, NULL, NULL)";
+            "insert into Users values (@Guid, @Name, @Surname, @Address, @Mail, @Phone, @Valid, @OfficialType, @CompanyNumber, NULL, @Password, NULL, NULL, NULL, NULL)";
 
         private static String selectOfficials =
             "SELECT * FROM users WHERE CompanyNumber is not null";
