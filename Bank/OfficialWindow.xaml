@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
@@ -15,21 +16,63 @@
         <Menu x:Name="MainMenu" Height="31" 
               VerticalAlignment="Top" Visibility="Visible" 
               Grid.Row="1" Style="{StaticResource MetroMenu}">
-            <MenuItem Header="My Account" FontSize="14">
-                <MenuItem Header="Change password" Click="ChangePassword_Click"/>
-                <MenuItem Header="Update my account" Click="UpdateMyAccount_Click"/>
-                <MenuItem Header="Logout" Click="Logout_Click"/>
+            <MenuItem Header="My Account" Margin="10,0,0,0">
+                <MenuItem Header="Password change" Click="ChangePassword_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconFontAwesome Kind="KeySolid"
+                                                       HorizontalAlignment="Right"
+                                                       VerticalAlignment="Center"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Update my account" Click="UpdateMyAccount_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconFontAwesome Kind="UserEditSolid"
+                                                       HorizontalAlignment="Right"
+                                                       VerticalAlignment="Center"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="MenuItem_SecretPage" Header="Secret Page" Click="OpenSecretPage"
+                          Visibility="Collapsed">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconFontAwesome Kind="BombSolid"
+                                                       HorizontalAlignment="Right"
+                                                       VerticalAlignment="Center"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Logout" Click="Logout_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconZondicons Kind="CloseSolid"
+                                                     HorizontalAlignment="Right"
+                                                     VerticalAlignment="Center"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-
-            <MenuItem Header="Customers" FontSize="14">
-                <MenuItem Header="Create new Customer" Click="CreateNewCustomer_Click"/>
-                <MenuItem Header="Search Customer" Click="SearchCustomer_Click"/>
+            <MenuItem Header="Customers" Margin="10,0,0,0">
+                <MenuItem Header="Create new Customer" Click="CreateNewCustomer_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconFeatherIcons Kind="UserPlus" 
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Center"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Search Customer" Click="SearchCustomer_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="AccountSearch" 
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
-
-        <Label x:Name="MainLabel" Content="PASSWORD CHANGE" 
-               HorizontalAlignment="Left" Margin="36,60,0,0" VerticalAlignment="Top" 
-               FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
+                Height="6.5" Margin="11,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
+                Width="226" Background="#CC119EDA"/>
+        
+        <!--Main Page label-->
+        <Label x:Name="MainPageLabel" Content="Main page label: " 
+               HorizontalAlignment="Left" Margin="13,42.2,0,0" VerticalAlignment="Top" 
+               FontSize="14" FontWeight="Bold" Visibility="Visible" Grid.Row="1"/>
 
         <!-- User Password Change -->
         <TextBox x:Name="CurrentPassword" HorizontalAlignment="Left" 
@@ -282,13 +325,6 @@
                 Margin="36,385,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="ClickOnButtonViewDetails" Visibility="Hidden"/>
-        
-        
-        <Button x:Name="SecretButton" Content="Secret page" 
-                HorizontalAlignment="Left" Margin="707,60,0,0" 
-                VerticalAlignment="Top" Width="75" Visibility="Hidden"
-                Click="OpenSecretPage"/>
-
 
     </Grid>
 </Controls:MetroWindow>

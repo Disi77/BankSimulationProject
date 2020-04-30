@@ -77,3 +77,39 @@
 30-04-2020 15:42:35 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
 30-04-2020 15:43:04 [INFO]-Reservation system app started
 30-04-2020 15:43:07 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 19:46:11 [INFO]-Reservation system app started
+30-04-2020 19:46:15 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 20:12:51 [INFO]-Reservation system app started
+30-04-2020 20:12:55 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 20:14:30 [INFO]-Reservation system app started
+30-04-2020 20:14:34 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 20:16:02 [INFO]-Reservation system app started
+30-04-2020 20:16:08 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 20:19:02 [INFO]-Reservation system app started
+30-04-2020 20:19:08 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:08:39 [INFO]-Reservation system app started
+30-04-2020 21:08:43 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:21:12 [INFO]-Reservation system app started
+30-04-2020 21:21:17 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:24:51 [INFO]-Reservation system app started
+30-04-2020 21:24:58 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:34:55 [INFO]-Reservation system app started
+30-04-2020 21:34:58 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:38:35 [INFO]-Reservation system app started
+30-04-2020 21:38:39 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:43:36 [INFO]-Reservation system app started
+30-04-2020 21:43:39 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+30-04-2020 21:46:18 [INFO]-Reservation system app started
+30-04-2020 21:46:22 [INFO]-Admin login: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:46:31 [INFO]-Reservation system app started
+30-04-2020 21:46:31 [INFO]-Admin logout: Jana Konečná 078202f9-5f91-4e83-8784-07845a540043
+30-04-2020 21:46:34 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+30-04-2020 21:50:56 [INFO]-Reservation system app started
+30-04-2020 21:50:59 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+30-04-2020 21:52:02 [INFO]-Reservation system app started
+30-04-2020 21:52:05 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32
+30-04-2020 21:53:30 [INFO]-Reservation system app started
+30-04-2020 21:53:34 [INFO]-Official login: Kateřina Kopečková cd8945e5-b6d1-44ca-b35f-27bcb86c7be9
+30-04-2020 21:53:42 [INFO]-Reservation system app started
+30-04-2020 21:53:42 [INFO]-Official logout: Kateřina Kopečková cd8945e5-b6d1-44ca-b35f-27bcb86c7be9
+30-04-2020 21:53:44 [INFO]-Official login: Zuzana Lysáková d82b9364-0814-4e55-9da7-77fe34c4bc32

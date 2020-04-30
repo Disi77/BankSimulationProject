@@ -43,13 +43,13 @@ namespace Bank
             SetDefaultSettings();
             if (activeOfficial.CompanyNumber == "123")
             {
-                SecretButton.Visibility = Visibility.Visible;
+                MenuItem_SecretPage.Visibility = Visibility.Visible;
             }
         }
 
         private void CreateControlsLists()
         {
-            changePasswordControlsList.Add(MainLabel);
+            changePasswordControlsList.Add(MainPageLabel);
             changePasswordControlsList.Add(CurrentPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
@@ -57,7 +57,7 @@ namespace Bank
             changePasswordControlsList.Add(NewPasswordLabel);
 
 
-            userControlsList.Add(MainLabel);
+            userControlsList.Add(MainPageLabel);
             userControlsList.Add(NameLabel);
             userControlsList.Add(NameTextBox);
             userControlsList.Add(SurnameLabel);
@@ -179,7 +179,7 @@ namespace Bank
         {
             SetDefaultSettings();
 
-            MainLabel.Visibility = Visibility.Visible;
+            MainPageLabel.Visibility = Visibility.Visible;
 
             CurrentPassword.Visibility = Visibility.Visible;
             CurrentPassword.Text = "Enter current password";
@@ -300,8 +300,8 @@ namespace Bank
                 c.IsEnabled = false;
             }
 
-            MainLabel.Content = "UPDATE MY ACCOUNT:";
-            MainLabel.IsEnabled = true;
+            MainPageLabel.Content = "UPDATE MY ACCOUNT:";
+            MainPageLabel.IsEnabled = true;
             EditModeButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
 
@@ -364,8 +364,8 @@ namespace Bank
                 c.IsEnabled = false;
             }
 
-            MainLabel.Content = "USER DETAILS:";
-            MainLabel.IsEnabled = true;
+            MainPageLabel.Content = "USER DETAILS:";
+            MainPageLabel.IsEnabled = true;
             EditModeButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
             LoginLabel.Content = "SSN";
@@ -432,7 +432,7 @@ namespace Bank
             }
             CountryTextBox.IsEnabled = false;
 
-            MainLabel.Content = "USER UPDATE:";
+            MainPageLabel.Content = "USER UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Visible;
 
@@ -725,7 +725,7 @@ namespace Bank
         private void CreateNewCustomer_Click(object sender, RoutedEventArgs e)
         {
             SetDefaultSettings();
-            MainLabel.Content = "CREATE NEW CUSTOMER:";
+            MainPageLabel.Content = "CREATE NEW CUSTOMER:";
             foreach (Control c in userControlsList)
                 c.Visibility = Visibility.Visible;
             foreach (Control c in addressControlsList)

@@ -775,6 +775,7 @@ namespace Bank
             MainPageLabel.Content = "ALL ADMINS:";
 
             List<Admin> allAdmins = UsersORM.GetAdmins();
+            allAdmins = StringFormatPhoneNumeber(allAdmins);
 
             var result = allAdmins.OrderBy(X => X.SurName)
                                   .ThenBy(X => X.Name);
@@ -786,6 +787,37 @@ namespace Bank
             StornoButton.Visibility = Visibility.Visible;
         }
 
+        private List<Admin> StringFormatPhoneNumeber(List<Admin> allAdmins)
+        {
+            foreach (Admin admin in allAdmins)
+            {
+                if (admin.Phone.Length == 9)
+                {
+                    admin.Phone = admin.Phone.Substring(0, 3) + " "
+                                + admin.Phone.Substring(3, 3) + " "
+                                + admin.Phone.Substring(6, 3);
+                }
+                else if (admin.Phone.StartsWith("+420"))
+                {
+                    admin.Phone = "+420 "
+                                + admin.Phone.Substring(4, 3) + " "
+                                + admin.Phone.Substring(7, 3) + " "
+                                + admin.Phone.Substring(10, 3);
+                }
+            }
+            return allAdmins;
+        }
+
+        private void AllAdminsListView_Click_Name(object sender, RoutedEventArgs e)
+        {
+            List<Admin> allAdmins = UsersORM.GetAdmins();
+            allAdmins = StringFormatPhoneNumeber(allAdmins);
+
+            var result = allAdmins.OrderBy(X => X.Name);
+
+            AllAdminsListView.ItemsSource = result;
+        }
+
         private void SelectAllOfficials_Click(object sender, RoutedEventArgs e)
         {
             SetDefaultSettings();
@@ -793,10 +825,10 @@ namespace Bank
             MainPageLabel.Content = "ALL OFFICIALS:";
 
             List<Official> allOfficials = UsersORM.GetAllOfficials();
+            allOfficials = StringFormatPhoneNumeber(allOfficials);
 
-            var result = from official in allOfficials
-                         orderby official.SurName
-                         select official;
+            var result = allOfficials.OrderBy(X => X.SurName)
+                                     .ThenBy(X => X.Name);
 
             AllOfficialsListView.ItemsSource = result;
 
@@ -805,6 +837,26 @@ namespace Bank
             StornoButton.Visibility = Visibility.Visible;
         }
 
+        private List<Official> StringFormatPhoneNumeber(List<Official> allOfficials)
+        {
+            foreach (Official official in allOfficials)
+            {
+                if (official.Phone.Length == 9)
+                {
+                    official.Phone = official.Phone.Substring(0, 3) + " "
+                                   + official.Phone.Substring(3, 3) + " "
+                                   + official.Phone.Substring(6, 3);
+                }
+                else if (official.Phone.StartsWith("+420"))
+                {
+                    official.Phone = "+420 "
+                                   + official.Phone.Substring(4, 3) + " "
+                                   + official.Phone.Substring(7, 3) + " "
+                                   + official.Phone.Substring(10, 3);
+                }
+            }
+            return allOfficials;
+        }
 
         // User detail view
         private void ClickOnButtonViewDetails(object sender, RoutedEventArgs e)

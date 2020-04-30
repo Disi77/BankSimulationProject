@@ -106,6 +106,10 @@
 
             </MenuItem>
         </Menu>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
+                Height="6.5" Margin="11,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
+                Width="226" Background="#CC119EDA"/>
+        
         <!--Main Page label-->
         <Label x:Name="MainPageLabel" Content="Main page label: " 
                HorizontalAlignment="Left" Margin="13,42.2,0,0" VerticalAlignment="Top" 
@@ -384,14 +388,19 @@
                   Width="740" Visibility="Visible" Grid.Row="1" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Name" Click="AllAdminsListView_Click_Name">Name</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding SurName}"/>
                     <GridViewColumn Header="Login" DisplayMemberBinding="{Binding Login}"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AdminType}"/>
                     <GridViewColumn Header="Valid" DisplayMemberBinding="{Binding Valid}"/>
                     <GridViewColumn Header="Mail" DisplayMemberBinding="{Binding Mail}"/>
-                    <GridViewColumn Header="Phone" 
-                                    DisplayMemberBinding="{Binding Phone, StringFormat={}{0:###-###-###}}"/>
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -409,8 +418,7 @@
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding OfficialType}"/>
                     <GridViewColumn Header="Valid" DisplayMemberBinding="{Binding Valid}"/>
                     <GridViewColumn Header="Mail" DisplayMemberBinding="{Binding Mail}"/>
-                    <GridViewColumn Header="Phone" 
-                                    DisplayMemberBinding="{Binding Phone, StringFormat={}{0:###-###-###}}"/>
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -434,9 +442,7 @@
                 Margin="25,370,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="UpdateUserInDatabaseButton" Visibility="Hidden" Grid.Row="1"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
-                Height="6.5" Margin="11,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
-                Width="226" Background="#CC119EDA"/>
+
 
 
     </Grid>
