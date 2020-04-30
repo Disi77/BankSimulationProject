@@ -134,6 +134,13 @@ namespace Bank.Validator
 
         }
 
+        internal static bool CityValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+        }
+
         internal static bool PostalCodeValidator(string strToCheck)
         {
             Regex rg = new Regex(@"\d{3} ?\d{2}");

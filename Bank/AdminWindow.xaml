@@ -12,7 +12,7 @@
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="2">
 
-    <Grid x:Name="GridAdminWindow" Visibility="Visible">
+    <Grid x:Name="GridAdminWindow" Visibility="Visible" Margin="0,0,0.4,-0.2">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="418*"/>
@@ -364,10 +364,18 @@
                Visibility="Hidden"/>
 
         <!-- Search box -->
-        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="29" Margin="160,43.2,0,0" 
-                 TextWrapping="Wrap" Text="Enter user name ..." VerticalAlignment="Top" Width="519"
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="29" Margin="160,41.2,0,0" 
+                 TextWrapping="Wrap" Text="Enter user name ..." VerticalAlignment="Top" Width="553"
                  Visibility="Visible" PreviewMouseDown="SearchTextBox_MouseDown" 
-                 KeyDown="SearchTextBox_KeyDownHandler" Grid.Row="1" VerticalContentAlignment="Bottom" FontStyle="Italic"/>
+                 KeyDown="SearchTextBox_KeyDownHandler" Grid.Row="1" VerticalContentAlignment="Center" 
+                 FontStyle="Italic"/>
+        <Button x:Name="SearchButton" HorizontalAlignment="Left" Margin="716,41.2,0,0" 
+                Grid.Row="1" VerticalAlignment="Top" Width="49" Height="29" 
+                Click="SearchButton_Click">            
+            <Button.Content>
+                <Image Source="{iconPacks:MicronsImage Kind=Search}"/>
+            </Button.Content>
+        </Button>
 
 
         <!-- All admins view -->
@@ -382,7 +390,8 @@
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AdminType}"/>
                     <GridViewColumn Header="Valid" DisplayMemberBinding="{Binding Valid}"/>
                     <GridViewColumn Header="Mail" DisplayMemberBinding="{Binding Mail}"/>
-                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}"/>
+                    <GridViewColumn Header="Phone" 
+                                    DisplayMemberBinding="{Binding Phone, StringFormat={}{0:###-###-###}}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -400,7 +409,8 @@
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding OfficialType}"/>
                     <GridViewColumn Header="Valid" DisplayMemberBinding="{Binding Valid}"/>
                     <GridViewColumn Header="Mail" DisplayMemberBinding="{Binding Mail}"/>
-                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}"/>
+                    <GridViewColumn Header="Phone" 
+                                    DisplayMemberBinding="{Binding Phone, StringFormat={}{0:###-###-###}}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -427,6 +437,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
                 Height="6.5" Margin="11,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
                 Width="226" Background="#CC119EDA"/>
+
 
     </Grid>
 </Controls:MetroWindow>

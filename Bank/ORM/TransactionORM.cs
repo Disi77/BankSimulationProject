@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bank.Objects;
+using Bank.Types;
 
 namespace Bank.ORM
 {
@@ -82,6 +83,14 @@ namespace Bank.ORM
                 t.RecipientBillNum = reader.GetInt32(4);
                 t.Amount = reader.GetInt32(5);             
                 t.Valid = reader.GetBoolean(6);
+                if (bill.BillNumber == t.PayerBillNum)
+                {
+                    t.TransactionType = TransactionType.Outgoing;
+                }
+                else
+                {
+                    t.TransactionType = TransactionType.Incoming;
+                }
                 transactions.Add(t);
             }
             connection.CloseConnection();

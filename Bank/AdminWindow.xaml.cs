@@ -21,7 +21,7 @@ namespace Bank
         private Admin activeAdmin;
         private Admin tempAdmin;
         private Official tempOfficial;
-         
+
         private bool currentPasswordCheck = false;
         private string process = "";
         private List<Control> changePasswordControlsList = new List<Control>();
@@ -52,7 +52,7 @@ namespace Bank
         // Default page settings
         private void CreateControlsLists()
         {
-            changePasswordControlsList.Add(MainPageLabel); 
+            changePasswordControlsList.Add(MainPageLabel);
             changePasswordControlsList.Add(CurrentPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
@@ -108,7 +108,7 @@ namespace Bank
             CurrentPassword.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
             CurrentPassword.FontStyle = FontStyles.Italic;
 
-            NewPassword1.Text = "New password ...";            
+            NewPassword1.Text = "New password ...";
             NewPassword1.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
             NewPassword1.FontStyle = FontStyles.Italic;
 
@@ -184,15 +184,16 @@ namespace Bank
             MainPageLabel.Visibility = Visibility.Hidden;
             AllAdminsListView.ItemsSource = null;
             AllOfficialsListView.ItemsSource = null;
+            SearchButton.Visibility = Visibility.Hidden;
 
         }
 
 
-        // Pasword change
+        // Password change
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             SetDefaultSettings();
-            
+
             process = "Password change";
 
             MainPageLabel.Visibility = Visibility.Visible;
@@ -223,7 +224,7 @@ namespace Bank
             {
                 if (CurrentPassword.Text == activeAdmin.Password)
                 {
-                    CurrentPasswordCorrect();                    
+                    CurrentPasswordCorrect();
                 }
                 else
                 {
@@ -315,8 +316,8 @@ namespace Bank
         {
             TextBox textbox = sender as TextBox;
             if (textbox.Text is "New password ..." || textbox.Text is "Current password ...")
-            { 
-                textbox.Text = ""; 
+            {
+                textbox.Text = "";
             }
         }
 
@@ -397,7 +398,7 @@ namespace Bank
                 !Validator.Validator.PhoneValidator(PhoneTextBox.Text) ||
                 !Validator.Validator.StreetValidator(StreetTextBox.Text) ||
                 !Validator.Validator.StreetNumberValidator(StreetNumberTextBox.Text) ||
-                !Validator.Validator.NameValidator(CityTextBox.Text) ||
+                !Validator.Validator.CityValidator(CityTextBox.Text) ||
                 !Validator.Validator.PostalCodeValidator(PostalCodeTextBox.Text) ||
                 !Validator.Validator.OfficialUserNameValidator(LoginTextBox.Text)
                 )
@@ -406,15 +407,42 @@ namespace Bank
                                 "",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
-                                
+                
+                if (!Validator.Validator.NameValidator(NameTextBox.Text))
+                {
+                    NameTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.NameValidator(SurnameTextBox.Text))
+                {
+                    SurnameTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
                 if (!Validator.Validator.EmailValidator(EmailTextBox.Text))
                 {
                     EmailTextBox_NoIcon.Visibility = Visibility.Visible;
                 }
-
                 if (!Validator.Validator.PhoneValidator(PhoneTextBox.Text))
                 {
                     PhoneTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StreetValidator(StreetTextBox.Text))
+                {
+                    StreetTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StreetNumberValidator(StreetNumberTextBox.Text))
+                {
+                    StreetNumberTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.CityValidator(CityTextBox.Text))
+                {
+                    CityTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.PostalCodeValidator(PostalCodeTextBox.Text))
+                {
+                    PostalCodeTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.OfficialUserNameValidator(LoginTextBox.Text))
+                {
+                    LoginTextBox_NoIcon.Visibility = Visibility.Visible;
                 }
 
                 return false;
@@ -443,7 +471,7 @@ namespace Bank
             else
             {
                 newAddress.Id = addressFromDB.Id;
-            }            
+            }
 
             newOfficial.Guid = Guid.NewGuid();
             newOfficial.Name = NameTextBox.Text;
@@ -455,7 +483,7 @@ namespace Bank
             newOfficial.Password = "heslo";
             newOfficial.CompanyNumber = LoginTextBox.Text;
 
-             if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Junior)
+            if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Junior)
                 newOfficial.OfficialType = OfficialType.Junior;
 
             else if (OfficialSubTypeComboBox.SelectedItem == OfficialSubTypeComboBox_Normal)
@@ -517,7 +545,7 @@ namespace Bank
                 !Validator.Validator.PhoneValidator(PhoneTextBox.Text) ||
                 !Validator.Validator.StreetValidator(StreetTextBox.Text) ||
                 !Validator.Validator.StreetNumberValidator(StreetNumberTextBox.Text) ||
-                !Validator.Validator.NameValidator(CityTextBox.Text) ||
+                !Validator.Validator.CityValidator(CityTextBox.Text) ||
                 !Validator.Validator.PostalCodeValidator(PostalCodeTextBox.Text) ||
                 !Validator.Validator.StringAllLetter(LoginTextBox.Text)
                 )
@@ -527,14 +555,41 @@ namespace Bank
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
 
+                if (!Validator.Validator.NameValidator(NameTextBox.Text))
+                {
+                    NameTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.NameValidator(SurnameTextBox.Text))
+                {
+                    SurnameTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
                 if (!Validator.Validator.EmailValidator(EmailTextBox.Text))
                 {
                     EmailTextBox_NoIcon.Visibility = Visibility.Visible;
                 }
-
                 if (!Validator.Validator.PhoneValidator(PhoneTextBox.Text))
                 {
                     PhoneTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StreetValidator(StreetTextBox.Text))
+                {
+                    StreetTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StreetNumberValidator(StreetNumberTextBox.Text))
+                {
+                    StreetNumberTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.CityValidator(CityTextBox.Text))
+                {
+                    CityTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.PostalCodeValidator(PostalCodeTextBox.Text))
+                {
+                    PostalCodeTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StringAllLetter(LoginTextBox.Text))
+                {
+                    LoginTextBox_NoIcon.Visibility = Visibility.Visible;
                 }
 
                 return false;
@@ -681,24 +736,24 @@ namespace Bank
                 case "Password change":
                     if (PasswordChangingProcess())
                     {
-                        MessageBox.Show("Password was changed.", 
+                        MessageBox.Show("Password was changed.",
                                         "",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
                         process = "";
-                    }  
+                    }
                     break;
                 case "Add new admin":
                     if (CreateNewAdminProcess())
                     {
                         process = "";
-                    }            
+                    }
                     break;
                 case "Add new official":
                     if (CreateNewOfficialProcess())
                     {
                         process = "";
-                    }                        
+                    }
                     break;
                 case "":
                     break;
@@ -721,9 +776,8 @@ namespace Bank
 
             List<Admin> allAdmins = UsersORM.GetAdmins();
 
-            var result = from admin in allAdmins
-                         orderby admin.SurName
-                         select admin;
+            var result = allAdmins.OrderBy(X => X.SurName)
+                                  .ThenBy(X => X.Name);
 
             AllAdminsListView.ItemsSource = result;
 
@@ -908,7 +962,7 @@ namespace Bank
 
         // Edit mode, update user
         private void UserEditModeButton(object sender, RoutedEventArgs e)
-        {                       
+        {
             foreach (Control c in userControlsList)
             {
                 c.IsEnabled = true;
@@ -1092,7 +1146,7 @@ namespace Bank
         {
             Admin updatedAdmin = new Admin();
             Address updatedAddress = new Address();
-            
+
 
             bool userWasChanged = false;
             bool addressWasChanged = false;
@@ -1155,7 +1209,7 @@ namespace Bank
 
             if (!userWasChanged && !addressWasChanged)
             {
-                return;            
+                return;
             }
 
             if (addressWasChanged)
@@ -1179,7 +1233,7 @@ namespace Bank
                         return;
                     }
                 }
-            }      
+            }
 
             bool result = UsersORM.UpdateAdmin(updatedAdmin);
             if (result)
@@ -1189,7 +1243,7 @@ namespace Bank
                     activeAdmin = updatedAdmin;
                 tempAdmin = updatedAdmin;
             }
-                
+
             else
                 MessageBox.Show("Update of user NOT successful.");
         }
@@ -1229,6 +1283,20 @@ namespace Bank
             AllAdminsListView.Visibility = Visibility.Visible;
             ViewDetails.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
+            SearchButton.Visibility = Visibility.Visible;
+            SearchTextBox.Focus();
+        }
+
+        private void SearchOfficial_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            MainPageLabel.Content = "OFFICIAL SEARCH:";
+            MainPageLabel.Visibility = Visibility.Visible;
+            SearchTextBox.Visibility = Visibility.Visible;
+            AllOfficialsListView.Visibility = Visibility.Visible;
+            ViewDetails.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+            SearchButton.Visibility = Visibility.Visible;
             SearchTextBox.Focus();
         }
 
@@ -1245,26 +1313,7 @@ namespace Bank
         {
             if (e.Key == Key.Enter)
             {
-                if (AllAdminsListView.Visibility == Visibility.Visible)
-                {
-                    List<Admin> admins = UsersORM.GetAdmins();
-                    var result = admins.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
-                                            || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
-                                            || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
-                                            || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
-                                          );
-                    AllAdminsListView.ItemsSource = result;
-                }
-                else if (AllOfficialsListView.Visibility == Visibility.Visible)
-                {
-                    List<Official> officials = UsersORM.GetAllOfficials();
-                    var result2 = officials.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
-                                                || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
-                                                || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
-                                                || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
-                                              );
-                    AllOfficialsListView.ItemsSource = result2;
-                }
+                SelectDataForListView();
             }
             else
             {
@@ -1276,17 +1325,40 @@ namespace Bank
             }
         }
 
-        private void SearchOfficial_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDefaultSettings();
-            MainPageLabel.Content = "OFFICIAL SEARCH:";
-            MainPageLabel.Visibility = Visibility.Visible;
-            SearchTextBox.Visibility = Visibility.Visible;
-            AllOfficialsListView.Visibility = Visibility.Visible;
-            ViewDetails.Visibility = Visibility.Visible;
-            StornoButton.Visibility = Visibility.Visible;
+            SelectDataForListView();
         }
 
+        private void SelectDataForListView()
+        {
+            if (AllAdminsListView.Visibility == Visibility.Visible)
+            {
+                List<Admin> admins = UsersORM.GetAdmins();
+                var result = admins.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                        || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                        || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                        || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                        )
+                                    .OrderBy(X => X.SurName)
+                                    .ThenBy(X => X.Name);
+
+                AllAdminsListView.ItemsSource = result;
+            }
+            else if (AllOfficialsListView.Visibility == Visibility.Visible)
+            {
+                List<Official> officials = UsersORM.GetAllOfficials();
+                var result2 = officials.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                            )
+                                       .OrderBy(X => X.SurName)
+                                       .ThenBy(X => X.Name);
+                ;
+                AllOfficialsListView.ItemsSource = result2;
+            }
+        }
 
         // Validation
         private bool allAddressFieldsAreNotEmpty()
@@ -1415,7 +1487,7 @@ namespace Bank
         private void CityTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
         {
             TextBox t = sender as TextBox;
-            if (Validator.Validator.NameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            if (Validator.Validator.CityValidator(t.Text) || String.IsNullOrEmpty(t.Text))
             {
                 CityTextBox_NoIcon.Visibility = Visibility.Hidden;
             }
@@ -1476,5 +1548,7 @@ namespace Bank
 
             
         }
+
+
     }
 }
