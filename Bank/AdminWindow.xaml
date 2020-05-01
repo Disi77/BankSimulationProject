@@ -116,19 +116,19 @@
                FontSize="14" FontWeight="Bold" Visibility="Visible" Grid.Row="1"/>
 
         <!-- User Password Change -->
-        <TextBox x:Name="CurrentPassword" HorizontalAlignment="Left" 
+        <TextBox x:Name="OldPassword" HorizontalAlignment="Left" 
                  Height="24" Margin="14,80,0,0" TextWrapping="Wrap" 
-                 Text="Current password ..." VerticalAlignment="Top" 
+                 Text="Old password ..." VerticalAlignment="Top" 
                  Width="195" Foreground="#CC119EDA" FontStyle="Italic"
-                 KeyDown="CurrentPasswordOnKeyDown_Handler" IsEnabled="True" 
-                 KeyUp="CurrentPasswordOnKeyUp_Handler"
+                 KeyDown="OldPasswordOnKeyDown_Handler" IsEnabled="True" 
+                 KeyUp="OldPasswordOnKeyUp_Handler"
                  PreviewMouseDown="PasswordOnMouseClick" Visibility="Hidden" Grid.Row="1"/>
-        <Image x:Name="CurrentPassword_NoIcon" HorizontalAlignment="Left" 
+        <Image x:Name="OldPassword_NoIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,85,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=CrossInline, Brush=Red}"
                Visibility="Hidden"/>
-        <Image x:Name="CurrentPassword_YesIcon" HorizontalAlignment="Left" 
+        <Image x:Name="OldPassword_YesIcon" HorizontalAlignment="Left" 
                Height="15" Margin="188,85,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="15" 
                Source="{iconPacks:MicronsImage Kind=TickInline, Brush=Green}"
@@ -393,8 +393,6 @@
                             <GridViewColumnHeader Tag="Name" Click="AllAdminsListView_Click_Name">Name</GridViewColumnHeader>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-
-
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding SurName}"/>
                     <GridViewColumn Header="Login" DisplayMemberBinding="{Binding Login}"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AdminType}"/>

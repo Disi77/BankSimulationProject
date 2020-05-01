@@ -26,13 +26,12 @@ namespace Bank
     {
         private Official activeOfficial;
         private Official tempOfficial;
-        private Customer activeCustomer;
         private Customer tempCustomer;
         private Log log;
         private List<Control> changePasswordControlsList = new List<Control>();
         private List<Control> userControlsList = new List<Control>();
         private List<Control> addressControlsList = new List<Control>();
-        private bool currentPasswordCheck = false;
+        private bool oldPasswordCheck = false;
 
         public OfficialWindow(Official official)
         {
@@ -50,11 +49,9 @@ namespace Bank
         private void CreateControlsLists()
         {
             changePasswordControlsList.Add(MainPageLabel);
-            changePasswordControlsList.Add(CurrentPassword);
+            changePasswordControlsList.Add(OldPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
-            changePasswordControlsList.Add(CurrentPasswordLabel);
-            changePasswordControlsList.Add(NewPasswordLabel);
 
 
             userControlsList.Add(MainPageLabel);
@@ -97,9 +94,25 @@ namespace Bank
                 c.Visibility = Visibility.Hidden;
                 c.IsEnabled = true;
             }
-            CurrentPassword.Text = "Enter current password";
-            NewPassword1.Text = "Enter new password";
-            NewPassword2.Text = "Enter new password";
+            OldPassword.Text = "Old password ...";
+            var bc = new BrushConverter();
+            OldPassword.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            OldPassword.FontStyle = FontStyles.Italic;
+
+            NewPassword1.Text = "New password ...";
+            NewPassword1.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            NewPassword1.FontStyle = FontStyles.Italic;
+
+            NewPassword2.Text = "New password ...";
+            NewPassword2.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            NewPassword2.FontStyle = FontStyles.Italic;
+
+            OldPassword_NoIcon.Visibility = Visibility.Hidden;
+            OldPassword_YesIcon.Visibility = Visibility.Hidden;
+            NewPassword1_NoIcon.Visibility = Visibility.Hidden;
+            NewPassword1_YesIcon.Visibility = Visibility.Hidden;
+            NewPassword2_NoIcon.Visibility = Visibility.Hidden;
+            NewPassword2_YesIcon.Visibility = Visibility.Hidden;
 
             // Confirm and Storno Button
             ConfirmButton.Visibility = Visibility.Hidden;
@@ -115,13 +128,22 @@ namespace Bank
             }
             NameTextBox.Text = "";
             SurnameTextBox.Text = "";
-            EmailTextBox.Text = "";
-            PhoneTextBox.Text = "";
+            EmailTextBox.Text = "@";
+            PhoneTextBox.Text = "+420";
             ValidTextBox.Text = "Yes";
             LoginTextBox.Text = "";
             UserTypeComboBox.SelectedItem = UserTypeComboBox_Official;
             OfficialSubTypeComboBox.SelectedItem = OfficialSubTypeComboBox_Junior;
             CustomerSubTypeComboBox.SelectedItem = CustomerSubTypeComboBox_Person;
+            NameTextBox_NoIcon.Visibility = Visibility.Hidden;
+            SurnameTextBox_NoIcon.Visibility = Visibility.Hidden;
+            EmailTextBox_NoIcon.Visibility = Visibility.Hidden;
+            PhoneTextBox_NoIcon.Visibility = Visibility.Hidden;
+            StreetTextBox_NoIcon.Visibility = Visibility.Hidden;
+            StreetNumberTextBox_NoIcon.Visibility = Visibility.Hidden;
+            CityTextBox_NoIcon.Visibility = Visibility.Hidden;
+            PostalCodeTextBox_NoIcon.Visibility = Visibility.Hidden;
+            LoginTextBox_NoIcon.Visibility = Visibility.Hidden;
 
             foreach (Control c in addressControlsList)
             {
@@ -149,14 +171,14 @@ namespace Bank
             // All Users view
             AllCustomersListView.Visibility = Visibility.Hidden;
             AllCustomersListView.IsEnabled = true;
-            ViewDetailsButton.Visibility = Visibility.Hidden;
-            ViewDetailsButton.IsEnabled = true;
+            ViewDetails.Visibility = Visibility.Hidden;
+            ViewDetails.IsEnabled = true;
 
             // Search 
             SearchTextBox.Visibility = Visibility.Hidden;
             SearchTextBox.Text = "Enter user name ...";
-            SearchLabel.Visibility = Visibility.Hidden;
             AllCustomersListView.ItemsSource = null;
+            SearchButton.Visibility = Visibility.Hidden;
 
             // Products
             AllProductsListView.Visibility = Visibility.Hidden;
@@ -180,53 +202,126 @@ namespace Bank
             SetDefaultSettings();
 
             MainPageLabel.Visibility = Visibility.Visible;
+            MainPageLabel.Content = "PASSWORD CHANGE:";
 
-            CurrentPassword.Visibility = Visibility.Visible;
-            CurrentPassword.Text = "Enter current password";
-            CurrentPassword.IsEnabled = true;
+            OldPassword.Visibility = Visibility.Visible;
+            OldPassword.Text = "Old password ...";
+            OldPassword.IsEnabled = true;
 
             NewPassword1.Visibility = Visibility.Visible;
             NewPassword1.IsEnabled = false;
-            NewPassword1.Text = "Enter new password";
+            NewPassword1.Text = "New password ...";
 
             NewPassword2.Visibility = Visibility.Visible;
             NewPassword2.IsEnabled = false;
-            NewPassword2.Text = "Enter new password";
+            NewPassword2.Text = "New password ...";
 
             ConfirmButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
 
-            CurrentPasswordLabel.Content = "";
-            NewPasswordLabel.Content = "";
-
+            OldPassword.Focus();
         }
 
-        private void CurrentPasswordOnKeyDownHandler(object sender, KeyEventArgs e)
+        private void OldPasswordOnKeyDown_Handler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                CurrentPassword.IsEnabled = false;
-                CurrentPasswordLabel.Visibility = Visibility.Visible;
-                if (CurrentPassword.Text == activeOfficial.Password)
+                if (OldPassword.Text == activeOfficial.Password)
                 {
-                    currentPasswordCheck = true;
-                    CurrentPasswordLabel.Content = "Password correct";
-                    NewPassword1.IsEnabled = true;
-                    NewPassword2.IsEnabled = true;
+                    OldPasswordCorrect();
                 }
                 else
                 {
-                    CurrentPassword.IsEnabled = true;
-                    CurrentPassword.Text = "";
-                    CurrentPasswordLabel.Content = "Password INCORRECT";
+                    OldPassword.Text = "";
+                    OldPassword_YesIcon.Visibility = Visibility.Hidden;
+                    OldPassword_NoIcon.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (OldPassword.Text == "Old password ...")
+                {
+                    OldPassword.Text = "";
+                    OldPassword.Foreground = Brushes.Black;
+                    OldPassword.FontStyle = FontStyles.Normal;
                 }
             }
         }
 
-        private void CurrentPasswordOnMouseClick(object sender, MouseButtonEventArgs e)
+        private void OldPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            if (OldPassword.Text == activeOfficial.Password)
+            {
+                OldPasswordCorrect();
+            }
+            else
+            {
+                OldPassword_NoIcon.Visibility = Visibility.Visible;
+                OldPassword_YesIcon.Visibility = Visibility.Hidden;
+                oldPasswordCheck = false;
+            }
+        }
+
+        private void NewPasswordOnKeyDown_Handler(object sender, KeyEventArgs e)
         {
             TextBox textbox = sender as TextBox;
-            if (textbox.Text is "Enter new password" || textbox.Text is "Enter current password")
+            if (textbox.Text is "New password ...")
+            {
+                textbox.Text = "";                
+            }
+            textbox.Foreground = Brushes.Black;
+            textbox.FontStyle = FontStyles.Normal;
+
+        }
+
+        private void NewPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            switch (textbox.Name)
+            {
+                case "NewPassword1":
+                    if (textbox.Text.Length >= User.passwordMinLength &&
+                        Validator.Validator.ValidatePassword(textbox.Text))
+                    {
+                        NewPassword1_YesIcon.Visibility = Visibility.Visible;
+                        NewPassword1_NoIcon.Visibility = Visibility.Hidden;
+                    }
+                    else if (textbox.Text.Length >= 1 && textbox.Text != "New password ...")
+                    {
+                        NewPassword1_YesIcon.Visibility = Visibility.Hidden;
+                        NewPassword1_NoIcon.Visibility = Visibility.Visible;
+                    }
+                    break;
+                case "NewPassword2":
+                    if (textbox.Text == NewPassword1.Text)
+                    {
+                        NewPassword2_YesIcon.Visibility = Visibility.Visible;
+                        NewPassword2_NoIcon.Visibility = Visibility.Hidden;
+                    }
+                    else if (textbox.Text.Length >= 1 && textbox.Text != "New password ...")
+                    {
+                        NewPassword2_YesIcon.Visibility = Visibility.Hidden;
+                        NewPassword2_NoIcon.Visibility = Visibility.Visible;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OldPasswordCorrect()
+        {
+            oldPasswordCheck = true;
+            NewPassword1.IsEnabled = true;
+            NewPassword2.IsEnabled = true;
+            OldPassword_YesIcon.Visibility = Visibility.Visible;
+            OldPassword_NoIcon.Visibility = Visibility.Hidden;
+        }
+
+        private void PasswordOnMouseClick(object sender, MouseButtonEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            if (textbox.Text is "New password ..." || textbox.Text is "Old password ...")
             {
                 textbox.Text = "";
             }
@@ -234,14 +329,17 @@ namespace Bank
 
         private bool PasswordChangingProcess()
         {
-            if (currentPasswordCheck)
+            if (oldPasswordCheck)
             {
                 if (NewPassword1.Text == NewPassword2.Text && !String.IsNullOrEmpty(NewPassword1.Text))
                 {
                     //Validace hesla
                     if (!Validator.Validator.ValidatePassword(NewPassword1.Text))
                     {
-                        MessageBox.Show(String.Format("Weak password"));
+                        MessageBox.Show(String.Format("Weak password."),
+                                        "",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                         return false;
                     }
 
@@ -254,10 +352,30 @@ namespace Bank
                         return true;
                     }
                 }
+                else if (String.IsNullOrEmpty(NewPassword1.Text) ||
+                         NewPassword1.Text == "New password ..." ||
+                         String.IsNullOrEmpty(NewPassword2.Text) ||
+                        NewPassword2.Text == "New password ...")
+                {
+                    MessageBox.Show("You have to fill in new password.",
+                                    "",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                }
                 else
                 {
-                    MessageBox.Show("Enter twice same new password.");
+                    MessageBox.Show("Enter twice same new password.",
+                                    "",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Wrong old password.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
             return false;
         }
@@ -431,6 +549,7 @@ namespace Bank
                 c.IsEnabled = true;
             }
             CountryTextBox.IsEnabled = false;
+            LoginTextBox.IsEnabled = false;
 
             MainPageLabel.Content = "USER UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
@@ -550,7 +669,10 @@ namespace Bank
                     }
                     else
                     {
-                        MessageBox.Show("We have troubles with new Address creating.");
+                        MessageBox.Show("Address was not created. Contact administrator.",
+                                        "",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -559,7 +681,10 @@ namespace Bank
             bool result = UsersORM.UpdateCustomer(updatedCustomer);
             if (result)
             {
-                MessageBox.Show("Update of user successful.");
+                MessageBox.Show("Update of user successful.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
                 
                 //try
                 //{
@@ -575,7 +700,10 @@ namespace Bank
             }
 
             else
-                MessageBox.Show("Update of customer NOT successful.");
+                MessageBox.Show("Update of customer not successful. Contact administrator.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
         }
 
         private void UpdateUserProcess(Official tempOfficial)
@@ -669,7 +797,10 @@ namespace Bank
                     }
                     else
                     {
-                        MessageBox.Show("We have troubles with new Address creating.");
+                        MessageBox.Show("Address was not created. Contact administrator.",
+                                        "",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -678,7 +809,10 @@ namespace Bank
             bool result = UsersORM.UpdateOfficial(updatedOfficial);
             if (result)
             {
-                MessageBox.Show("Update of user successful.");
+                MessageBox.Show("Update of user successful.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
                 if (tempOfficial.Guid == activeOfficial.Guid)
                     activeOfficial = updatedOfficial;
                 tempOfficial = updatedOfficial;
@@ -686,7 +820,244 @@ namespace Bank
             }
 
             else
-                MessageBox.Show("Update of official NOT successful.");
+                MessageBox.Show("Update of customer not successful. Contact administrator.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+        }
+
+        // Create new customer
+        private void CreateNewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            MainPageLabel.Content = "CREATE NEW CUSTOMER:";
+            foreach (Control c in userControlsList)
+                c.Visibility = Visibility.Visible;
+            foreach (Control c in addressControlsList)
+                c.Visibility = Visibility.Visible;
+
+            OfficialSubTypeComboBox.Visibility = Visibility.Hidden;
+            CustomerSubTypeComboBox.Visibility = Visibility.Visible;
+
+            StornoButton.Visibility = Visibility.Visible;
+            CreateCustomerButton.Visibility = Visibility.Visible;
+
+            ValidTextBox.Text = "Yes";
+            ValidTextBox.IsEnabled = false;
+
+            UserTypeComboBox.Text = "Customer";
+            UserTypeComboBox.IsEnabled = false;
+
+            CountryTextBox.Text = "CZE";
+            CountryTextBox.IsEnabled = false;
+
+            LoginLabel.Content = "SSN";
+            NameTextBox.Focus();
+
+        }
+
+        private void CreateNewCustomerInDB_Click(object sender, RoutedEventArgs e)
+        {
+            Customer newCustomer = new Customer();
+            Address newAddress = new Address();
+
+
+            if (!allUserFieldsAreNotEmpty())
+            {
+                MessageBox.Show("Please fill in all user information",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!allAddressFieldsAreNotEmpty())
+            {
+                MessageBox.Show("Please fill in all address fields",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!Validator.Validator.NameValidator(NameTextBox.Text) ||
+                !Validator.Validator.NameValidator(SurnameTextBox.Text) ||
+                !Validator.Validator.EmailValidator(EmailTextBox.Text) ||
+                !Validator.Validator.PhoneValidator(PhoneTextBox.Text) ||
+                !Validator.Validator.StreetValidator(StreetTextBox.Text) ||
+                !Validator.Validator.StreetNumberValidator(StreetNumberTextBox.Text) ||
+                !Validator.Validator.CityValidator(CityTextBox.Text) ||
+                !Validator.Validator.PostalCodeValidator(PostalCodeTextBox.Text) ||
+                !Validator.Validator.SSNValidator(LoginTextBox.Text)
+    )
+            {
+                MessageBox.Show("Incorect inputs. Please check user information.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+
+                if (!Validator.Validator.NameValidator(NameTextBox.Text))
+                {
+                    NameTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.NameValidator(SurnameTextBox.Text))
+                {
+                    SurnameTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.EmailValidator(EmailTextBox.Text))
+                {
+                    EmailTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.PhoneValidator(PhoneTextBox.Text))
+                {
+                    PhoneTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StreetValidator(StreetTextBox.Text))
+                {
+                    StreetTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.StreetNumberValidator(StreetNumberTextBox.Text))
+                {
+                    StreetNumberTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.CityValidator(CityTextBox.Text))
+                {
+                    CityTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.PostalCodeValidator(PostalCodeTextBox.Text))
+                {
+                    PostalCodeTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+                if (!Validator.Validator.SSNValidator(LoginTextBox.Text))
+                {
+                    LoginTextBox_NoIcon.Visibility = Visibility.Visible;
+                }
+
+                return;
+            }
+
+            newAddress.Id = UsersORM.GetNewAddressId();
+            newAddress.Street = StreetTextBox.Text;
+            newAddress.StreetNumber = StreetNumberTextBox.Text;
+            newAddress.City = CityTextBox.Text;
+            newAddress.PostalCode = PostalCodeTextBox.Text;
+            newAddress.Country = CountryTextBox.Text;
+
+            bool addressIsCreated = UsersORM.CreateAddress(newAddress);
+            if (!addressIsCreated)
+            {
+                MessageBox.Show("New address was not created. Contact administrator",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+
+            newCustomer.Guid = Guid.NewGuid();
+            newCustomer.Name = NameTextBox.Text;
+            newCustomer.SurName = SurnameTextBox.Text;
+            newCustomer.Address = newAddress;
+            newCustomer.Mail = EmailTextBox.Text;
+            newCustomer.Phone = PhoneTextBox.Text;
+            newCustomer.Valid = true;
+            newCustomer.Password = "heslo";
+            newCustomer.SSN = LoginTextBox.Text;
+
+            if (CustomerSubTypeComboBox.SelectedItem == CustomerSubTypeComboBox_Person)
+                newCustomer.CustomerType = CustomerType.Person;
+
+            else if (CustomerSubTypeComboBox.SelectedItem == CustomerSubTypeComboBox_Company)
+                newCustomer.CustomerType = CustomerType.Company;
+
+
+
+            bool userIsCreated = UsersORM.CreateNewCustomer(newCustomer);
+            if (userIsCreated)
+            {
+                MessageBox.Show(String.Format("New User was created: {0} {1}", newCustomer.Name, newCustomer.SurName),
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                OpenDetailViewOfUser(newCustomer);
+            }
+            else
+            {
+                MessageBox.Show("New user was not created. Contact administrator",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+
+        }
+
+        // Search
+        private void SearchTextBox_KeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SelectDataForListView();
+            }
+        }
+
+        private void SearchTextBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            if (textbox.Text is "Enter user name ...")
+            {
+                textbox.Text = "";
+            }
+        }
+
+        private void ClickOnButtonViewDetails(object sender, RoutedEventArgs e)
+        {
+            Customer customer = (Customer)AllCustomersListView.SelectedItems[0];
+            OpenDetailViewOfUser(customer);
+        }
+
+        private void SearchCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            SetDefaultSettings();
+            MainPageLabel.Content = "CUSTOMER SEARCH:";
+            MainPageLabel.Visibility = Visibility.Visible;
+            SearchTextBox.Visibility = Visibility.Visible;
+            AllCustomersListView.Visibility = Visibility.Visible;
+            ViewDetails.Visibility = Visibility.Visible;
+            StornoButton.Visibility = Visibility.Visible;
+            SearchButton.Visibility = Visibility.Visible;
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectDataForListView();
+        }
+
+        private void SelectDataForListView()
+        {
+            List<Customer> customers = UsersORM.GetAllCustomers();
+            var result = customers.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                    || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
+                                    || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                    || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
+                                    );
+            AllCustomersListView.ItemsSource = result;
+
+        }
+
+        // Secret page
+        private void OpenSecretPage(object sender, RoutedEventArgs e)
+        {
+            SecretWindow secretWindow = new SecretWindow(activeOfficial);
+            secretWindow.Show();
+            Close();
+        }
+
+        // Products overview
+        private void ViewProductDetails_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+            Bill bill = BillORM.GetBillbyBillNumber((int)b.CommandParameter);
+            ProductWindow productWindow = new ProductWindow(activeOfficial, bill);
+            productWindow.Show();
+            Close();
         }
 
         // Other
@@ -722,165 +1093,158 @@ namespace Bank
             return true;
         }
 
-        private void CreateNewCustomer_Click(object sender, RoutedEventArgs e)
+        private void NameTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
         {
-            SetDefaultSettings();
-            MainPageLabel.Content = "CREATE NEW CUSTOMER:";
-            foreach (Control c in userControlsList)
-                c.Visibility = Visibility.Visible;
-            foreach (Control c in addressControlsList)
-                c.Visibility = Visibility.Visible;
-
-            OfficialSubTypeComboBox.Visibility = Visibility.Hidden;
-            CustomerSubTypeComboBox.Visibility = Visibility.Visible;
-
-            StornoButton.Visibility = Visibility.Visible;
-            CreateCustomerButton.Visibility = Visibility.Visible;
-
-            ValidTextBox.Text = "Yes";
-            ValidTextBox.IsEnabled = false;
-
-            UserTypeComboBox.Text = "Customer";
-            UserTypeComboBox.IsEnabled = false;
-
-            CountryTextBox.Text = "CZE";
-            CountryTextBox.IsEnabled = false;
-
-            LoginLabel.Content = "SSN";
-
-        }
-
-        private void CreateNewCustomerInDB_Click(object sender, RoutedEventArgs e)
-        {
-            Customer newCustomer = new Customer();
-            Address newAddress = new Address();
-
-
-            if (!allAddressFieldsAreNotEmpty())
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.NameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
             {
-                MessageBox.Show("Some address field is empty.");
-                return;
-            }
-
-            newAddress.Id = UsersORM.GetNewAddressId();
-            newAddress.Street = StreetTextBox.Text;
-            newAddress.StreetNumber = StreetNumberTextBox.Text;
-            newAddress.City = CityTextBox.Text;
-            newAddress.PostalCode = PostalCodeTextBox.Text;
-            newAddress.Country = CountryTextBox.Text;
-
-            bool addressIsCreated = UsersORM.CreateAddress(newAddress);
-            if (!addressIsCreated)
-            {
-                MessageBox.Show("Sometring wrong. Error num: 45681");
-                return;
-            }
-
-            newCustomer.Guid = Guid.NewGuid();
-            newCustomer.Name = NameTextBox.Text;
-            newCustomer.SurName = SurnameTextBox.Text;
-            newCustomer.Address = newAddress;
-            newCustomer.Mail = EmailTextBox.Text;
-            newCustomer.Phone = PhoneTextBox.Text;
-            newCustomer.Valid = true;
-            newCustomer.Password = "heslo";
-            newCustomer.SSN = LoginTextBox.Text;
-
-            if (CustomerSubTypeComboBox.SelectedItem == CustomerSubTypeComboBox_Person)
-                newCustomer.CustomerType = CustomerType.Person;
-
-            else if (CustomerSubTypeComboBox.SelectedItem == CustomerSubTypeComboBox_Company)
-                newCustomer.CustomerType = CustomerType.Company;
-
-            if (!allUserFieldsAreNotEmpty())
-            {
-                MessageBox.Show("Some fields are empty.");
-                return;
-            }
-
-            bool userIsCreated = UsersORM.CreateNewCustomer(newCustomer);
-            if (userIsCreated)
-            {
-                MessageBox.Show(String.Format("New User was created: {0} {1}", newCustomer.Name, newCustomer.SurName));
-                OpenDetailViewOfUser(newCustomer);
+                NameTextBox_NoIcon.Visibility = Visibility.Hidden;
             }
             else
             {
-                MessageBox.Show("Sometring wrong. Error num: 45678");
+                NameTextBox_NoIcon.Visibility = Visibility.Visible;
             }
-
         }
 
-        private void SearchTextBox_KeyDownHandler(object sender, KeyEventArgs e)
+        private void SurnameTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.NameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
             {
-                List<Customer> customers = UsersORM.GetAllCustomers();
-                var result = customers.Where(X => X.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
-                                        || X.SurName.ToLower().Contains(SearchTextBox.Text.ToLower())
-                                        || String.Format("{0} {1}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
-                                        || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
-                                        );
-                AllCustomersListView.ItemsSource = result;
+                SurnameTextBox_NoIcon.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void SearchTextBox_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            TextBox textbox = sender as TextBox;
-            if (textbox.Text is "Enter user name ...")
+            else
             {
-                textbox.Text = "";
+                SurnameTextBox_NoIcon.Visibility = Visibility.Visible;
             }
         }
 
-        private void ClickOnButtonViewDetails(object sender, RoutedEventArgs e)
+        private void EmailTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
         {
-            Customer customer = (Customer)AllCustomersListView.SelectedItems[0];
-            OpenDetailViewOfUser(customer);
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.EmailValidator(t.Text) || t.Text == "@" || t.Text == "")
+            {
+                EmailTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                EmailTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
         }
 
-        private void SearchCustomer_Click(object sender, RoutedEventArgs e)
+        private void PhoneTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
         {
-            SetDefaultSettings();
-            SearchLabel.Content = "CUSTOMER SEARCH:";
-            SearchLabel.Visibility = Visibility.Visible;
-            SearchTextBox.Visibility = Visibility.Visible;
-            AllCustomersListView.Visibility = Visibility.Visible;
-            ViewDetailsButton.Visibility = Visibility.Visible;
-            StornoButton.Visibility = Visibility.Visible;
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.PhoneValidator(t.Text) || t.Text == "" || t.Text == "+420")
+            {
+                PhoneTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                PhoneTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
         }
 
-        private void OpenSecretPage(object sender, RoutedEventArgs e)
+        private void PhoneTextBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            SecretWindow secretWindow = new SecretWindow();
-            secretWindow.Show();
-            Close();
+            PhoneTextBox.Select(PhoneTextBox.Text.Length, 0);
         }
 
-        private void ViewProductDetails_Click(object sender, RoutedEventArgs e)
+        private void EmailTextBoxKeyDown_Handler(object sender, KeyEventArgs e)
         {
-            Button b = sender as Button;
-            Bill bill = BillORM.GetBillbyBillNumber((int)b.CommandParameter);
-            ProductWindow productWindow = new ProductWindow(activeOfficial, bill);
-            productWindow.Show();
-            Close();
+            if (e.Key == Key.Tab)
+            {
+                PhoneTextBox.Select(PhoneTextBox.Text.Length, 0);
+            }
         }
 
+        private void StreetTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.StreetValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                StreetTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                StreetTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void StreetNumberTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.StreetNumberValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                StreetNumberTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                StreetNumberTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void CityTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.CityValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                CityTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                CityTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void PostalCodeTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (Validator.Validator.PostalCodeValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+            {
+                PostalCodeTextBox_NoIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                PostalCodeTextBox_NoIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void LoginTextBoxKeyUp_Handler(object sender, KeyEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            string userType = "";
 
-        //NameBox.Text = official.Name;
-        //SurNameBox.Text = official.SurName;
-        //PhoneBox.Text = official.Phone;
-        //MailBox.Text = official.Mail;
+            if (UserTypeComboBox.SelectedItem == UserTypeComboBox_Customer)
+                userType = "customer";
+            else if (UserTypeComboBox.SelectedItem == UserTypeComboBox_Official)
+                userType = "official";
 
-        // bude tam ověření - jméno a přijmení bude string a budou tam jen písmena
-        // email bude nějaká maska ... 
-        // třída Validator ... metody, které vrátí true nebo false podle toho, co budu kontrolovat, např. že ve stringu jsou jen písmena a nic jiného
-        // a pak (po kliknutí na tlačítko) se bude volat Validator s příslušnými metodami a když to bude všechno true, tak se provede update
-        // každý box bude mít svůj validátor a bude se tam ukazovat nějaký label
+            switch (userType)
+            {
+                case "customer":
+                    if (Validator.Validator.SSNValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+                    {
+                        LoginTextBox_NoIcon.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        LoginTextBox_NoIcon.Visibility = Visibility.Visible;
+                    }
+                   break;
+                case "official":
+                    if (Validator.Validator.OfficialUserNameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
+                    {
+                        LoginTextBox_NoIcon.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        LoginTextBox_NoIcon.Visibility = Visibility.Visible;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

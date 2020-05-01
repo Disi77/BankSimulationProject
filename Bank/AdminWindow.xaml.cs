@@ -22,7 +22,7 @@ namespace Bank
         private Admin tempAdmin;
         private Official tempOfficial;
 
-        private bool currentPasswordCheck = false;
+        private bool oldPasswordCheck = false;
         private string process = "";
         private List<Control> changePasswordControlsList = new List<Control>();
         private List<Control> userControlsList = new List<Control>();
@@ -53,7 +53,7 @@ namespace Bank
         private void CreateControlsLists()
         {
             changePasswordControlsList.Add(MainPageLabel);
-            changePasswordControlsList.Add(CurrentPassword);
+            changePasswordControlsList.Add(OldPassword);
             changePasswordControlsList.Add(NewPassword1);
             changePasswordControlsList.Add(NewPassword2);
 
@@ -89,9 +89,6 @@ namespace Bank
             addressControlsList.Add(CountryTextBox);
         }
 
-        /// <summary>
-        /// Set Visibility of all text boxes and labels on page to hidden
-        /// </summary>
         private void SetDefaultSettings()
         {
             tempAdmin = new Admin();
@@ -103,10 +100,10 @@ namespace Bank
                 c.Visibility = Visibility.Hidden;
                 c.IsEnabled = true;
             }
-            CurrentPassword.Text = "Current password ...";
+            OldPassword.Text = "Old password ...";
             var bc = new BrushConverter();
-            CurrentPassword.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
-            CurrentPassword.FontStyle = FontStyles.Italic;
+            OldPassword.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
+            OldPassword.FontStyle = FontStyles.Italic;
 
             NewPassword1.Text = "New password ...";
             NewPassword1.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
@@ -116,8 +113,8 @@ namespace Bank
             NewPassword2.Foreground = (Brush)bc.ConvertFrom("#CC119EDA");
             NewPassword2.FontStyle = FontStyles.Italic;
 
-            CurrentPassword_NoIcon.Visibility = Visibility.Hidden;
-            CurrentPassword_YesIcon.Visibility = Visibility.Hidden;
+            OldPassword_NoIcon.Visibility = Visibility.Hidden;
+            OldPassword_YesIcon.Visibility = Visibility.Hidden;
             NewPassword1_NoIcon.Visibility = Visibility.Hidden;
             NewPassword1_YesIcon.Visibility = Visibility.Hidden;
             NewPassword2_NoIcon.Visibility = Visibility.Hidden;
@@ -199,9 +196,9 @@ namespace Bank
             MainPageLabel.Visibility = Visibility.Visible;
             MainPageLabel.Content = "PASSWORD CHANGE:";
 
-            CurrentPassword.Visibility = Visibility.Visible;
-            CurrentPassword.Text = "Current password ...";
-            CurrentPassword.IsEnabled = true;
+            OldPassword.Visibility = Visibility.Visible;
+            OldPassword.Text = "Old password ...";
+            OldPassword.IsEnabled = true;
 
             NewPassword1.Visibility = Visibility.Visible;
             NewPassword1.IsEnabled = false;
@@ -214,45 +211,47 @@ namespace Bank
             ConfirmButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
 
-            CurrentPassword.Focus();
+            OldPassword.Focus();
 
         }
 
-        private void CurrentPasswordOnKeyDown_Handler(object sender, KeyEventArgs e)
+        private void OldPasswordOnKeyDown_Handler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                if (CurrentPassword.Text == activeAdmin.Password)
+                if (OldPassword.Text == activeAdmin.Password)
                 {
-                    CurrentPasswordCorrect();
+                    OldPasswordCorrect();
                 }
                 else
                 {
-                    CurrentPassword.Text = "";
-                    CurrentPassword_YesIcon.Visibility = Visibility.Hidden;
-                    CurrentPassword_NoIcon.Visibility = Visibility.Visible;
+                    OldPassword.Text = "";
+                    OldPassword_YesIcon.Visibility = Visibility.Hidden;
+                    OldPassword_NoIcon.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                if (CurrentPassword.Text == "Current password ...")
+                if (OldPassword.Text == "Old password ...")
                 {
-                    CurrentPassword.Text = "";
-                    CurrentPassword.Foreground = Brushes.Black;
-                    CurrentPassword.FontStyle = FontStyles.Normal;
+                    OldPassword.Text = "";
+                    OldPassword.Foreground = Brushes.Black;
+                    OldPassword.FontStyle = FontStyles.Normal;
                 }
             }
         }
 
-        private void CurrentPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
+        private void OldPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
         {
-            if (CurrentPassword.Text == activeAdmin.Password)
+            if (OldPassword.Text == activeAdmin.Password)
             {
-                CurrentPasswordCorrect();
+                OldPasswordCorrect();
             }
             else
             {
-                CurrentPassword_NoIcon.Visibility = Visibility.Visible;
+                OldPassword_NoIcon.Visibility = Visibility.Visible;
+                OldPassword_YesIcon.Visibility = Visibility.Hidden;
+                oldPasswordCheck = false;
             }
         }
 
@@ -261,11 +260,10 @@ namespace Bank
             TextBox textbox = sender as TextBox;
             if (textbox.Text is "New password ...")
             {
-                textbox.Text = "";
-                textbox.Foreground = Brushes.Black;
-                textbox.FontStyle = FontStyles.Normal;
+                textbox.Text = "";                
             }
-
+            textbox.Foreground = Brushes.Black;
+            textbox.FontStyle = FontStyles.Normal;
         }
 
         private void NewPasswordOnKeyUp_Handler(object sender, KeyEventArgs e)
@@ -303,19 +301,19 @@ namespace Bank
             }
         }
 
-        private void CurrentPasswordCorrect()
+        private void OldPasswordCorrect()
         {
-            currentPasswordCheck = true;
+            oldPasswordCheck = true;
             NewPassword1.IsEnabled = true;
             NewPassword2.IsEnabled = true;
-            CurrentPassword_YesIcon.Visibility = Visibility.Visible;
-            CurrentPassword_NoIcon.Visibility = Visibility.Hidden;
+            OldPassword_YesIcon.Visibility = Visibility.Visible;
+            OldPassword_NoIcon.Visibility = Visibility.Hidden;
         }
 
         private void PasswordOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             TextBox textbox = sender as TextBox;
-            if (textbox.Text is "New password ..." || textbox.Text is "Current password ...")
+            if (textbox.Text is "New password ..." || textbox.Text is "Old password ...")
             {
                 textbox.Text = "";
             }
@@ -323,7 +321,7 @@ namespace Bank
 
         private bool PasswordChangingProcess()
         {
-            if (currentPasswordCheck)
+            if (oldPasswordCheck)
             {
                 if (NewPassword1.Text == NewPassword2.Text && !String.IsNullOrEmpty(NewPassword1.Text))
                 {
@@ -345,7 +343,10 @@ namespace Bank
                         return true;
                     }
                 }
-                else if (String.IsNullOrEmpty(NewPassword1.Text) || String.IsNullOrEmpty(NewPassword2.Text))
+                else if (String.IsNullOrEmpty(NewPassword1.Text) ||
+                         NewPassword1.Text == "New password ..." ||
+                         String.IsNullOrEmpty(NewPassword2.Text) ||
+                        NewPassword2.Text == "New password ..." )
                 {
                     MessageBox.Show("You have to fill in new password.",
                                     "",
@@ -363,6 +364,10 @@ namespace Bank
             else
             {
                 process = "";
+                MessageBox.Show("Wrong old password.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
             return false;
         }
@@ -1037,10 +1042,12 @@ namespace Bank
                 c.IsEnabled = true;
             }
             CountryTextBox.IsEnabled = false;
+            LoginTextBox.IsEnabled = false;
 
             MainPageLabel.Content = "USER UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Visible;
+
         }
 
         /// <summary>
@@ -1584,7 +1591,7 @@ namespace Bank
                         LoginTextBox_NoIcon.Visibility = Visibility.Visible;
                     }
                     break;
-                case "offiial":
+                case "official":
                     if (Validator.Validator.OfficialUserNameValidator(t.Text) || String.IsNullOrEmpty(t.Text))
                     {
                         LoginTextBox_NoIcon.Visibility = Visibility.Hidden;

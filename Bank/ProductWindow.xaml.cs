@@ -42,8 +42,6 @@ namespace Bank
             BillInfo2.Content = String.Format("Balance: {0}", activeBill.Balance);
 
             GetAllTransactionByKey("default");
-
-
         }
 
         private void GetAllTransactionByKey(string key)

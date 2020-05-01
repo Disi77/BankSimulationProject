@@ -68,8 +68,6 @@ namespace Bank.Validator
                 }
             }
 
-            if (validConditions == 0) return false;
-
             foreach (char c in passWord)
             {
                 if (c >= '0' && c <= '9')
@@ -79,14 +77,8 @@ namespace Bank.Validator
                 }
             }
 
-            if (validConditions == 1) return false;
-
-            if (validConditions == 2)
-            {
-                char[] special = { '@', '#', '$', '%', '^', '&', '+', '=', '.' };
-                if (passWord.IndexOfAny(special) == -1) return false;
-            }
-            return true;
+            if (validConditions == 4) return true;
+            else return false;
         }
 
         internal static bool IsAlphaNumeric(string strToCheck)
@@ -143,7 +135,7 @@ namespace Bank.Validator
 
         internal static bool PostalCodeValidator(string strToCheck)
         {
-            Regex rg = new Regex(@"\d{3} ?\d{2}");
+            Regex rg = new Regex(@"^\d{3} ?\d{2}$");
 
             return rg.IsMatch(strToCheck) == true ? true : false;
 
@@ -151,7 +143,14 @@ namespace Bank.Validator
 
         internal static bool OfficialUserNameValidator(string strToCheck)
         {
-            Regex rg = new Regex(@"[0-9]{3}");
+            Regex rg = new Regex(@"^[0-9]{3}$");
+
+            return rg.IsMatch(strToCheck) == true ? true : false;
+        }
+
+        internal static bool SSNValidator(string strToCheck)
+        {
+            Regex rg = new Regex(@"^[1-9]{1}[0-9]{8}[0-9]{0,1}$");
 
             return rg.IsMatch(strToCheck) == true ? true : false;
         }
