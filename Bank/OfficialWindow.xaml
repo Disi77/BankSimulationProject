@@ -68,7 +68,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
                 Height="6.5" Margin="11,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
                 Width="226" Background="#CC119EDA"/>
-        
+
         <!--Main Page label-->
         <Label x:Name="MainPageLabel" Content="Main page label: " 
                HorizontalAlignment="Left" Margin="13,42.2,0,0" VerticalAlignment="Top" 
@@ -225,7 +225,7 @@
                  Margin="104,241.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom" KeyUp="StreetNumberTextBoxKeyUp_Handler"
-                 Width="150" Visibility="Hidden" Grid.Row="1" MaxLines="1" MaxLength="50"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
         <Image x:Name="StreetNumberTextBox_NoIcon" HorizontalAlignment="Left" 
                Height="10" Margin="240,250.2,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="10" 
@@ -318,7 +318,7 @@
                  Margin="334,166.2,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  VerticalContentAlignment="Bottom" KeyUp="LoginTextBoxKeyUp_Handler"
-                 Width="150" Visibility="Hidden" Grid.Row="1" MaxLines="1" MaxLength="50"/>
+                 Width="150" Visibility="Visible" Grid.Row="1" MaxLines="1" MaxLength="50"/>
         <Image x:Name="LoginTextBox_NoIcon" HorizontalAlignment="Left" 
                Height="10" Margin="469,174,0,0" Grid.Row="1" 
                VerticalAlignment="Top" Width="10" 
@@ -327,16 +327,16 @@
 
         <!-- Customer Products -->
         <Label x:Name="ListOfProductsLabel" Content="List of products:" HorizontalAlignment="Left" 
-               Margin="350,224,0,0" VerticalAlignment="Top" 
+               Margin="325,215,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Left"
-               Width="100" Visibility="Visible"/>
+               Width="117" Visibility="Visible"/>
         <ListView x:Name="AllProductsListView" HorizontalAlignment="Left" Height="95"
-                  Margin="350,255,0,0" VerticalAlignment="Top" 
-                  Width="160" Visibility="Visible" >
+                  Margin="325,246,0,0" VerticalAlignment="Top" 
+                  Width="188" Visibility="Visible" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Bill Number" Width="100" DisplayMemberBinding="{Binding BillNumber}"/>
-                    <GridViewColumn Header="Details" Width="50">
+                    <GridViewColumn Header="Details" Width="85">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="DetailsButton" Content="Details" Click="ViewProductDetails_Click" 
@@ -387,7 +387,7 @@
         <!-- All customers view -->
         <ListView x:Name="AllCustomersListView" HorizontalAlignment="Left" Height="280" 
                   Margin="27,80.2,0,0" VerticalAlignment="Top" 
-                  Width="740" Visibility="Visible" Grid.Row="1" >
+                  Width="740" Visibility="Hidden" Grid.Row="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -404,6 +404,11 @@
                 Margin="25,370,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="ClickOnButtonViewDetails" Visibility="Visible" Grid.Row="1"/>
+        <Label x:Name="CustomerNotFoundLabel" Content="CUSTOMER NOT FOUND. TRY AGAIN." HorizontalAlignment="Center" 
+               Margin="27,183,23.4,0" VerticalAlignment="Top" Height="28" Width="740" 
+               FontSize="14" HorizontalContentAlignment="Center" FontStyle="Oblique"
+               Foreground="#CC119EDA" Visibility="Hidden"/>
+
 
 
     </Grid>

@@ -1414,7 +1414,7 @@ namespace Bank
                                             )
                                        .OrderBy(X => X.SurName)
                                        .ThenBy(X => X.Name);
-                ;
+
                 AllOfficialsListView.ItemsSource = result2;
             }
         }

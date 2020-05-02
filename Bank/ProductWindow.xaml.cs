@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Bank.Objects;
 using Bank.ORM;
+using Bank.Types;
 using MahApps.Metro.Controls;
 
 namespace Bank
@@ -41,28 +44,47 @@ namespace Bank
             BillInfo1.Content = String.Format("Bill Number: {0}", activeBill.BillNumber);
             BillInfo2.Content = String.Format("Balance: {0}", activeBill.Balance);
 
-            GetAllTransactionByKey("default");
+            GetAllTransactionBySelectedCriterias();
         }
 
-        private void GetAllTransactionByKey(string key)
+        private void GetAllTransactionBySelectedCriterias()
         {
-            List<Transaction> all = TransactionORM.GetTransactionByBillId(activeBill);
+            List<Transaction> transactions = TransactionORM.GetTransactionByBillId(activeBill);
 
-
-            switch (key)
+            if (OnlyIncomingRadioButton.IsChecked == true)
             {
-                case "all":
-                    TransactionListBox.ItemsSource = all;
-                    break;
-                case "default":
-                    DateTime before30days = DateTime.Today.AddDays(-30);
-                    var result = all.Where(X => X.DateTransaction > before30days);
-                    TransactionListBox.ItemsSource = result;
-                    break;
-
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Incoming).ToList();
             }
-            SwitchOutputLabel.Content = key;
+            else if (OnlyOutgoingRadioButton.IsChecked == true)
+            {
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Outgoing).ToList();
+            }
 
+            if (TransactionDateFrom.SelectedDate != null)
+            {
+                transactions = transactions.Where(X => X.DateTransaction >= (DateTime)TransactionDateFrom.SelectedDate).ToList();
+            }
+            if (TransactionDateTo.SelectedDate != null)
+            {
+                transactions = transactions.Where(X => X.DateTransaction <= (DateTime)TransactionDateTo.SelectedDate).ToList();
+            }
+            
+            if (AmountFromTextBox.Text != "")
+            {
+                int amountFrom = int.Parse(AmountFromTextBox.Text);
+                transactions = transactions.Where(X => X.Amount >= amountFrom).ToList();
+            }
+            if (AmountToTextBox.Text != "")
+            {
+                int amountTo = int.Parse(AmountToTextBox.Text);
+                transactions = transactions.Where(X => X.Amount <= amountTo).ToList();
+            }
+
+            
+            transactions = transactions.OrderByDescending(X => X.DateTransaction).ToList();
+
+            TransactionListBox.ItemsSource = transactions;
+            TransactionListBox.Items.Refresh();
         }
 
         private void BackToCustomerButton_Click(object sender, RoutedEventArgs e)
@@ -71,11 +93,6 @@ namespace Bank
             officialWindow.Show();
             officialWindow.OpenDetailViewOfUser(customer);                        
             Close();
-        }
-
-        private void FilterButton_All_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void TypePaymentsSelection_Click(object sender, RoutedEventArgs e)
@@ -87,9 +104,25 @@ namespace Bank
             RadioButton b = sender as RadioButton;
             b.IsChecked = true;
 
-            if (AllPaymentsRadioButton.IsChecked == true)
-            {
+            GetAllTransactionBySelectedCriterias();
+        }
 
+        private void TransactionDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetAllTransactionBySelectedCriterias();
+        }
+
+        private void AmountTextBox_KeyUp(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void AmountTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                GetAllTransactionBySelectedCriterias();
             }
         }
     }

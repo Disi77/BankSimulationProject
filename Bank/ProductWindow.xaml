@@ -108,26 +108,48 @@
         <Label x:Name="BillNumberLabel" Content="test_bill_number" HorizontalAlignment="Left" 
                Margin="665,130,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" Visibility="Hidden"/>
 
-        <Button x:Name="BackToCustomerButton" Content="Customer update" HorizontalAlignment="Left" 
-                Margin="24,375,0,0" VerticalAlignment="Top" Width="109"
-                Click="BackToCustomerButton_Click" Height="35"/>
-        <Label x:Name="SwitchOutputLabel" Content="SwitchOutputLabel" HorizontalAlignment="Left"
-               Margin="167,375,0,0" VerticalAlignment="Top" 
-               Height="35" Width="136"/>
-        <Label Content="Data filter: " HorizontalAlignment="Left" 
+        <Button x:Name="BackToCustomerButton" Content="Go back to&#xa; customer" HorizontalAlignment="Left" 
+                Margin="20,359,0,0" VerticalAlignment="Top" Width="73"
+                Click="BackToCustomerButton_Click" Height="44"/>
+        <Label Content="DATA FILTER:" HorizontalAlignment="Left" 
                Margin="24,175,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Button Content="All" HorizontalAlignment="Left" 
-                Margin="53,279,0,0" VerticalAlignment="Top" Width="34"
-                Click="FilterButton_All_Click" Height="26"/>
+        <Label Content="Incoming/Outgoing" HorizontalAlignment="Left" 
+            Margin="24,195,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <RadioButton x:Name="AllPaymentsRadioButton" Content="All payments" HorizontalAlignment="Left" 
-                     Margin="34,200,0,0" VerticalAlignment="Top" IsChecked="True" 
+                     Margin="29,222,0,0" VerticalAlignment="Top" IsChecked="True" 
                      Click="TypePaymentsSelection_Click"/>
         <RadioButton x:Name="OnlyIncomingRadioButton" Content="Only incoming" HorizontalAlignment="Left" 
-                     Margin="34,225,0,0" VerticalAlignment="Top" IsChecked="False"
+                     Margin="29,247,0,0" VerticalAlignment="Top" IsChecked="False"
                      Click="TypePaymentsSelection_Click"/>
         <RadioButton x:Name="OnlyOutgoingRadioButton" Content="Only outgoing" HorizontalAlignment="Left" 
-                     Margin="34,250,0,0" VerticalAlignment="Top" IsChecked="False"
+                     Margin="29,272,0,0" VerticalAlignment="Top" IsChecked="False"
                      Click="TypePaymentsSelection_Click"/>
+        <Label Content="Date from:" HorizontalAlignment="Left" 
+            Margin="148,195,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <DatePicker x:Name="TransactionDateFrom" HorizontalAlignment="Left" 
+                    Margin="150,221,0,0" VerticalAlignment="Top"
+                    SelectedDateChanged="TransactionDate_SelectedDateChanged"/>
+        <Label Content="Date to:" HorizontalAlignment="Left" 
+            Margin="148,246,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <DatePicker x:Name="TransactionDateTo" HorizontalAlignment="Left" 
+                    Margin="150,271,0,0" VerticalAlignment="Top"
+                    SelectedDateChanged="TransactionDate_SelectedDateChanged"/>
+        <Label Content="Amount from:" HorizontalAlignment="Left" 
+            Margin="261,195,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="AmountFromTextBox" HorizontalAlignment="Left" Height="23" Margin="263,220,0,0" 
+                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92" 
+                 PreviewTextInput="AmountTextBox_KeyUp"
+                 KeyDown="AmountTextBox_KeyDown"/>
+        <Label Content="Amount to:" HorizontalAlignment="Left" 
+            Margin="261,246,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="AmountToTextBox" HorizontalAlignment="Left" Height="23" Margin="263,271,0,0" 
+                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92"
+                 PreviewTextInput="AmountTextBox_KeyUp"
+                 KeyDown="AmountTextBox_KeyDown"/>
+
+
+
+
 
 
 

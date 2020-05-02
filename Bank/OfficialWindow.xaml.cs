@@ -177,8 +177,9 @@ namespace Bank
             // Search 
             SearchTextBox.Visibility = Visibility.Hidden;
             SearchTextBox.Text = "Enter user name ...";
-            AllCustomersListView.ItemsSource = null;
+            SearchTextBox.FontStyle = FontStyles.Italic;
             SearchButton.Visibility = Visibility.Hidden;
+            CustomerNotFoundLabel.Visibility = Visibility.Hidden;
 
             // Products
             AllProductsListView.Visibility = Visibility.Hidden;
@@ -194,7 +195,6 @@ namespace Bank
             mainWindow.Show();
             Close();
         }
-
 
         // Pasword change
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
@@ -996,6 +996,11 @@ namespace Bank
             {
                 SelectDataForListView();
             }
+            if (SearchTextBox.Text == "Enter user name ..." || SearchTextBox.Text == "")
+            {
+                SearchTextBox.Text = "";
+                SearchTextBox.FontStyle = FontStyles.Normal;
+            }
         }
 
         private void SearchTextBox_MouseDown(object sender, MouseButtonEventArgs e)
@@ -1023,6 +1028,7 @@ namespace Bank
             ViewDetails.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
             SearchButton.Visibility = Visibility.Visible;
+            SearchTextBox.Focus();
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -1039,6 +1045,16 @@ namespace Bank
                                     || String.Format("{1} {0}", X.Name, X.SurName).ToLower().Contains(SearchTextBox.Text.ToLower())
                                     );
             AllCustomersListView.ItemsSource = result;
+            AllCustomersListView.Items.Refresh();
+
+            if (result.Any())
+            {
+                CustomerNotFoundLabel.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                CustomerNotFoundLabel.Visibility = Visibility.Visible;
+            }
 
         }
 

@@ -8,9 +8,6 @@ using MahApps.Metro.Controls;
 
 namespace Bank
 {
-    /// <summary>
-    /// Interaction logic for SecretPage.xaml
-    /// </summary>
     public partial class SecretWindow : MetroWindow
     {
         public Random random;
@@ -44,10 +41,6 @@ namespace Bank
 
         private void GenerateLastTransactions()
         {
-            //Bill bill = new Bill();
-            //bill.BillNumber = 1230001;
-            ////LastTransactionsListBox.ItemsSource = TransactionORM.GetTransactionByBillId(bill);
-            //LastTransactions = TransactionORM.GetTransactionByBillId(bill);
             LastTransactionsListBox.ItemsSource = LastTransactions;
             LastTransactionsListBox.Items.Refresh();
         }
@@ -60,20 +53,8 @@ namespace Bank
                 LastTransactions.RemoveAt(LastTransactions.Count - 1);
             }
 
-            //Bill bill = new Bill();
-            //bill.BillNumber = 1230002;
-            //LastTransactionsListBox.ItemsSource = TransactionORM.GetTransactionByBillId(bill);
-            //LastTransactions = TransactionORM.GetTransactionByBillId(bill);
             LastTransactionsListBox.ItemsSource = LastTransactions;
             LastTransactionsListBox.Items.Refresh();
-
-            //LastTransactionsListBox.ItemsSource = LastTransactions;
-
-            //foreach (Transaction t in LastTransactions)
-            //    MessageBox.Show(t.ToString());
-
-            //MessageBox.Show(newTransaction.ToString());
-            //MessageBox.Show(LastTransactions.Count.ToString());
         }
 
         private void PayerSelection(object sender, SelectionChangedEventArgs e)
@@ -149,7 +130,6 @@ namespace Bank
 
             UpdateLastTransactionsList(newTransaction);
         }
-
 
         private void CloseSecretPageButton_Click(object sender, RoutedEventArgs e)
         {
