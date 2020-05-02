@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Bank.Objects;
 using Bank.ORM;
 using Bank.Types;
@@ -36,13 +37,16 @@ namespace Bank
             address = UsersORM.SelectAddressById(customer.Address.Id);
             BillNumberLabel.Content = activeBill.BillNumber;
 
-            string partialSSN = customer.SSN.Substring(0,6) + "XXXX";
+            string partialSSN = customer.SSN.Substring(0, 6) + "XXXX";
 
             UserInfo1.Content = String.Format("Name: {0} {1}, SSN: {2}", customer.SurName, customer.Name, partialSSN);
             UserInfo2.Content = String.Format("Address: {0}", address.ToString());
             UserInfo3.Content = String.Format("Contact: {0}, {1}", customer.Phone, customer.Mail);
             BillInfo1.Content = String.Format("Bill Number: {0}", activeBill.BillNumber);
-            BillInfo2.Content = String.Format("Balance: {0}", activeBill.Balance);
+            BillInfo2.Content = String.Format("Balance: {0:n} Kč", activeBill.Balance);
+
+            AllPaymentsRadioButton.IsChecked = true;
+            NewestToOldest.IsChecked = true;
 
             GetAllTransactionBySelectedCriterias();
         }
@@ -68,7 +72,7 @@ namespace Bank
             {
                 transactions = transactions.Where(X => X.DateTransaction <= (DateTime)TransactionDateTo.SelectedDate).ToList();
             }
-            
+
             if (AmountFromTextBox.Text != "")
             {
                 int amountFrom = int.Parse(AmountFromTextBox.Text);
@@ -80,30 +84,62 @@ namespace Bank
                 transactions = transactions.Where(X => X.Amount <= amountTo).ToList();
             }
 
-            
-            transactions = transactions.OrderByDescending(X => X.DateTransaction).ToList();
+            if (NewestToOldest.IsChecked == true)
+            {
+                transactions = transactions.OrderByDescending(X => X.DateTransaction).ToList();
+            }
+            else if (OldestToNewest.IsChecked == true)
+            {
+                transactions = transactions.OrderBy(X => X.DateTransaction).ToList();
+            }
+            else if (HighestToLowest.IsChecked == true)
+            {
+                transactions = transactions.OrderByDescending(X => X.Amount).ToList();
+                // upravit incoming a outgoing platby, aby se zohledňovalo, že jsou mínusové
+            }
+            else if (LowestToHighest.IsChecked == true)
+            {
+                transactions = transactions.OrderBy(X => X.Amount).ToList();
+                // upravit incoming a outgoing platby, aby se zohledňovalo, že jsou mínusové
+            }
 
             TransactionListBox.ItemsSource = transactions;
             TransactionListBox.Items.Refresh();
+
+            int sumOutgoing = 0;
+            int sumIncoming = 0;
+
+            if (transactions.Any())
+            {
+                foreach (Transaction t in transactions)
+                {
+                    switch (t.TransactionType)
+                    {
+                        case TransactionType.Incoming:
+                            sumIncoming += t.Amount;
+                            break;
+                        case TransactionType.Outgoing:
+                            sumOutgoing += t.Amount;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            UpdateIncomingOutgoingBalanceLabels(sumOutgoing, sumIncoming, sumIncoming - sumOutgoing);
         }
 
         private void BackToCustomerButton_Click(object sender, RoutedEventArgs e)
         {
             OfficialWindow officialWindow = new OfficialWindow(activeOfficial);
             officialWindow.Show();
-            officialWindow.OpenDetailViewOfUser(customer);                        
+            officialWindow.OpenDetailViewOfUser(customer);
             Close();
         }
 
         private void TypePaymentsSelection_Click(object sender, RoutedEventArgs e)
         {
-            AllPaymentsRadioButton.IsChecked = false;
-            OnlyIncomingRadioButton.IsChecked = false;
-            OnlyOutgoingRadioButton.IsChecked = false;
-
-            RadioButton b = sender as RadioButton;
-            b.IsChecked = true;
-
             GetAllTransactionBySelectedCriterias();
         }
 
@@ -124,6 +160,38 @@ namespace Bank
             {
                 GetAllTransactionBySelectedCriterias();
             }
+        }
+
+        private void UpdateIncomingOutgoingBalanceLabels(int o, int i, int b)
+        {
+            SumIncomingPaymentsLabel.Content = String.Format("{0:n} Kč", i);
+
+            if (o == 0)
+            {
+                SumOutgoingPaymentsLabel.Content = String.Format("{0:n} Kč", o);
+                SumOutgoingPaymentsLabel.Foreground = Brushes.Black;
+            }
+            else
+            {
+                SumOutgoingPaymentsLabel.Content = String.Format("-{0:n} Kč", o);
+                SumOutgoingPaymentsLabel.Foreground = Brushes.Red;
+            }
+
+            BalanceBySelectedCriteriaLabel.Content = String.Format("{0:n} Kč", b);
+            if (b < 0)
+            {
+                BalanceBySelectedCriteriaLabel.Foreground = Brushes.Red;
+            }
+            else
+            {
+                BalanceBySelectedCriteriaLabel.Foreground = Brushes.Black;
+            }
+
+        }
+
+        private void SortingTransactionByDate(object sender, RoutedEventArgs e)
+        {
+            GetAllTransactionBySelectedCriterias();
         }
     }
 }

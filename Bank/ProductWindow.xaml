@@ -85,23 +85,23 @@
 
     <Grid>
         <Label x:Name="UserInfoLabel" Content="Customer:" HorizontalAlignment="Left" 
-               Margin="24,22,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
+               Margin="21,6,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
         <Label x:Name="UserInfo1" Content="-" HorizontalAlignment="Left" 
-               Margin="34,42,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="31,26,0,0" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="UserInfo2" Content="-" HorizontalAlignment="Left" 
-               Margin="34,62,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="31,46,0,0" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="UserInfo3" Content="-" HorizontalAlignment="Left" 
-               Margin="34,82,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="31,66,0,0" VerticalAlignment="Top" Width="300"/>
 
         <Label x:Name="BillInfoLabel" Content="Bill:" HorizontalAlignment="Left" 
-               Margin="25,107,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
+               Margin="22,91,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
         <Label x:Name="BillInfo1" Content="-" HorizontalAlignment="Left" 
-               Margin="35,127,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="32,111,0,0" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="BillInfo2" Content="-" HorizontalAlignment="Left" 
-               Margin="35,147,0,0" VerticalAlignment="Top" Width="300"/>
+               Margin="32,131,0,0" VerticalAlignment="Top" Width="300"/>
 
-        <ListBox x:Name="TransactionListBox" Width="385" Margin="384,22,0,0"
-                 Height="372" 
+        <ListBox x:Name="TransactionListBox" Width="385" Margin="384,54,0,0"
+                 Height="340" 
                  HorizontalAlignment="Left" VerticalAlignment="Top"
                  ItemTemplate="{StaticResource TransactionListTemplate}">
         </ListBox>
@@ -109,43 +109,81 @@
                Margin="665,130,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" Visibility="Hidden"/>
 
         <Button x:Name="BackToCustomerButton" Content="Go back to&#xa; customer" HorizontalAlignment="Left" 
-                Margin="20,359,0,0" VerticalAlignment="Top" Width="73"
+                Margin="294,12,0,0" VerticalAlignment="Top" Width="73"
                 Click="BackToCustomerButton_Click" Height="44"/>
-        <Label Content="DATA FILTER:" HorizontalAlignment="Left" 
-               Margin="24,175,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="DATA FILTERING:" HorizontalAlignment="Left" 
+               Margin="23,157,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Incoming/Outgoing" HorizontalAlignment="Left" 
-            Margin="24,195,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            Margin="23,177,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <RadioButton x:Name="AllPaymentsRadioButton" Content="All payments" HorizontalAlignment="Left" 
-                     Margin="29,222,0,0" VerticalAlignment="Top" IsChecked="True" 
-                     Click="TypePaymentsSelection_Click"/>
+                     Margin="28,204,0,0" VerticalAlignment="Top" IsChecked="True" 
+                     Click="TypePaymentsSelection_Click" GroupName="ÏnOut"/>
         <RadioButton x:Name="OnlyIncomingRadioButton" Content="Only incoming" HorizontalAlignment="Left" 
-                     Margin="29,247,0,0" VerticalAlignment="Top" IsChecked="False"
-                     Click="TypePaymentsSelection_Click"/>
+                     Margin="28,229,0,0" VerticalAlignment="Top" IsChecked="False"
+                     Click="TypePaymentsSelection_Click" GroupName="ÏnOut"/>
         <RadioButton x:Name="OnlyOutgoingRadioButton" Content="Only outgoing" HorizontalAlignment="Left" 
-                     Margin="29,272,0,0" VerticalAlignment="Top" IsChecked="False"
-                     Click="TypePaymentsSelection_Click"/>
+                     Margin="28,254,0,0" VerticalAlignment="Top" IsChecked="False"
+                     Click="TypePaymentsSelection_Click" GroupName="ÏnOut"/>
         <Label Content="Date from:" HorizontalAlignment="Left" 
-            Margin="148,195,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            Margin="147,177,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <DatePicker x:Name="TransactionDateFrom" HorizontalAlignment="Left" 
-                    Margin="150,221,0,0" VerticalAlignment="Top"
+                    Margin="149,203,0,0" VerticalAlignment="Top"
                     SelectedDateChanged="TransactionDate_SelectedDateChanged"/>
         <Label Content="Date to:" HorizontalAlignment="Left" 
-            Margin="148,246,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            Margin="147,228,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <DatePicker x:Name="TransactionDateTo" HorizontalAlignment="Left" 
-                    Margin="150,271,0,0" VerticalAlignment="Top"
+                    Margin="149,253,0,0" VerticalAlignment="Top"
                     SelectedDateChanged="TransactionDate_SelectedDateChanged"/>
         <Label Content="Amount from:" HorizontalAlignment="Left" 
-            Margin="261,195,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="AmountFromTextBox" HorizontalAlignment="Left" Height="23" Margin="263,220,0,0" 
+            Margin="260,177,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="AmountFromTextBox" HorizontalAlignment="Left" Height="23" Margin="262,202,0,0" 
                  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92" 
                  PreviewTextInput="AmountTextBox_KeyUp"
                  KeyDown="AmountTextBox_KeyDown"/>
         <Label Content="Amount to:" HorizontalAlignment="Left" 
-            Margin="261,246,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="AmountToTextBox" HorizontalAlignment="Left" Height="23" Margin="263,271,0,0" 
+            Margin="260,228,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="AmountToTextBox" HorizontalAlignment="Left" Height="23" Margin="262,253,0,0" 
                  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92"
                  PreviewTextInput="AmountTextBox_KeyUp"
                  KeyDown="AmountTextBox_KeyDown"/>
+        <Label Content="Incoming payments:" HorizontalAlignment="Left" 
+               Margin="383,2,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="SumIncomingPaymentsLabel" Content="0 Kč" HorizontalAlignment="Left" 
+               Margin="383,24,0,0" VerticalAlignment="Top"/>
+        <Label Content="Outgoing payments:" HorizontalAlignment="Left" 
+               Margin="526,2,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="SumOutgoingPaymentsLabel" Content="0 Kč" HorizontalAlignment="Left" 
+               Margin="526,24,0,0" VerticalAlignment="Top" Foreground="Red"/>
+        <Label Content="Balance:" HorizontalAlignment="Left" 
+               Margin="670,2,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="BalanceBySelectedCriteriaLabel" Content="0 Kč" HorizontalAlignment="Left" 
+               Margin="670,24,0,0" VerticalAlignment="Top"/>
+        <Label Content="DATA SORTING:" HorizontalAlignment="Left" 
+            Margin="23,283,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        
+        <Label Content="By Date:" HorizontalAlignment="Left" 
+            Margin="23,304,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <RadioButton x:Name="NewestToOldest" Content="From Newest to Oldest" 
+                     HorizontalAlignment="Left" Margin="28,331,0,0" 
+                     VerticalAlignment="Top" IsChecked="False"
+                     Click="SortingTransactionByDate" GroupName="Sorting"/>
+        <RadioButton x:Name="OldestToNewest" Content="From Oldest to Newest" 
+                     HorizontalAlignment="Left" Margin="28,356,0,0" 
+                     VerticalAlignment="Top" IsChecked="False"
+                     Click="SortingTransactionByDate" GroupName="Sorting"/>
+
+        <Label Content="By Amount:" HorizontalAlignment="Left" 
+            Margin="191,304,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <RadioButton x:Name="HighestToLowest" Content="From Highest to Lowest" 
+            HorizontalAlignment="Left" Margin="196,331,0,0" 
+            VerticalAlignment="Top" IsChecked="False"
+            Click="SortingTransactionByDate" GroupName="Sorting"/>
+        <RadioButton x:Name="LowestToHighest" Content="From Lowest to Highest" 
+            HorizontalAlignment="Left" Margin="196,356,0,0" 
+            VerticalAlignment="Top" IsChecked="False"
+            Click="SortingTransactionByDate" GroupName="Sorting"/>
+        
+
 
 
 
