@@ -329,7 +329,7 @@
         <Label x:Name="ListOfProductsLabel" Content="List of products:" HorizontalAlignment="Left" 
                Margin="325,215,0,0" VerticalAlignment="Top" 
                HorizontalContentAlignment="Left"
-               Width="117" Visibility="Visible"/>
+               Width="117" Visibility="Visible" FontWeight="Bold"/>
         <ListView x:Name="AllProductsListView" HorizontalAlignment="Left" Height="95"
                   Margin="325,246,0,0" VerticalAlignment="Top" 
                   Width="188" Visibility="Visible" >
@@ -387,7 +387,8 @@
         <!-- All customers view -->
         <ListView x:Name="AllCustomersListView" HorizontalAlignment="Left" Height="280" 
                   Margin="27,80.2,0,0" VerticalAlignment="Top" 
-                  Width="740" Visibility="Hidden" Grid.Row="1" >
+                  Width="740" Visibility="Hidden" Grid.Row="1" 
+                  MouseDoubleClick="AllCustomersListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -407,7 +408,14 @@
         <Label x:Name="CustomerNotFoundLabel" Content="CUSTOMER NOT FOUND. TRY AGAIN." HorizontalAlignment="Center" 
                Margin="27,183,23.4,0" VerticalAlignment="Top" Height="28" Width="740" 
                FontSize="14" HorizontalContentAlignment="Center" FontStyle="Oblique"
-               Foreground="#CC119EDA" Visibility="Hidden"/>
+               Foreground="#CC119EDA" Visibility="Visible"/>
+        
+        <!--Signed in as-->
+        <Label x:Name="SignedInAsLabel" Content="Signed in as: " HorizontalAlignment="Left" 
+               Margin="544,0.2,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
+            Height="6" Margin="545,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
+            Width="234" Background="#CC119EDA"/>
 
 
 

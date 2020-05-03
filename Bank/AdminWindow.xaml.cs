@@ -13,9 +13,6 @@ using MahApps.Metro.Controls;
 
 namespace Bank
 {
-    /// <summary>
-    /// Interaction logic for AdminWindow.xaml
-    /// </summary>
     public partial class AdminWindow : MetroWindow
     {
         private Admin activeAdmin;
@@ -33,6 +30,7 @@ namespace Bank
         {
             InitializeComponent();
             activeAdmin = admin;
+            SignedInAsLabel.Content = String.Format("Signed in as: {0} {1}", activeAdmin.Name, activeAdmin.SurName);
             tempAdmin = new Admin();
             tempOfficial = new Official();
             CreateControlsLists();
@@ -182,6 +180,7 @@ namespace Bank
             AllAdminsListView.ItemsSource = null;
             AllOfficialsListView.ItemsSource = null;
             SearchButton.Visibility = Visibility.Hidden;
+            UserNotFoundLabel.Visibility = Visibility.Hidden;
 
         }
 
@@ -818,7 +817,23 @@ namespace Bank
             List<Admin> allAdmins = UsersORM.GetAdmins();
             allAdmins = StringFormatPhoneNumeber(allAdmins);
 
-            var result = allAdmins.OrderBy(X => X.Name);
+            int lastIndex = AllAdminsListView.Items.Count;
+            Admin firstAdmin = (Admin)AllAdminsListView.Items[0];
+            Admin lastAdmin = (Admin)AllAdminsListView.Items[lastIndex - 1];
+
+            var alphabetical = true;
+
+            if (StringComparer.Ordinal.Compare(firstAdmin.Name, lastAdmin.Name) > 0)
+            {
+                alphabetical = false;
+            }
+
+            var result = allAdmins.OrderByDescending(X => X.Name);
+
+            if (!alphabetical)
+            {
+                result = allAdmins.OrderBy(X => X.Name);
+            }          
 
             AllAdminsListView.ItemsSource = result;
         }
@@ -1042,7 +1057,11 @@ namespace Bank
                 c.IsEnabled = true;
             }
             CountryTextBox.IsEnabled = false;
-            LoginTextBox.IsEnabled = false;
+            LoginTextBox.IsEnabled = true;
+            if (UserTypeComboBox.SelectedItem == UserTypeComboBox_Official)
+            {
+                LoginTextBox.IsEnabled = false;
+            }
 
             MainPageLabel.Content = "USER UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
@@ -1403,6 +1422,15 @@ namespace Bank
                                     .ThenBy(X => X.Name);
 
                 AllAdminsListView.ItemsSource = result;
+
+                if (result.Any())
+                {
+                    UserNotFoundLabel.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    UserNotFoundLabel.Visibility = Visibility.Visible;
+                }
             }
             else if (AllOfficialsListView.Visibility == Visibility.Visible)
             {
@@ -1416,6 +1444,14 @@ namespace Bank
                                        .ThenBy(X => X.Name);
 
                 AllOfficialsListView.ItemsSource = result2;
+                if (result2.Any())
+                {
+                    UserNotFoundLabel.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    UserNotFoundLabel.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -1603,11 +1639,32 @@ namespace Bank
                     break;
                 default:
                     break;
-            }
-
-            
+            }            
         }
 
-
+        private void AllAdminsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (AllAdminsListView.Visibility == Visibility.Visible)
+                {
+                    Admin admin = (Admin)AllAdminsListView.SelectedItems[0];
+                    OpenDetailViewOfUser(admin);
+                }
+                else if (AllOfficialsListView.Visibility == Visibility.Visible)
+                {
+                    Official official = (Official)AllOfficialsListView.SelectedItems[0];
+                    OpenDetailViewOfUser(official);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Select some user.",
+                                "",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning
+                                );
+            }
+        }
     }
 }

@@ -109,7 +109,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
                 Height="6.5" Margin="11,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
                 Width="226" Background="#CC119EDA"/>
-        
+
         <!--Main Page label-->
         <Label x:Name="MainPageLabel" Content="Main page label: " 
                HorizontalAlignment="Left" Margin="13,42.2,0,0" VerticalAlignment="Top" 
@@ -375,17 +375,17 @@
                  FontStyle="Italic"/>
         <Button x:Name="SearchButton" HorizontalAlignment="Left" Margin="716,41.2,0,0" 
                 Grid.Row="1" VerticalAlignment="Top" Width="49" Height="29" 
-                Click="SearchButton_Click">            
+                Click="SearchButton_Click">
             <Button.Content>
                 <Image Source="{iconPacks:MicronsImage Kind=Search}"/>
             </Button.Content>
         </Button>
 
-
         <!-- All admins view -->
         <ListView x:Name="AllAdminsListView" HorizontalAlignment="Left" Height="280" 
                   Margin="27,80.2,0,0" VerticalAlignment="Top" 
-                  Width="740" Visibility="Visible" Grid.Row="1" >
+                  Width="740" Visibility="Hidden" Grid.Row="1"
+                  MouseDoubleClick="AllAdminsListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
@@ -403,11 +403,11 @@
             </ListView.View>
         </ListView>
 
-
         <!-- All officials view -->
         <ListView x:Name="AllOfficialsListView" HorizontalAlignment="Left" Height="280" 
                   Margin="27,80.2,0,0" VerticalAlignment="Top" 
-                  Width="740" Visibility="Hidden" Grid.Row="1" >
+                  Width="740" Visibility="Hidden" Grid.Row="1" 
+                  MouseDoubleClick="AllAdminsListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -420,6 +420,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Label x:Name="UserNotFoundLabel" Content="USER NOT FOUND. TRY AGAIN." HorizontalAlignment="Center" 
+               Margin="27,192.2,23,0" VerticalAlignment="Top" Height="28" Width="740" 
+               FontSize="14" HorizontalContentAlignment="Center" FontStyle="Oblique"
+               Foreground="#CC119EDA" Visibility="Visible" Grid.Row="1"/>
 
 
         <!-- View user details -->
@@ -440,6 +444,13 @@
                 Margin="25,370,0,0" VerticalAlignment="Top" 
                 Width="75"
                 Click="UpdateUserInDatabaseButton" Visibility="Hidden" Grid.Row="1"/>
+
+        <!--Signed in as-->
+        <Label x:Name="SignedInAsLabel" Content="Signed in as: " HorizontalAlignment="Left" 
+               Margin="544,0.2,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" 
+            Height="6" Margin="545,23.2,0,0" Grid.Row="1" VerticalAlignment="Top" 
+            Width="234" Background="#CC119EDA"/>
 
 
 

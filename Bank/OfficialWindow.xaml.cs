@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using Bank.Logger;
@@ -31,6 +32,7 @@ namespace Bank
         {
             InitializeComponent();
             activeOfficial = official;
+            SignedInAsLabel.Content = String.Format("Signed in as: {0} {1}", activeOfficial.Name, activeOfficial.SurName);
             log = new Log();
             CreateControlsLists();
             SetDefaultSettings();
@@ -412,7 +414,7 @@ namespace Bank
                 c.IsEnabled = false;
             }
 
-            MainPageLabel.Content = "UPDATE MY ACCOUNT:";
+            MainPageLabel.Content = "MY ACCOUNT DETAILS:";
             MainPageLabel.IsEnabled = true;
             EditModeButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
@@ -476,7 +478,7 @@ namespace Bank
                 c.IsEnabled = false;
             }
 
-            MainPageLabel.Content = "USER DETAILS:";
+            MainPageLabel.Content = "CUSTOMER DETAILS:";
             MainPageLabel.IsEnabled = true;
             EditModeButton.Visibility = Visibility.Visible;
             StornoButton.Visibility = Visibility.Visible;
@@ -545,7 +547,7 @@ namespace Bank
             CountryTextBox.IsEnabled = false;
             LoginTextBox.IsEnabled = false;
 
-            MainPageLabel.Content = "USER UPDATE:";
+            MainPageLabel.Content = "MY ACCOUNT UPDATE:";
             EditModeButton.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Visible;
 
@@ -553,6 +555,7 @@ namespace Bank
             {
                 LoginTextBox.IsEnabled = false;
                 CustomerSubTypeComboBox.IsEnabled = false;
+                MainPageLabel.Content = "CUSTOMER UPDATE:";
             }
         }
 
@@ -675,7 +678,7 @@ namespace Bank
             bool result = UsersORM.UpdateCustomer(updatedCustomer);
             if (result)
             {
-                MessageBox.Show("Update of user successful.",
+                MessageBox.Show("Update successful.",
                                 "",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Information);
@@ -832,6 +835,7 @@ namespace Bank
 
             OfficialSubTypeComboBox.Visibility = Visibility.Hidden;
             CustomerSubTypeComboBox.Visibility = Visibility.Visible;
+            CustomerSubTypeComboBox.IsEnabled = false;
 
             StornoButton.Visibility = Visibility.Visible;
             CreateCustomerButton.Visibility = Visibility.Visible;
@@ -1008,8 +1012,11 @@ namespace Bank
 
         private void ClickOnButtonViewDetails(object sender, RoutedEventArgs e)
         {
-            Customer customer = (Customer)AllCustomersListView.SelectedItems[0];
-            OpenDetailViewOfUser(customer);
+            if (AllCustomersListView.SelectedItem != null)
+            {
+                Customer customer = (Customer)AllCustomersListView.SelectedItem;
+                OpenDetailViewOfUser(customer);
+            }            
         }
 
         private void SearchCustomer_Click(object sender, RoutedEventArgs e)
@@ -1254,6 +1261,15 @@ namespace Bank
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void AllCustomersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (AllCustomersListView.SelectedItem != null)
+            {
+                Customer customer = (Customer)AllCustomersListView.SelectedItem;
+                OpenDetailViewOfUser(customer);
             }
         }
     }

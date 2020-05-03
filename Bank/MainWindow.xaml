@@ -21,7 +21,7 @@
         <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="62,106,0,0" VerticalAlignment="Top" Width="120" 
                      PasswordChar="•" KeyDown="PasswordBoxOnKeyDownHandler"
                      Password="Password ..." Foreground="#CC119EDA"/>
-        <TextBlock HorizontalAlignment="Left" Height="26" Margin="62,53,0,0" TextWrapping="Wrap" Text="Enter your credentials:" VerticalAlignment="Top" Width="151"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="58,58,0,0" TextWrapping="Wrap" Text="Enter your credentials:" VerticalAlignment="Top" Width="151" FontWeight="Bold"/>
         <Image Height="121" Margin="642,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121"/>
 
     </Grid>

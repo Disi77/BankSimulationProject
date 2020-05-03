@@ -57,50 +57,98 @@ namespace Bank
 
             if (OnlyIncomingRadioButton.IsChecked == true)
             {
-                transactions = transactions.Where(X => X.TransactionType == TransactionType.Incoming).ToList();
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Incoming)
+                                           .ToList();
             }
             else if (OnlyOutgoingRadioButton.IsChecked == true)
             {
-                transactions = transactions.Where(X => X.TransactionType == TransactionType.Outgoing).ToList();
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Outgoing)
+                                           .ToList();
             }
 
             if (TransactionDateFrom.SelectedDate != null)
             {
-                transactions = transactions.Where(X => X.DateTransaction >= (DateTime)TransactionDateFrom.SelectedDate).ToList();
+                transactions = transactions.Where(X => X.DateTransaction >= (DateTime)TransactionDateFrom.SelectedDate)
+                                           .ToList();
             }
             if (TransactionDateTo.SelectedDate != null)
             {
-                transactions = transactions.Where(X => X.DateTransaction <= (DateTime)TransactionDateTo.SelectedDate).ToList();
+                transactions = transactions.Where(X => X.DateTransaction <= (DateTime)TransactionDateTo.SelectedDate)
+                                           .ToList();
             }
 
             if (AmountFromTextBox.Text != "")
             {
                 int amountFrom = int.Parse(AmountFromTextBox.Text);
-                transactions = transactions.Where(X => X.Amount >= amountFrom).ToList();
+                transactions = transactions.Where(X => X.Amount >= amountFrom)
+                                           .ToList();
             }
             if (AmountToTextBox.Text != "")
             {
                 int amountTo = int.Parse(AmountToTextBox.Text);
-                transactions = transactions.Where(X => X.Amount <= amountTo).ToList();
+                transactions = transactions.Where(X => X.Amount <= amountTo)
+                                           .ToList();
             }
+
+            if (VariableSymbolTextBox.Text != "")
+            {
+                transactions = transactions.Where(X => X.VariableSymbol.ToString().Contains(VariableSymbolTextBox.Text))
+                                           .ToList();
+            }
+
+            if (BillNumberTextBox.Text != "")
+            {
+                List<Transaction> transactions1 = new List<Transaction>();
+
+                transactions1 = transactions.Where(X => X.TransactionType == TransactionType.Incoming)
+                                            .Where(X => X.PayerBillNum.ToString().Contains(BillNumberTextBox.Text))
+                                            .ToList();
+
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Outgoing)
+                                            .Where(X => X.RecipientBillNum.ToString().Contains(BillNumberTextBox.Text))
+                                            .ToList();
+
+                transactions.AddRange(transactions1);
+            }
+
 
             if (NewestToOldest.IsChecked == true)
             {
-                transactions = transactions.OrderByDescending(X => X.DateTransaction).ToList();
+                transactions = transactions.OrderByDescending(X => X.DateTransaction)
+                                           .ToList();
             }
             else if (OldestToNewest.IsChecked == true)
             {
-                transactions = transactions.OrderBy(X => X.DateTransaction).ToList();
+                transactions = transactions.OrderBy(X => X.DateTransaction)
+                                           .ToList();
             }
             else if (HighestToLowest.IsChecked == true)
             {
-                transactions = transactions.OrderByDescending(X => X.Amount).ToList();
-                // upravit incoming a outgoing platby, aby se zohledňovalo, že jsou mínusové
+                List<Transaction> transactions1 = new List<Transaction>();
+
+                transactions1 = transactions.Where(X => X.TransactionType == TransactionType.Outgoing)
+                                           .OrderBy(X => X.Amount)
+                                           .ToList();
+
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Incoming)
+                           .OrderByDescending(X => X.Amount)
+                           .ToList();
+
+                transactions.AddRange(transactions1);
             }
             else if (LowestToHighest.IsChecked == true)
             {
-                transactions = transactions.OrderBy(X => X.Amount).ToList();
-                // upravit incoming a outgoing platby, aby se zohledňovalo, že jsou mínusové
+                List<Transaction> transactions1 = new List<Transaction>();
+
+                transactions1 = transactions.Where(X => X.TransactionType == TransactionType.Incoming)
+                                           .OrderBy(X => X.Amount)
+                                           .ToList();
+
+                transactions = transactions.Where(X => X.TransactionType == TransactionType.Outgoing)
+                           .OrderByDescending(X => X.Amount)
+                           .ToList();
+
+                transactions.AddRange(transactions1);
             }
 
             TransactionListBox.ItemsSource = transactions;
@@ -191,6 +239,20 @@ namespace Bank
 
         private void SortingTransactionByDate(object sender, RoutedEventArgs e)
         {
+            GetAllTransactionBySelectedCriterias();
+        }
+
+        private void DefaultViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            AllPaymentsRadioButton.IsChecked = true;
+            TransactionDateFrom.SelectedDate = null;
+            TransactionDateTo.SelectedDate = null;
+            AmountFromTextBox.Text = "";
+            AmountToTextBox.Text = "";
+            VariableSymbolTextBox.Text = "";
+            BillNumberTextBox.Text = "";
+            NewestToOldest.IsChecked = true;
+
             GetAllTransactionBySelectedCriterias();
         }
     }
