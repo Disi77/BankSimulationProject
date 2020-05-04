@@ -838,6 +838,32 @@ namespace Bank
             AllAdminsListView.ItemsSource = result;
         }
 
+        private void AllAdminsListView_Click_SurName(object sender, RoutedEventArgs e)
+        {
+            List<Admin> allAdmins = UsersORM.GetAdmins();
+            allAdmins = StringFormatPhoneNumeber(allAdmins);
+
+            int lastIndex = AllAdminsListView.Items.Count;
+            Admin firstAdmin = (Admin)AllAdminsListView.Items[0];
+            Admin lastAdmin = (Admin)AllAdminsListView.Items[lastIndex - 1];
+
+            var alphabetical = true;
+
+            if (StringComparer.Ordinal.Compare(firstAdmin.SurName, lastAdmin.SurName) > 0)
+            {
+                alphabetical = false;
+            }
+
+            var result = allAdmins.OrderByDescending(X => X.SurName);
+
+            if (!alphabetical)
+            {
+                result = allAdmins.OrderBy(X => X.SurName);
+            }
+
+            AllAdminsListView.ItemsSource = result;
+        }
+
         private void SelectAllOfficials_Click(object sender, RoutedEventArgs e)
         {
             SetDefaultSettings();
@@ -1430,7 +1456,7 @@ namespace Bank
                 else
                 {
                     UserNotFoundLabel.Visibility = Visibility.Visible;
-                }
+                }                
             }
             else if (AllOfficialsListView.Visibility == Visibility.Visible)
             {
@@ -1451,7 +1477,7 @@ namespace Bank
                 else
                 {
                     UserNotFoundLabel.Visibility = Visibility.Visible;
-                }
+                }                
             }
         }
 
@@ -1659,11 +1685,11 @@ namespace Bank
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Select some user.",
-                                "",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning
-                                );
+                //MessageBox.Show("Select some user.",
+                //                "",
+                //                MessageBoxButton.OK,
+                //                MessageBoxImage.Warning
+                //                );
             }
         }
     }

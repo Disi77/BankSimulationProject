@@ -32,16 +32,6 @@ namespace Bank.Validator
             return string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password);
         }
 
-        /// <summary>
-        ///  3 from 5 conditions must be met
-        ///    1) At least one lower case letter,
-        ///    2) At least one upper case letter,
-        ///    3) At least special character,
-        ///    4) At least one number
-        ///    5) At least 4 characters length
-        /// </summary>
-        /// <param name="passWord"></param>
-        /// <returns></returns>
         internal static bool ValidatePassword(string passWord)
         {
             int validConditions = 0;

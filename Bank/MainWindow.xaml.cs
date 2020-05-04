@@ -23,7 +23,7 @@ namespace Bank
         {
             InitializeComponent();
             log = new Log();
-            log.Info("Reservation system app started");
+            log.Info("Bank system app started");
             Login.Focus();
         }
 

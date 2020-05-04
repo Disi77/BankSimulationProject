@@ -13,9 +13,6 @@ using MahApps.Metro.Controls;
 
 namespace Bank
 {
-    /// <summary>
-    /// Interaction logic for ProductWindow.xaml
-    /// </summary>
     public partial class ProductWindow : MetroWindow
     {
         private Official activeOfficial;

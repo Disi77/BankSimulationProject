@@ -388,11 +388,7 @@
                   MouseDoubleClick="AllAdminsListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Tag="Name" Click="AllAdminsListView_Click_Name">Name</GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding SurName}"/>
                     <GridViewColumn Header="Login" DisplayMemberBinding="{Binding Login}"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AdminType}"/>
